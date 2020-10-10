@@ -156,7 +156,6 @@ E:\Repo\HotChan\HotChanApi\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.d
 E:\Repo\HotChan\HotChanApi\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\Repo\HotChan\HotChanApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 E:\Repo\HotChan\HotChanApi\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.csprojAssemblyReference.cache
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.AssemblyInfoInputs.cache
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.AssemblyInfo.cs
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.csproj.CoreCompileInputs.cache
@@ -168,3 +167,4 @@ E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\staticwebassets\HotChanApi.St
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.dll
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.pdb
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.genruntimeconfig.cache
+E:\Repo\HotChan\HotChanApi\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
