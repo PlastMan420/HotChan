@@ -37,7 +37,7 @@ namespace HotChanApi.Data
 		{
 			// thread related metadata
 			InitPost(ref post);
-			post.isHeadThread = true;
+			//post.isHeadThread = true;
 			// Now Push 'thread' to the DB
 			
 			await _db.Posts.AddAsync(post);
@@ -49,7 +49,7 @@ namespace HotChanApi.Data
 		public  async Task<Post> ReplyPost(long headGet, Post post)
 		{
 			InitPost(ref post);
-			post.isHeadThread = false;
+			//post.isHeadThread = false;
 
 			// get post by id (Get number)
 
@@ -58,7 +58,7 @@ namespace HotChanApi.Data
 			// Reply Post are stored as regular posts but are marked as '!isHeadThread' 
 			// and their gets are stored in the head posts 'subPosts' list
 			// replies to other replies are treated as replies to the same head post
-			mainPost.subPosts.Add(gets);
+			mainPost.subPosts += "," + gets;
 			await _db.Posts.AddAsync(post);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 

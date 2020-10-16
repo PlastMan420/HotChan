@@ -15,16 +15,16 @@ namespace HotChanApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0-preview.7.20365.15");
 
             modelBuilder.Entity("HotChanApi.Models.Post", b =>
                 {
                     b.Property<long>("get")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("board")
                         .HasColumnType("nvarchar(max)");
@@ -36,9 +36,6 @@ namespace HotChanApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isArchived")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isHeadThread")
                         .HasColumnType("bit");
 
                     b.Property<bool>("isPruned")
@@ -66,6 +63,36 @@ namespace HotChanApi.Migrations
                     b.HasKey("get");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("HotChanApi.Models.Reply", b =>
+                {
+                    b.Property<long>("get")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("comment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("flags")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("mediaUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("options")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("time")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("get");
+
+                    b.ToTable("Replies");
                 });
 #pragma warning restore 612, 618
         }

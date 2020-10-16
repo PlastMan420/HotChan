@@ -22,10 +22,9 @@ namespace HotChanApi.Models
 		public	DateTime	time			{ get; set; }
 		public	string		mediaUrl		{ get; set; }
 		public	int			priority		{ get; set; }
-		public	bool		isHeadThread	{ get; set; }
 		public	bool		isArchived		{ get; set; }
 		public 	bool		isPruned		{ get; set; }
 		[NotMapped]
-		public List<long>		subPosts		{ get; set; }
+		public string		subPosts		{ get; set; }
 	}
 }

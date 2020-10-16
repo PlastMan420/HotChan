@@ -14,9 +14,10 @@ namespace HotChanApi.Data
 		{
 		}
 		protected override void OnConfiguring(DbContextOptionsBuilder options)
-			=> options.UseSqlServer("Data Source=hotchan.db");
+			=> options.UseSqlServer();
 
-		public DbSet<Post> Posts { get; set; }
+		public DbSet<Post>	Posts { get; set; }
+		public DbSet<Reply> Replies { get; set; }
 
 	}
 }

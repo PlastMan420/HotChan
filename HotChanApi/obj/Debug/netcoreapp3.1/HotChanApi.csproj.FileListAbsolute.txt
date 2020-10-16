@@ -167,4 +167,4 @@ E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\staticwebassets\HotChanApi.St
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.dll
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.pdb
 E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.genruntimeconfig.cache
-E:\Repo\HotChan\HotChanApi\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+E:\Repo\HotChan\HotChanApi\obj\Debug\netcoreapp3.1\HotChanApi.csprojAssemblyReference.cache
