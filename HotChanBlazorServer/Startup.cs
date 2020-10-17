@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 
 
 
-namespace HotChan
+namespace HotChanBlazorServer
 {
 	public class Startup
 	{
