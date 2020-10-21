@@ -48,16 +48,14 @@ namespace HotChanApi.Controllers
 		}
 		
 		[HttpPost("{getId}/reply")]
-		public async Task<IActionResult> AddReply(PostDialogueDto newPostDialogueDto, long getId)
+		public async Task<IActionResult> AddReply(Reply reply, long getId)
 		{
-			var newPost = new Post
+			var newPost = new Reply
 			{
-				board		= newPostDialogueDto.board,
-				name		= newPostDialogueDto.name,
-				title		= newPostDialogueDto.title,
-				flags		= newPostDialogueDto.flags,
-				comment		= newPostDialogueDto.comment,
-				mediaUrl	= newPostDialogueDto.mediaUrl
+				name		= reply.name,
+				flags		= reply.flags,
+				comment		= reply.comment,
+				mediaUrl	= reply.mediaUrl
 			};
 			var createdPost = await _threadBox.ReplyPost(getId, newPost);
 			return Ok(createdPost.get);

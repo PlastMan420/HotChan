@@ -13,7 +13,6 @@ namespace HotChanApi.Models
 		[Key]
 		public	long		get				{ get; set; }
 		public	string		name			{ get; set; }
-		public	string		options			{ get; set; }
 		[Required]
 		public	string		title			{ get; set; }
 		public string		flags			{ get; set; }
@@ -24,6 +23,6 @@ namespace HotChanApi.Models
 		public	int			priority		{ get; set; }
 		public	bool		isArchived		{ get; set; }
 		public 	bool		isPruned		{ get; set; }
-		public string		subPosts		{ get; set; }
+		//public string		subPosts		{ get; set; }
 	}
 }

@@ -8,9 +8,8 @@ namespace HotChanApi.Data
 {
 	public interface IThreadBox
 	{
-		void InitPost(ref Post post);
 		Task<Post> NewPost(Post post);
-		Task<Post> ReplyPost(long headGet, Post post);
+		Task<Reply> ReplyPost(long headGet, Reply reply);
 		void Prune(long getId);
 		void Archiver(long getId);
 

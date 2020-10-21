@@ -24,45 +24,32 @@ namespace HotChanApi.Data
 		{
 			_db = db;
 		}
-		public void InitPost(ref Post post)
-		{
-			
-			post.isArchived = false;
-			post.isPruned = false;
-			//gets++;
-			//post.get = gets;
-			post.time = DateTime.Now;
-		}
 		public  async Task<Post> NewPost(Post post)
 		{
 			// thread related metadata
-			InitPost(ref post);
+			//InitPost(ref post);
 			//post.isHeadThread = true;
 			// Now Push 'thread' to the DB
-			
+			post.time = DateTime.Now;
 			await _db.Posts.AddAsync(post);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 
 			return post;
 		}
 
-		public  async Task<Post> ReplyPost(long headGet, Post post)
+		public  async Task<Reply> ReplyPost(long headGet, Reply reply)
 		{
-			InitPost(ref post);
+			//InitPost(ref reply);
 			//post.isHeadThread = false;
 
 			// get post by id (Get number)
-
+			reply.time = DateTime.Now;
+			reply.parentPostGet = headGet;
 			
+			await _db.Replies.AddAsync(reply);
 			var mainPost = await _db.Posts.FirstOrDefaultAsync(x => x.get == headGet).ConfigureAwait(false);
-			// Reply Post are stored as regular posts but are marked as '!isHeadThread' 
-			// and their gets are stored in the head posts 'subPosts' list
-			// replies to other replies are treated as replies to the same head post
-			//mainPost.subPosts += "," + gets;
-			await _db.Posts.AddAsync(post);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
-
-			return post;
+			return reply;
 		}
 
 		public  async void Prune(long getId)
