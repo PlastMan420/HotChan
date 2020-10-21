@@ -19,7 +19,7 @@ namespace HotChanApi.Data
 	{
 		private readonly DataContext _db;
 		// This value has to be stored and updated in a db or a  file.
-		 long gets = 0;
+		 //long gets = 0;
 		public ThreadBox(DataContext db)
 		{
 			_db = db;
@@ -29,8 +29,8 @@ namespace HotChanApi.Data
 			
 			post.isArchived = false;
 			post.isPruned = false;
-			gets++;
-			post.get = gets;
+			//gets++;
+			//post.get = gets;
 			post.time = DateTime.Now;
 		}
 		public  async Task<Post> NewPost(Post post)
@@ -58,7 +58,7 @@ namespace HotChanApi.Data
 			// Reply Post are stored as regular posts but are marked as '!isHeadThread' 
 			// and their gets are stored in the head posts 'subPosts' list
 			// replies to other replies are treated as replies to the same head post
-			mainPost.subPosts += "," + gets;
+			//mainPost.subPosts += "," + gets;
 			await _db.Posts.AddAsync(post);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 

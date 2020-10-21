@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanApi", "HotChanApi\Ho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanBlazorServer", "HotChanBlazorServer\HotChanBlazorServer.csproj", "{3E63B429-A497-42BC-A61F-B4596610AD18}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotChanApiTest", "HotChanApiTest\HotChanApiTest.csproj", "{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotChanBlazorServerTest", "HotChanBlazorServerTest\HotChanBlazorServerTest.csproj", "{88BAFD27-A59F-4416-8CC0-32D44F245D22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +35,22 @@ Global
 		{3E63B429-A497-42BC-A61F-B4596610AD18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E63B429-A497-42BC-A61F-B4596610AD18}.Release|x64.ActiveCfg = Release|x64
 		{3E63B429-A497-42BC-A61F-B4596610AD18}.Release|x64.Build.0 = Release|x64
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Debug|x64.Build.0 = Debug|Any CPU
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Release|x64.ActiveCfg = Release|Any CPU
+		{903770F1-E4B4-4BBC-80D9-C1ADA5C09FF8}.Release|x64.Build.0 = Release|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Debug|x64.Build.0 = Debug|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Release|x64.ActiveCfg = Release|Any CPU
+		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

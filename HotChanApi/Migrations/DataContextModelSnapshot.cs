@@ -53,6 +53,9 @@ namespace HotChanApi.Migrations
                     b.Property<int>("priority")
                         .HasColumnType("int");
 
+                    b.Property<string>("subPosts")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("time")
                         .HasColumnType("datetime2");
 

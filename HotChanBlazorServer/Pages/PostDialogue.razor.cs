@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Text;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HotChanBlazorServer.Pages
 {
@@ -13,13 +16,23 @@ namespace HotChanBlazorServer.Pages
 		private readonly IHttpClientFactory _clientFactory;
 
 		public PostDialogueDto postDialogueDto = new PostDialogueDto { name = "Anonymous"};
-		public PostDialogue(IHttpClientFactory clientFactory)
+		public PostDialogue()
 		{
-			_clientFactory = clientFactory;
+			
 		}
-		public void Submit()
+		public async Task Submit()
 		{
-			//var request = new HttpRequestMessage(HttpMethod.Post, );
+			HttpClient httpClient = new HttpClient();
+			// Serialize the request into a json
+			string postDialogueDtoJson = JsonConvert.SerializeObject(postDialogueDto);
+			var data = new StringContent(postDialogueDtoJson, Encoding.UTF8, "application/json");
+
+			string url = "loalhost:5000/api/chan/new";
+			
+			var response = await httpClient.PostAsync(url, data);
+
+			string result = response.Content.ReadAsStringAsync().Result;
+			
 		}
-    }
+	}
 }
