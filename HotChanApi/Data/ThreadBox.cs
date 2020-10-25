@@ -30,7 +30,7 @@ namespace HotChanApi.Data
 			//InitPost(ref post);
 			//post.isHeadThread = true;
 			// Now Push 'thread' to the DB
-			post.time = DateTime.Now;
+			post.Time = DateTime.Now;
 			await _db.Posts.AddAsync(post);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 
@@ -43,11 +43,11 @@ namespace HotChanApi.Data
 			//post.isHeadThread = false;
 
 			// get post by id (Get number)
-			reply.time = DateTime.Now;
-			reply.parentPostGet = headGet;
+			reply.Time = DateTime.Now;
+			reply.ParentPostGet = headGet;
 			
 			await _db.Replies.AddAsync(reply);
-			var mainPost = await _db.Posts.FirstOrDefaultAsync(x => x.get == headGet).ConfigureAwait(false);
+			var mainPost = await _db.Posts.FirstOrDefaultAsync(x => x.Get == headGet).ConfigureAwait(false);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 			return reply;
 		}
@@ -55,7 +55,7 @@ namespace HotChanApi.Data
 		public  async void Prune(long getId)
 		{
 
-			var post = _db.Posts.SingleOrDefault(b => b.get == getId);
+			var post = _db.Posts.SingleOrDefault(b => b.Get == getId);
 			if (post != null)
 			{
 				_db.Posts.Attach(post);
@@ -69,10 +69,10 @@ namespace HotChanApi.Data
 			// posts become archived if their priority falls and are caught by the garbage collector when it runs
 			// Reply posts are marked as archived as well as the head post
 
-			var post = _db.Posts.SingleOrDefault(b => b.get == getId);
+			var post = _db.Posts.SingleOrDefault(b => b.Get == getId);
 			if (post != null)
 			{
-				post.isArchived = true;
+				post.IsArchived = true;
 				await _db.SaveChangesAsync().ConfigureAwait(false);
 			}
 			

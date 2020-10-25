@@ -26,7 +26,7 @@ namespace HotChanApi.Controllers
 		[HttpGet("{getId}")]
 		public async Task<IActionResult> GetPostbyId(long getId)
 		{
-			if (await _db.Posts.FirstOrDefaultAsync(x => x.get == getId) != null)
+			if (await _db.Posts.FirstOrDefaultAsync(x => x.Get == getId) != null)
 				return Ok(getId);
 			return NotFound();
 		}
@@ -36,15 +36,15 @@ namespace HotChanApi.Controllers
 		{
 			var newPost = new Post
 			{
-				board		= newPostDialogueDto.board,
-				name		= newPostDialogueDto.name,
-				title		= newPostDialogueDto.title,
-				flags		= newPostDialogueDto.flags,
-				comment		= newPostDialogueDto.comment,
-				mediaUrl	= newPostDialogueDto.mediaUrl
+				Board		= newPostDialogueDto.Board,
+				Name		= newPostDialogueDto.Name,
+				Title		= newPostDialogueDto.Title,
+				Flags		= newPostDialogueDto.Flags,
+				Comment		= newPostDialogueDto.Comment,
+				//MediaUrl	= newPostDialogueDto.MediaUrl
 			};
 			var createdPost = await _threadBox.NewPost(newPost);
-			return Ok(createdPost.get);
+			return Ok(createdPost.Get);
 		}
 		
 		[HttpPost("{getId}/reply")]
@@ -52,13 +52,13 @@ namespace HotChanApi.Controllers
 		{
 			var newPost = new Reply
 			{
-				name		= reply.name,
-				flags		= reply.flags,
-				comment		= reply.comment,
-				mediaUrl	= reply.mediaUrl
+				Name		= reply.Name,
+				Flags		= reply.Flags,
+				Comment		= reply.Comment,
+				//MediaUrl	= reply.MediaUrl
 			};
 			var createdPost = await _threadBox.ReplyPost(getId, newPost);
-			return Ok(createdPost.get);
+			return Ok(createdPost.Get);
 		}
 	}
 }
