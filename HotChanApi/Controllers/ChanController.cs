@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HotChanApi.Data;
 using HotChanApi.Models;
 using Microsoft.AspNetCore.Http;
@@ -14,35 +15,28 @@ namespace HotChanApi.Controllers
 	[ApiController]
 	public class ChanController : ControllerBase
 	{
-		private readonly DataContext _db; // --> naming convention. add underscore to private data.
-		private readonly IThreadBox _threadBox;
+		private readonly DataContext	_db; // --> naming convention. add underscore to private data.
+		private readonly IThreadBox		_threadBox;
+		private readonly IMapper		_mapper;
 
-		public ChanController(DataContext context, IThreadBox threadbox)
+		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper)
 		{
 			_db = context;
 			_threadBox = threadbox;
+			_mapper = mapper;
 		}
 
 		[HttpGet("{getId}")]
-		public async Task<IActionResult> GetPostbyId(long getId)
+		public async Task<Post> GetPostbyId(long getId)
 		{
-			if (await _db.Posts.FirstOrDefaultAsync(x => x.Get == getId) != null)
-				return Ok(getId);
-			return NotFound();
+			return await _db.Posts.FirstOrDefaultAsync(x => x.Get == getId);
+			
 		}
 
 		[HttpPost("new")]
-		public async Task<IActionResult> AddPost(PostDialogueDto newPostDialogueDto)
+		public async Task<IActionResult> AddPost([FromForm]PostDialogueDto newPostDialogueDto)
 		{
-			var newPost = new Post
-			{
-				Board		= newPostDialogueDto.Board,
-				Name		= newPostDialogueDto.Name,
-				Title		= newPostDialogueDto.Title,
-				Flags		= newPostDialogueDto.Flags,
-				Comment		= newPostDialogueDto.Comment,
-				//MediaUrl	= newPostDialogueDto.MediaUrl
-			};
+			var newPost = _mapper.Map<Post>(newPostDialogueDto);
 			var createdPost = await _threadBox.NewPost(newPost);
 			return Ok(createdPost.Get);
 		}

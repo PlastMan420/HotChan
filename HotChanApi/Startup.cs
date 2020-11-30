@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using HotChanApi.Data;
+using AutoMapper;
 
 namespace HotChanApi
 {
@@ -29,6 +30,14 @@ namespace HotChanApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddCors(OptionsBuilderConfigurationExtensions =>
+			{
+				OptionsBuilderConfigurationExtensions.AddPolicy("CorsPolicy", builder =>
+				builder.AllowAnyOrigin()
+				.AllowAnyMethod()
+				.AllowAnyHeader());
+			});
+			services.AddAutoMapper(typeof(Startup));
 			services.AddControllers().AddNewtonsoftJson();
 			services.AddDbContext<DataContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("hotchandatabase")));
@@ -49,7 +58,11 @@ namespace HotChanApi
 
 			app.UseRouting();
 
+			app.UseStaticFiles();
+
 			app.UseAuthorization();
+
+			app.UseCors("CorsPolicy");
 
 			app.UseEndpoints(endpoints =>
 			{

@@ -17,6 +17,7 @@ namespace HotChanApi.Models
 		public string Comment { get; set; }
 
 		//public string mediaUrl { get; set; }
+		[Required]
 		public IFormFile File { get; set; }
 	}
 }

@@ -1,4 +1,5 @@
 ﻿@page "/b/new"
+@inject IWebHostEnvironment env
 
 <EditForm Model="@postDialogueDto" OnValidSubmit="Submit">
     <div class="form-group row">
@@ -25,9 +26,16 @@
             <InputTextArea @bind-Value="postDialogueDto.comment" id="comment" class="form-control" />
         </div>
     </div>
+    <div class="form-group row">
+        <label for="file" class="col-sm-2 col-form-label">Comment</label>
+        <InputFile OnChange="FileSubmit" id="file" class="form-control" />
+        <p>@status</p>
+    </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
 
 @code {
-    
+    // A dialogue for Submitting a new post
+    string Message = "No file(s) selected";
+    IReadOnlyList<IBrowserFile> selectedFiles;
 }

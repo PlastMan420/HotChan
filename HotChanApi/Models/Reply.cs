@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,6 +16,6 @@ namespace HotChanApi.Models
 		public string Flags { get; set; }
 		public string Comment { get; set; }
 		public DateTime Time { get; set; }
-		//public string mediaUrl { get; set; }
+		public IFormFile File { get; set; }
 	}
 }

@@ -11,7 +11,7 @@ using HotChanApi.Models;
 
 using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using Microsoft.EntityFrameworkCore;
-
+using System.IO;
 
 namespace HotChanApi.Data
 {
@@ -37,7 +37,39 @@ namespace HotChanApi.Data
 			return post;
 		}
 
-		public  async Task<Reply> ReplyPost(long headGet, Reply reply)
+		public async Task<Post> NewPost(PostDialogueDto newPostDialogueDto)
+		{
+			// check if content type is 'image' or 'video'
+			if (newPostDialogueDto.File.ContentType.Contains("image") ||
+				newPostDialogueDto.File.ContentType.Contains("video"))
+			{
+				using (var ms = new MemoryStream())
+				{
+					await newPostDialogueDto.File.CopyToAsync(ms);
+					var fileBytes = ms.ToArray();
+					//string s = Convert.ToBase64String(fileBytes);
+
+					File.WriteAllBytes("~/mediacontent", fileBytes);
+				}
+			}
+			else
+			{
+				return null;
+			}
+			var newPost = new Post
+			{
+				Board = newPostDialogueDto.Board,
+				Name = newPostDialogueDto.Name,
+				Title = newPostDialogueDto.Title,
+				Flags = newPostDialogueDto.Flags,
+				Comment = newPostDialogueDto.Comment,
+				//MediaUrl	= newPostDialogueDto.MediaUrl
+
+			};
+			return newPost;
+		}
+
+			public  async Task<Reply> ReplyPost(long headGet, Reply reply)
 		{
 			//InitPost(ref reply);
 			//post.isHeadThread = false;

@@ -1,9 +1,18 @@
-﻿@page "/b/{get}"
-
-<h3>post page</h3>
-<PostDialogue />
+﻿@page "/b/{getid}"
+@using HotChanBlazorServer.Models
+@using 
+<h3 @bind="post.title">post page</h3>
+<InputText @bind-Value="" id="name" class="form-control" />
 
 
 @code {
-
+    Post post;
+	public async Task GetPostById(long getId)
+	{
+		string Api = "localhost:5000/api/" + getId.ToString();
+		HttpClient httpClient = new HttpClient();
+		var postjson = await httpClient.GetStringAsync(Api);
+		post = JsonSerializer.Deserialize<Post>(postjson);
+			
+	}
 }
