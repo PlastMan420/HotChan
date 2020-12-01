@@ -43,6 +43,7 @@ namespace HotChanApi
 				options.UseSqlServer(Configuration.GetConnectionString("hotchandatabase")));
 
 			services.AddScoped<IThreadBox, ThreadBox>();
+			
 
 		}
 

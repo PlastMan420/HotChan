@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -8,6 +9,7 @@ using HotChanApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace HotChanApi.Controllers
 {
@@ -18,12 +20,14 @@ namespace HotChanApi.Controllers
 		private readonly DataContext	_db; // --> naming convention. add underscore to private data.
 		private readonly IThreadBox		_threadBox;
 		private readonly IMapper		_mapper;
-
-		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper)
+		private readonly IHostEnvironment _environment;
+		enum allowedExtensions { png, jpg, jpeg, bmp, avif, heic, gif, pnga, mp4, webm, mkv };
+		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper, IHostEnvironment environment)
 		{
 			_db = context;
 			_threadBox = threadbox;
 			_mapper = mapper;
+			_environment = environment;
 		}
 
 		[HttpGet("{getId}")]
@@ -36,7 +40,29 @@ namespace HotChanApi.Controllers
 		[HttpPost("new")]
 		public async Task<IActionResult> AddPost([FromForm]PostDialogueDto newPostDialogueDto)
 		{
+			var file = newPostDialogueDto.File;
+
+			if (newPostDialogueDto.File.Length == 0) 
+				return BadRequest("A file is required");
+
+			string fileName = file.FileName;
+			string fileExtension = Path.GetExtension(fileName);
+
+			if (!Enum.IsDefined(typeof(allowedExtensions), fileExtension))
+				return BadRequest("Not a valid media file");
+
+			string postFileRepo = $"{Guid.NewGuid()}";
+			string newFileName = $"{postFileRepo}{fileExtension}";
+			string filePath = Path.Combine(_environment.ContentRootPath, $"media/{postFileRepo}", newFileName);
+
+			using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+			{
+				await file.CopyToAsync(fileStream);
+			}
+
 			var newPost = _mapper.Map<Post>(newPostDialogueDto);
+			newPost.MediaUrl = filePath;
+
 			var createdPost = await _threadBox.NewPost(newPost);
 			return Ok(createdPost.Get);
 		}
