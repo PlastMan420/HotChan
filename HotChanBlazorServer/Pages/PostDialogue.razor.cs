@@ -16,24 +16,12 @@ namespace HotChanBlazorServer.Pages
 	public partial class PostDialogue : ComponentBase
 	{
 		private readonly IHttpClientFactory _clientFactory;
+		private IList<string> imageDataUrls = new List<string>();
 
 		public PostDialogueDto postDialogueDto = new PostDialogueDto { name = "Anonymous"};
 		string status;
-		enum mimes
-		{
-			apng,
-			bmp,
-			gif,
-			jpg,
-			jpeg,
-			jfif,
-			png,
-			webp,
-			heic,
-			avif,
-			mp4,
-			webm
-		}
+		string[] format = { "image/png", "image/jpeg", "image/heif", "image/avif" , "image/webp", 
+			"image/gif", "image/apng", "video/mp4", "video/webm", "video/mkv" };
 		public PostDialogue()
 		{
 			
@@ -54,18 +42,17 @@ namespace HotChanBlazorServer.Pages
 			
 		}
 
-		async Task HandleSelection(IFileListEntry[] files)
+		private async Task OnInputFileChange(InputFileChangeEventArgs e)
 		{
-			var file = files.FirstOrDefault();
-			if (file != null)
-			{
-				// Just load into .NET memory to show it can be done
-				// Alternatively it could be saved to disk, or parsed in memory, or similar
-				var ms = new MemoryStream();
-				await file.Data.CopyToAsync(ms);
+			
+			var extension = Array.Exists(format, element => element == e.File.ContentType);
 
-				status = $"Finished loading {file.Size} bytes from {file.Name}";
-			}
+			var buffer = new byte[e.File.Size];
+			await e.File.OpenReadStream().ReadAsync(buffer);
+			var imageDataUrl =
+				$"data:{format};base64,{Convert.ToBase64String(buffer)}";
+			imageDataUrls.Add(imageDataUrl);
+			
 		}
 	}
 }

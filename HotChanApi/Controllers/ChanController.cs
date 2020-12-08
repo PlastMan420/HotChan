@@ -21,7 +21,7 @@ namespace HotChanApi.Controllers
 		private readonly IThreadBox		_threadBox;
 		private readonly IMapper		_mapper;
 		private readonly IHostEnvironment _environment;
-		enum allowedExtensions { png, jpg, jpeg, bmp, avif, heic, gif, pnga, mp4, webm, mkv };
+		enum allowedExtensions { png, apng, jpg, jpeg, bmp, avif, heic, gif, pnga, mp4, webm, mkv };
 		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper, IHostEnvironment environment)
 		{
 			_db = context;
@@ -64,20 +64,15 @@ namespace HotChanApi.Controllers
 			newPost.MediaUrl = filePath;
 
 			var createdPost = await _threadBox.NewPost(newPost);
-			return Ok(createdPost.Get);
+			return Ok(createdPost.Get); // use a router to navigate to "hotchan.com/board/{getid}"
 		}
 		
 		[HttpPost("{getId}/reply")]
-		public async Task<IActionResult> AddReply(Reply reply, long getId)
+		public async Task<IActionResult> AddReply([FromForm]ReplyDialogueDto newReplyDialogueDto, long ParentPostGet)
 		{
-			var newPost = new Reply
-			{
-				Name		= reply.Name,
-				Flags		= reply.Flags,
-				Comment		= reply.Comment,
-				//MediaUrl	= reply.MediaUrl
-			};
-			var createdPost = await _threadBox.ReplyPost(getId, newPost);
+			var newReply = _mapper.Map<Reply>(newReplyDialogueDto);
+			newReply.ParentPostGet = ParentPostGet;
+			var createdPost = await _threadBox.ReplyPost(ParentPostGet, newReply);
 			return Ok(createdPost.Get);
 		}
 	}
