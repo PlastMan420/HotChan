@@ -14,27 +14,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Shared\SideBar.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Blazorise.Bootstrap" Version="0.9.2.3" />
-    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="0.9.2.3" />
     <PackageReference Include="DataJuggler.Blazor.FileUpload" Version="1.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Shared\SideBar.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Shared\SideBar.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Shared\SideBar.razor" />
   </ItemGroup>
 
 </Project>

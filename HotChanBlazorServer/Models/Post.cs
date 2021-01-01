@@ -16,14 +16,14 @@ namespace HotChanBlazorServer.Models
 		public	string		Name			{ get; set; }
 		[Required]
 		public	string		Title			{ get; set; }
-		public string		Flags			{ get; set; }
+		public string		Tags			{ get; set; }
 		public	string		Comment			{ get; set; }
-		public  string      Board			{ get; set; }
+		//public  string      Board			{ get; set; }
 		public	DateTime	Time			{ get; set; }
 		public	string		MediaUrl		{ get; set; }
-		public	int			Priority		{ get; set; }
-		public	bool		IsArchived		{ get; set; }
-		public 	bool		IsPruned		{ get; set; }
+		//public	int			Priority		{ get; set; }
+		//public	bool		IsArchived		{ get; set; }
+		//public 	bool		IsPruned		{ get; set; }
 		
 	}
 }

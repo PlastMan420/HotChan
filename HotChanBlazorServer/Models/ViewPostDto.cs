@@ -12,8 +12,7 @@ namespace HotChanBlazorServer.Models
 		public string title { get; set; }
 		public string comment { get; set; }
 		public DateTime Time { get; set; }
-		public bool IsArchived { get; set; }
-		public bool IsPruned { get; set; }
+
 
 	}
 }
