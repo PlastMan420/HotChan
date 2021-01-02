@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -16,7 +15,7 @@ namespace HotChanBlazorServer.Pages
 {
 	public partial class Catalog : ComponentBase
 	{
-		static readonly HttpClient client = new HttpClient();
+		static readonly HttpClient httpClient = new HttpClient();
 		private Post[] PostSet;
 		public Catalog()
 		{
@@ -28,8 +27,8 @@ namespace HotChanBlazorServer.Pages
 			
 			try	
   			{
-				string postSetJson = await client.GetStringAsync(uri);
-            	PostSet = await client.GetFromJsonAsync<Post[]>(postSetJson);
+				string postSetJson = await httpClient.GetStringAsync(uri);
+            	PostSet = await httpClient.GetFromJsonAsync<Post[]>(postSetJson);
 
 				//Console.WriteLine(responseBody);
 			}

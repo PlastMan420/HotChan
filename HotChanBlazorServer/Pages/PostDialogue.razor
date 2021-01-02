@@ -31,7 +31,8 @@
             AllowedExtensions=".jpg;.jpeg;.webp;.png;.heif;.avif;.gif;.apng;.webm;.mkv;.mp4;" 
             CustomExtensionMessage="Allowed file types: jpg, png, webp, heic, avif, webm, gif, apng"
             MaxFileSize=25
-            FilterByExtension="true"/>
+            FilterByExtension="true"
+            @bind-Value="postDialogueDto.file"/>
 
         <p>@status</p>
     </div>

@@ -3,7 +3,9 @@
 <div class="container">
 	@foreach(var post in PostSet) 
 	{
-		
+		<div class="row row-cols-4">
+			<img src="@post.thumbnailMediaUrl" alt="@post.title">
+		</div>
 	}
 </div>
 
