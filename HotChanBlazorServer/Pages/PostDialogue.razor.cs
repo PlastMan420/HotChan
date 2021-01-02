@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
@@ -32,7 +32,9 @@ namespace HotChanBlazorServer.Pages
 		{
 			HttpClient httpClient = new HttpClient();
 			// Serialize the request into a json
-			string postDialogueDtoJson = JsonConvert.SerializeObject(postDialogueDto);
+			//string postDialogueDtoJson = JsonConvert.SerializeObject(postDialogueDto);
+			string postDialogueDtoJson = JsonSerializer.Serialize<PostDialogueDto>(postDialogueDto);
+
 			var data = new StringContent(postDialogueDtoJson, Encoding.UTF8, "application/json");
 
 			string url = "loalhost:5000/api/chan/new";
