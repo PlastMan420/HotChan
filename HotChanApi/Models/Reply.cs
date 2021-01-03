@@ -10,12 +10,11 @@ namespace HotChanApi.Models
 	public class Reply
 	{
 		[Key]
-		public long Get { get; set; }
-		public long ParentPostGet { get; set; }
-		public string Name { get; set; }
-		public string Flags { get; set; }
-		public string Comment { get; set; }
-		public DateTime Time { get; set; }
-		public string FileUrl { get; set; }
+		public long id { get; set; }
+		public long parentPostId { get; set; }
+		public string name { get; set; }
+		public string comment { get; set; }
+		public DateTime time { get; set; }
+		public string mediaUrl { get; set; }
 	}
 }

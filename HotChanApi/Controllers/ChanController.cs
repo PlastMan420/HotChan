@@ -31,18 +31,18 @@ namespace HotChanApi.Controllers
 		}
 
 		[HttpGet("{getId}")]
-		public async Task<Post> GetPostbyId(long getId)
+		public async Task<Post> GetPostbyId(long id)
 		{
-			return await _db.Posts.FirstOrDefaultAsync(x => x.Get == getId);
+			return await _db.Posts.FirstOrDefaultAsync(x => x.id == id);
 			
 		}
 
 		[HttpPost("new")]
 		public async Task<IActionResult> AddPost([FromForm]PostDialogueDto newPostDialogueDto)
 		{
-			var file = newPostDialogueDto.File;
+			var file = newPostDialogueDto.file;
 
-			if (newPostDialogueDto.File.Length == 0) 
+			if (newPostDialogueDto.file.Length == 0) 
 				return BadRequest("A file is required");
 
 			string fileName = file.FileName;
@@ -61,19 +61,19 @@ namespace HotChanApi.Controllers
 			}
 
 			var newPost = _mapper.Map<Post>(newPostDialogueDto);
-			newPost.MediaUrl = filePath;
+			newPost.mediaUrl = filePath;
 
 			var createdPost = await _threadBox.NewPost(newPost);
-			return Ok(createdPost.Get); // use a router to navigate to "hotchan.com/board/{getid}"
+			return Ok(createdPost.id); // use a router to navigate to "hotchan.com/board/{getid}"
 		}
 		
 		[HttpPost("{getId}/reply")]
-		public async Task<IActionResult> AddReply([FromForm]ReplyDialogueDto newReplyDialogueDto, long ParentPostGet)
+		public async Task<IActionResult> AddReply([FromForm]ReplyDialogueDto newReplyDialogueDto, long parentPostId)
 		{
 			var newReply = _mapper.Map<Reply>(newReplyDialogueDto);
-			newReply.ParentPostGet = ParentPostGet;
-			var createdPost = await _threadBox.ReplyPost(ParentPostGet, newReply);
-			return Ok(createdPost.Get);
+			newReply.parentPostId = parentPostId;
+			var createdPost = await _threadBox.ReplyPost(parentPostId, newReply);
+			return Ok(createdPost.id);
 		}
 	}
 }

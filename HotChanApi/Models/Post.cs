@@ -12,13 +12,13 @@ namespace HotChanApi.Models
 	public class Post
 	{
 		[Key]
-		public	long		Get				{ get; set; }
-		public	string		Name			{ get; set; }
-		public	string		Title			{ get; set; }
-		public string		Tags			{ get; set; }
-		public	string		Comment			{ get; set; }
-		public	DateTime	Time			{ get; set; }
-		public	string		MediaUrl		{ get; set; }
+		public	long		id				{ get; set; }
+		public	string		name			{ get; set; }
+		public	string		title			{ get; set; }
+		public string		tags			{ get; set; }
+		public	string		comment			{ get; set; }
+		public	DateTime	time			{ get; set; }
+		public	string		mediaUrl		{ get; set; }
 		
 	}
 }

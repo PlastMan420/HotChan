@@ -11,7 +11,6 @@ namespace HotChanApi.Data
 		Task<Post> NewPost(Post post);
 		Task<Reply> ReplyPost(long headGet, Reply reply);
 		void Prune(long getId);
-		void Archiver(long getId);
 
 	}
 }

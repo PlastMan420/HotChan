@@ -8,7 +8,7 @@ namespace HotChanApi.Models
 {
 	public class ReplyDialogueDto
 	{
-		public long parentPostGet { get; set; }
+		public long parentPostId { get; set; }
 		public string name { get; set; }
 		public string comment { get; set; }
 		public DateTime time { get; set; }
