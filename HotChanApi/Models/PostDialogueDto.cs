@@ -9,15 +9,12 @@ namespace HotChanApi.Models
 {
 	public class PostDialogueDto
 	{
-		public string Board { get; set; }
-		public string Name { get; set; }
-		[Required]
-		public string Title { get; set; }
-		public string Flags { get; set; }
-		public string Comment { get; set; }
+		public string name { get; set; }
+		public string title { get; set; }
+		public string tags { get; set; }
+		public string comment { get; set; }
 
-		//public string mediaUrl { get; set; }
 		[Required]
-		public IFormFile File { get; set; }
+		public IFormFile file { get; set; }
 	}
 }
