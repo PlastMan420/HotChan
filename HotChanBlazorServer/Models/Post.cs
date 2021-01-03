@@ -7,7 +7,7 @@ using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
 
-namespace HotChanBlazorServer.Models
+namespace HotChanBlazorWasm.Models
 {
 	public class Post
 	{

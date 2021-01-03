@@ -70,10 +70,6 @@ namespace HotChanApi.Data
 
 			public  async Task<Reply> ReplyPost(long parentPostId, Reply reply)
 		{
-			//InitPost(ref reply);
-			//post.isHeadThread = false;
-
-			// get post by id (get number)
 			reply.time = DateTime.Now;
 			reply.parentPostId = parentPostId;
 			

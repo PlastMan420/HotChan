@@ -1,4 +1,4 @@
-﻿using HotChanBlazorServer.Models;
+﻿using HotChanBlazorWasm.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
@@ -12,7 +12,7 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 
-namespace HotChanBlazorServer.Pages
+namespace HotChanBlazorWasm.Pages
 {
 	public partial class PostDialogue : ComponentBase
 	{

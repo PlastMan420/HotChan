@@ -60,6 +60,7 @@ namespace HotChanApi.Controllers
 				await file.CopyToAsync(fileStream);
 			}
 
+			// Create a Post object out of the source PostDialogueDto object
 			var newPost = _mapper.Map<Post>(newPostDialogueDto);
 			newPost.mediaUrl = filePath;
 

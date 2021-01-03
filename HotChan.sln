@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanApiTest", "HotChanAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanBlazorServerTest", "HotChanBlazorServerTest\HotChanBlazorServerTest.csproj", "{88BAFD27-A59F-4416-8CC0-32D44F245D22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotChanWasm", "HotChanWasm\HotChanWasm.csproj", "{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Release|x64.ActiveCfg = Release|Any CPU
 		{88BAFD27-A59F-4416-8CC0-32D44F245D22}.Release|x64.Build.0 = Release|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Debug|x64.Build.0 = Debug|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Release|x64.ActiveCfg = Release|Any CPU
+		{57D86E73-3105-48A5-B31D-89C1F1FAEB9D}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

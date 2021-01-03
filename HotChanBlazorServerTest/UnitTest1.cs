@@ -1,8 +1,8 @@
 using System;
 using Xunit;
-using HotChanBlazorServer;
+using HotChanBlazorWasm;
 using Microsoft.AspNetCore.Components.Testing;
-using HotChanBlazorServer.Pages;
+using HotChanBlazorWasm.Pages;
 
 namespace HotChanBlazorServerTest
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
-namespace HotChanBlazorServer.Models
+namespace HotChanBlazorWasm.Models
 {
 	public class PostDialogueDto
 	{
