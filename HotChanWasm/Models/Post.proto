@@ -4,22 +4,18 @@ package post;
 option csharp_namespace = "HotChanWasm.Models";
 
 service Counter {
-  rpc StartCounter (CounterRequest) returns (stream CounterResponse);
-  rpc SubmitPost () returns ();
-}
-
-message CounterRequest {
-  int32 start = 1;
-}
-
-message CounterResponse {
-  int32 count = 1;
+  rpc SubmitPost (stream Post) returns (Status);
 }
 
 message Post {
-  string title = 0;
-  string name = 1;
-  string tags = 2;
-  string comment = 3;
-  bytes media = 4;
+  string title = 1;
+  string name = 2;
+  string tags = 3;
+  string comment = 4;
+  bytes media = 5;
+}
+
+message Status {
+  string message = 1
+  int32 postId = 2;
 }
