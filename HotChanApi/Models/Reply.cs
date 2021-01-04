@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,11 +10,13 @@ namespace HotChanApi.Models
 	public class Reply
 	{
 		[Key]
-		public long id { get; set; }
-		public long parentPostId { get; set; }
-		public string name { get; set; }
-		public string comment { get; set; }
-		public DateTime time { get; set; }
-		public string mediaUrl { get; set; }
+		public long ReplyId { get; set; }
+		public string Name { get; set; }
+		public string Comment { get; set; }
+		public DateTime Time { get; set; }
+		public string MediaUrl { get; set; }
+		public string MediaThumbnailUrl { get; set; }
+		public long PostId { get; set; }
+		public Post Post { get; set; }
 	}
 }
