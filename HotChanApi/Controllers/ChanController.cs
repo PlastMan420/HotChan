@@ -33,7 +33,7 @@ namespace HotChanApi.Controllers
 		[HttpGet("{getId}")]
 		public async Task<Post> GetPostbyId(long id)
 		{
-			return await _db.Posts.FirstOrDefaultAsync(x => x.id == id);
+			return await _db.Posts.FirstOrDefaultAsync(x => x.PostId == id);
 			
 		}
 
@@ -62,19 +62,24 @@ namespace HotChanApi.Controllers
 
 			// Create a Post object out of the source PostDialogueDto object
 			var newPost = _mapper.Map<Post>(newPostDialogueDto);
-			newPost.mediaUrl = filePath;
+			
+			///// PLACEHOLDER FUNCTIONALITY//////////////////////////
+			newPost.MediaUrl = filePath;
+			/////////////////////////////////////////////////////////
+			// give the new post the server's time.
+			newPost.Time = DateTime.Now;
 
 			var createdPost = await _threadBox.NewPost(newPost);
-			return Ok(createdPost.id); // use a router to navigate to "hotchan.com/board/{getid}"
+			return Ok(createdPost.PostId); // use a router to navigate to "hotchan.com/board/{getid}"
 		}
 		
 		[HttpPost("{getId}/reply")]
-		public async Task<IActionResult> AddReply([FromForm]ReplyDialogueDto newReplyDialogueDto, long parentPostId)
+		public async Task<IActionResult> AddReply([FromForm]ReplyDialogueDto newReplyDialogueDto, long postId)
 		{
 			var newReply = _mapper.Map<Reply>(newReplyDialogueDto);
-			newReply.parentPostId = parentPostId;
-			var createdPost = await _threadBox.ReplyPost(parentPostId, newReply);
-			return Ok(createdPost.id);
+			newReply.PostId = postId;
+			var createdPost = await _threadBox.ReplyPost(postId, newReply);
+			return Ok(createdPost.ReplyId);
 		}
 	}
 }
