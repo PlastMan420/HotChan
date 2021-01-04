@@ -30,59 +30,28 @@ namespace HotChanApi.Data
 			//InitPost(ref post);
 			//post.isHeadThread = true;
 			// Now Push 'thread' to the DB
-			post.time = DateTime.Now;
 			await _db.Posts.AddAsync(post);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 
 			return post;
 		}
 
-		public async Task<Post> NewPost(PostDialogueDto newPostDialogueDto)
+
+			public  async Task<Reply> ReplyPost(long postId, Reply reply)
 		{
-			// check if content type is 'image' or 'video'
-			if (newPostDialogueDto.file.ContentType.Contains("image") ||
-				newPostDialogueDto.file.ContentType.Contains("video"))
-			{
-				using (var ms = new MemoryStream())
-				{
-					await newPostDialogueDto.file.CopyToAsync(ms);
-					var fileBytes = ms.ToArray();
-					//string s = Convert.ToBase64String(fileBytes);
-
-					File.WriteAllBytes("~/mediacontent", fileBytes);
-				}
-			}
-			else
-			{
-				return null;
-			}
-			var newPost = new Post
-			{
-				name = newPostDialogueDto.name,
-				title = newPostDialogueDto.title,
-				tags = newPostDialogueDto.tags,
-				comment = newPostDialogueDto.comment,
-				//MediaUrl	= newPostDialogueDto.MediaUrl
-
-			};
-			return newPost;
-		}
-
-			public  async Task<Reply> ReplyPost(long parentPostId, Reply reply)
-		{
-			reply.time = DateTime.Now;
-			reply.parentPostId = parentPostId;
+			reply.Time = DateTime.Now;
+			reply.PostId = postId;
 			
 			await _db.Replies.AddAsync(reply);
-			var mainPost = await _db.Posts.FirstOrDefaultAsync(x => x.id == parentPostId).ConfigureAwait(false);
+			var mainPost = await _db.Posts.FirstOrDefaultAsync(x => x.PostId == postId).ConfigureAwait(false);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 			return reply;
 		}
 
 		public  async void Prune(long postId)
 		{
-
-			var post = _db.Posts.SingleOrDefault(b => b.id == postId);
+			// TODO: remove replies from the replies table
+			var post = _db.Posts.SingleOrDefault(b => b.PostId == postId);
 			if (post != null)
 			{
 				_db.Posts.Attach(post);
