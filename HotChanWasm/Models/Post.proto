@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package post;
+option csharp_namespace = "HotChanWasm.Models";
+
+service Counter {
+  rpc StartCounter (CounterRequest) returns (stream CounterResponse);
+  rpc SubmitPost () returns ();
+}
+
+message CounterRequest {
+  int32 start = 1;
+}
+
+message CounterResponse {
+  int32 count = 1;
+}
+
+message Post {
+  string title = 0;
+  string name = 1;
+  string tags = 2;
+  string comment = 3;
+  bytes media = 4;
+}
