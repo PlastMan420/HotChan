@@ -1,5 +1,4 @@
-﻿using HotChanBlazorWasm.Models;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Collections.Generic;
@@ -11,11 +10,22 @@ using System.Threading.Tasks;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using HotChanWasm.Data;
+using System.Net.Http.Headers;
+using HotChanWasm.Models;
 
-namespace HotChanBlazorWasm.Pages
+namespace HotChanWasm.Pages
 {
 	public partial class PostDialogue : ComponentBase
 	{
+		[Parameter]
+		public string ImgUrl { get; set; }
+		[Parameter]
+		public EventCallback<string> OnChange { get; set; }
+		[Inject]
+		public IProductHttpRepository Repository { get; set; }
+
+
 		private readonly IHttpClientFactory _clientFactory;
 		private IList<string> imageDataUrls = new List<string>();
 
@@ -56,6 +66,27 @@ namespace HotChanBlazorWasm.Pages
 				$"data:{format};base64,{Convert.ToBase64String(buffer)}";
 			imageDataUrls.Add(imageDataUrl);
 			
+		}
+
+		private async Task HandleSelected(InputFileChangeEventArgs e)
+		{
+			var imageFiles = e.GetMultipleFiles();
+			foreach (var imageFile in imageFiles)
+			{
+				if (imageFile != null)
+				{
+					var resizedFile = await imageFile.RequestImageFileAsync("image/png", 300, 500);
+
+					using (var ms = resizedFile.OpenReadStream(resizedFile.Size))
+					{
+						var content = new MultipartFormDataContent();
+						content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+						content.Add(new StreamContent(ms, Convert.ToInt32(resizedFile.Size)), "image", imageFile.Name);
+						ImgUrl = await Repository.UploadProductImage(content);
+						await OnChange.InvokeAsync(ImgUrl);
+					}
+				}
+			}
 		}
 	}
 }

@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using HotChanWasm.Models;
 
-namespace HotChanBlazorWasm.Pages
+namespace HotChanWasm.Pages
 {
 	public partial class Catalog : ComponentBase
 	{
