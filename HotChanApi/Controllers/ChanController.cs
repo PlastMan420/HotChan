@@ -4,12 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using HotChanApi.Data;
-using HotChanApi.Models;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+
+using HotChanApi.Data;
+using HotChanApi.Models;
+
+using HotChanApi.Filters;
+using HotChanApi.Wrappers;
 
 namespace HotChanApi.Controllers
 {
@@ -30,11 +35,23 @@ namespace HotChanApi.Controllers
 			_environment = environment;
 		}
 
-		[HttpGet("{getId}")]
+		[HttpGet("{PostId}")]
 		public async Task<Post> GetPostbyId(long id)
 		{
 			return await _db.Posts.FirstOrDefaultAsync(x => x.PostId == id);
 			
+		}
+
+		[HttpGet("catalog")]
+		public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
+		{
+			var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+			var pagedData = await _db.Posts
+				.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
+				.Take(validFilter.PageSize)
+				.ToListAsync();
+			var totalRecords = await _db.Posts.CountAsync();
+			return Ok(new PagedResponse<List<Post>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
 		}
 
 		[HttpPost("new")]
@@ -73,7 +90,7 @@ namespace HotChanApi.Controllers
 			return Ok(createdPost.PostId); // use a router to navigate to "hotchan.com/board/{getid}"
 		}
 		
-		[HttpPost("{getId}/reply")]
+		[HttpPost("{PostId}/reply")]
 		public async Task<IActionResult> AddReply([FromForm]ReplyDialogueDto newReplyDialogueDto, long postId)
 		{
 			var newReply = _mapper.Map<Reply>(newReplyDialogueDto);
