@@ -12,9 +12,9 @@ using Microsoft.Extensions.Hosting;
 
 using HotChanApi.Data;
 using HotChanApi.Models;
-
 using HotChanApi.Filters;
-using HotChanApi.Wrappers;
+using HotChanApi.Helpers;
+using HotChanApi.Services;
 
 namespace HotChanApi.Controllers
 {
@@ -26,13 +26,17 @@ namespace HotChanApi.Controllers
 		private readonly IThreadBox		_threadBox;
 		private readonly IMapper		_mapper;
 		private readonly IHostEnvironment _environment;
+		private readonly IUriService _uriService;
+
 		enum allowedExtensions { png, apng, jpg, jpeg, bmp, avif, heic, gif, pnga, mp4, webm, mkv };
-		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper, IHostEnvironment environment)
+		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper, IHostEnvironment environment, IUriService uriService)
 		{
 			_db = context;
 			_threadBox = threadbox;
 			_mapper = mapper;
 			_environment = environment;
+			_uriService = uriService;
+
 		}
 
 		[HttpGet("{PostId}")]
@@ -45,13 +49,15 @@ namespace HotChanApi.Controllers
 		[HttpGet("catalog")]
 		public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
 		{
+			var route = Request.Path.Value;
 			var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
 			var pagedData = await _db.Posts
 				.Skip((validFilter.PageNumber - 1) * validFilter.PageSize)
 				.Take(validFilter.PageSize)
 				.ToListAsync();
 			var totalRecords = await _db.Posts.CountAsync();
-			return Ok(new PagedResponse<List<Post>>(pagedData, validFilter.PageNumber, validFilter.PageSize));
+			var pagedReponse = PaginationHelper.CreatePagedReponse<Post>(pagedData, validFilter, totalRecords, _uriService, route);
+    		return Ok(pagedReponse);
 		}
 
 		[HttpPost("new")]
