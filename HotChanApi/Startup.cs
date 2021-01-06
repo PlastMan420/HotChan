@@ -52,20 +52,21 @@ namespace HotChanApi
 			services.AddControllers();
 			services.AddDbContext<DataContext>(options =>
 				options.UseSqlServer(Configuration.GetConnectionString("hotchandatabase")));
-
+			
 			services.AddScoped<IThreadBox, ThreadBox>();
 			
+			services.AddTransient<Seed>();
 
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Seed seeder)
 		{
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
 			}
-
+			seeder.SeedUsers();
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
