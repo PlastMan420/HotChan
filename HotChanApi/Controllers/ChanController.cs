@@ -7,6 +7,7 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
@@ -25,11 +26,11 @@ namespace HotChanApi.Controllers
 		private readonly DataContext	_db; // --> naming convention. add underscore to private data.
 		private readonly IThreadBox		_threadBox;
 		private readonly IMapper		_mapper;
-		private readonly IHostEnvironment _environment;
+		private readonly IWebHostEnvironment _environment;
 		private readonly IUriService _uriService;
 
 		enum allowedExtensions { png, apng, jpg, jpeg, bmp, avif, heic, gif, pnga, mp4, webm, mkv };
-		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper, IHostEnvironment environment, IUriService uriService)
+		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper, IWebHostEnvironment environment, IUriService uriService)
 		{
 			_db = context;
 			_threadBox = threadbox;
@@ -74,8 +75,8 @@ namespace HotChanApi.Controllers
 			if (!Enum.IsDefined(typeof(allowedExtensions), fileExtension))
 				return BadRequest("Not a valid media file");
 
-			string postFileRepo = $"{Guid.NewGuid()}";
-			string newFileName = $"{postFileRepo}{fileExtension}";
+			string postFileRepo = $"{DateTime.Now.Ticks}";
+			string newFileName = $"{postFileRepo}.{fileExtension}";
 			string filePath = Path.Combine(_environment.ContentRootPath, $"media/{postFileRepo}", newFileName);
 
 			using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
