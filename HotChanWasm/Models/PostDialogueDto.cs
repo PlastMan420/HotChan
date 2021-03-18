@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 
 namespace HotChanWasm.Models
 {
@@ -10,6 +9,6 @@ namespace HotChanWasm.Models
 		public string tags { get; set; }
 		public string comment { get; set; }
 		[Required]
-		public IFormFile file { get; set; }
+		public string file { get; set; }
 	}
 }
