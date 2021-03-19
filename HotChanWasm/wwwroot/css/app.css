@@ -2,15 +2,14 @@
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	background-color: #212529;
+	color: white;
 }
 
 a, .btn-link {
     color: #0366d6;
 }
 
-textarea {
-	resize: none;
-}
 
 .btn-primary {
     color: #fff;
@@ -26,6 +25,7 @@ textarea {
 	display: flex;
 	justify-content: center;
 }
+
 
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
