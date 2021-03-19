@@ -1,0 +1,26 @@
+@page "/post/postid"
+
+<div class="image-frame">
+	<img src="@post.mediaUrl" alt="" sizes="" srcset="">
+</div>
+
+<br>
+
+<h3>@post.title</h3>
+<h6>Posted on: @post.time</h6>
+
+
+<div class="comments">
+	<div class="card" style="width: 18rem;">
+	<div class="card-header">
+		Featured
+	</div>
+	<ul class="list-group list-group-flush">
+		<li class="list-group-item">An item</li>
+		<li class="list-group-item">A second item</li>
+		<li class="list-group-item">A third item</li>
+	</ul>
+	</div>
+</div>
+
+<textarea name="comment" id="comment" cols="30" rows="10"></textarea>

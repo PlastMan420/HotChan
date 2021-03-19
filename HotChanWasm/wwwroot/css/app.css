@@ -19,7 +19,12 @@ textarea {
 }
 
 .content {
-    padding-top: 4rem;
+	/*Dont underlap the topbar. its in a different z-index*/
+	padding-top: 4rem;
+	/*Horizontal Centering*/
+	width:100%;
+	display: flex;
+	justify-content: center;
 }
 
 .valid.modified:not([type=checkbox]) {

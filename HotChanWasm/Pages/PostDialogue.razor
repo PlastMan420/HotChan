@@ -8,26 +8,26 @@
 				<InputText @bind-Value="postDialogueDto.name" id="name" class="form-control" />
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-group mb-3">
 			<label for="title" class=" col-form-label">Title</label>
 			<div class="">
-				<InputText @bind-Value="postDialogueDto.title" id="title" class="form-control " placeholder="Post title. Required" />
+				<InputText @bind-Value="postDialogueDto.title" id="title" class="form-control " Required placeholder="Post title" />
 			</div>
 		</div>
-		<div class="form-group ow">
+		<div class="form-group mb-3">
 			<label for="tags" class=" col-form-label">Flags</label>
 			<div class="">
 				<InputText @bind-Value="postDialogueDto.tags" id="tags" class="form-control" placeholder="Separated by commas (tag1, tag2,...)" />
 			</div>
 		</div>
-		<div class="form-group ">
+		<div class="form-group mb-3">
 			<label for="comment" class=" col-form-label">Comment</label>
 			<div class="">
 				<InputTextArea @bind-Value="postDialogueDto.comment" id="comment" class="form-control" />
 			</div>
 		</div>
 		<hr />
-		<div class="form-group " style="">
+		<div class="form-group mb-3" style="">
 			<InputFile OnChange="@OnInputFileChange" id="file" class="form-control" 
 				AllowedExtensions=".jpg;.jpeg;.webp;.png;.heif;.avif;.gif;.apng;.webm;.mkv;.mp4;" 
 				CustomExtensionMessage="Allowed file types: jpg, png, webp, heic, avif, webm, gif, apng"
@@ -37,7 +37,7 @@
 
 			<p>@status</p>
 		</div>
-		<div class="form-group ">
+		<div class="form-group mb-3">
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
 	</EditForm>

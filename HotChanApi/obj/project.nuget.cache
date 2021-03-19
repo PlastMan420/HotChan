@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "nrft1t07HUYjDuyTwyXaqad41kvQEdDgYCzolJ2GA72zpNufVXRRYHB0Q9rJ3O3qgFe3tC8t7Rc9xha7kCI6bg==",
+  "dgSpecHash": "5urvrGeyLo/CkP3IOoGKLS0R7fJ5rUsHSm4j4q0rzxijzIuyf9i3hPKtrSGdYr/FxzglDak0bBovVwnn10YwaA==",
   "success": true,
   "projectFilePath": "E:\\Repo\\HotChan\\HotChanApi\\HotChanApi.csproj",
   "expectedPackageFiles": [
@@ -101,7 +101,8 @@
     "C:\\Users\\mosta\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\mosta\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\mosta\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\mosta\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\mosta\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\mosta\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.3\\microsoft.netcore.app.host.win-x64.5.0.3.nupkg.sha512"
   ],
   "logs": []
 }
