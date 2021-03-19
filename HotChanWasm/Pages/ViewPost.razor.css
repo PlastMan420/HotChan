@@ -1,0 +1,22 @@
+.image-frame {
+	width: 100%;
+	height: 40rem;
+	display: flex;
+	justify-content: center;
+}
+
+img {
+	object-fit: cover;
+    width: auto;
+    height: 100%;
+}
+
+.comments {
+	width: 50%;
+}
+
+.post-meta {
+
+	padding-bottom: 0.5rem;
+
+}

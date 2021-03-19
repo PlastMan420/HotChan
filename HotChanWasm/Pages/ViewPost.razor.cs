@@ -20,6 +20,7 @@ namespace HotChanWasm.Pages
 		private string Uri = "http://localhost:5000";
 		private Post post;
 		private string errorMessage;
+		private DateTime time = DateTime.Now;
 
 		public ViewPost() {}
 
