@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using HotChanWasm.Data;
 using HotChanWasm.Models;
 
-namespace HotChanWasm.Pages
+namespace HotChanWasm.Pages.PostDialogue
 {
 	public partial class PostDialogue : ComponentBase
 	{

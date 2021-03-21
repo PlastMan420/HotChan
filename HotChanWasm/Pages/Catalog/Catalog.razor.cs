@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components;
 
 using HotChanWasm.Models;
 
-namespace HotChanWasm.Pages
+namespace HotChanWasm.Pages.Catalog
 {
 	public partial class Catalog : ComponentBase
 	{

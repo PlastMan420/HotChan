@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using HotChanWasm.Data;
 using HotChanWasm.Models;
 
-namespace HotChanWasm.Pages
+namespace HotChanWasm.Pages.ViewPost
 {
 	public partial class ViewPost : ComponentBase
 	{
@@ -22,7 +22,8 @@ namespace HotChanWasm.Pages
 		private string errorMessage;
 		private DateTime time = DateTime.Now;
 
-		public ViewPost() {}
+		public ViewPost() {
+		}
 
 		public async Task GetPost() {
 			// https://jasonwatmore.com/post/2020/09/20/blazor-webassembly-http-get-request-examples

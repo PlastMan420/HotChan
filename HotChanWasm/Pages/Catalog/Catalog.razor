@@ -1,0 +1,15 @@
+﻿@page "/recent"
+
+<div class="container">
+	@if (this.PostSet.Length >= 1) {
+	@foreach(var post in PostSet) 
+		{
+			<div class="row row-cols-4">
+				<img src="@post.thumbnailMediaUrl" alt="@post.title">
+			</div>
+		}
+	}
+	else {
+		<Error></Error>
+	}
+</div>
