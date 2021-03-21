@@ -1,9 +1,16 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: ''Helvetica Neue', Helvetica, Arial, sans-serif';
 	background-color: #212529;
 	color: white;
+
+	padding-top: 1.9rem;
+	/*Horizontal Centering*/
+	width:100%;
+	display: flex;
+	justify-content: center;
+	width: 100%;
 }
 
 a, .btn-link {
@@ -19,11 +26,7 @@ a, .btn-link {
 
 .content {
 	/*Dont underlap the topbar. its in a different z-index*/
-	padding-top: 4rem;
-	/*Horizontal Centering*/
-	width:100%;
-	display: flex;
-	justify-content: center;
+
 }
 
 
