@@ -17,13 +17,13 @@ namespace HotChanWasm.Pages.PostDialogue
 	public partial class PostDialogue : ComponentBase
 	{
 		[Parameter]
-		public string ImgUrl { get; set; }
+		public string mediaData { get; set; }
 		[Parameter]
 		public EventCallback<string> OnChange { get; set; }
 		//[Inject]
 		//public IProductHttpRepository Repository { get; set; }
 
-		private IList<string> imageDataUrls = new List<string>();
+		private IList<string> imageData = new List<string>();
 
 		public PostDialogueDto postDialogueDto = new PostDialogueDto { name = "Anonymous"};
 		string status;
@@ -57,10 +57,10 @@ namespace HotChanWasm.Pages.PostDialogue
 			var extension = Array.Exists(format, element => element == e.File.ContentType);
 
 			var buffer = new byte[e.File.Size];
+			// write data into buffer
 			await e.File.OpenReadStream().ReadAsync(buffer);
-			var imageDataUrl =
-				$"data:{format};base64,{Convert.ToBase64String(buffer)}";
-			imageDataUrls.Add(imageDataUrl);
+			
+			this.mediaData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
 			
 		}
 
