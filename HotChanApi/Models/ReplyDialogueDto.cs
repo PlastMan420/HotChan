@@ -8,10 +8,10 @@ namespace HotChanApi.Models
 {
 	public class ReplyDialogueDto
 	{
-		public long postId { get; set; }
-		public string name { get; set; }
-		public string comment { get; set; }
-		public DateTime time { get; set; }
-		public IFormFile file { get; set; }
+		public long			PostId { get; set; }
+		public string		Name { get; set; }
+		public string		Comment { get; set; }
+		public DateTime		Time { get; set; }
+		public Uri			FileUri { get; set; }
 	}
 }
