@@ -1,10 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,12 +15,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http;
 
+// API internal classes
 using HotChanApi.Data;
+using HotChanApi.Endpoints;
 using HotChanApi.Services;
 
-using AutoMapper;
+// tus file upload stream
+using tusdotnet;
+using tusdotnet.Interfaces;
+using tusdotnet.Models;
+using tusdotnet.Models.Configuration;
+using tusdotnet.Models.Expiration;
+using tusdotnet.Stores;
 
 namespace HotChanApi
 {
@@ -69,8 +79,6 @@ namespace HotChanApi
 			//seeder.SeedUsers();
 			app.UseHttpsRedirection();
 
-			app.UseRouting();
-
 			app.UseStaticFiles();
 
 			app.UseAuthorization();
@@ -81,6 +89,75 @@ namespace HotChanApi
 			{
 				endpoints.MapControllers();
 			});
+
+			app.UseRouting();
+
+			// tus file upload streaming
+			app.UseTus(httpContext => Task.FromResult(httpContext.RequestServices.GetService<DefaultTusConfiguration>()));
+
+			// All GET requests to tusdotnet are forwarded so that you can handle file downloads.
+			// This is done because the file's metadata is domain specific and thus cannot be handled 
+			// in a generic way by tusdotnet.
+			app.UseEndpoints(endpoints => endpoints.MapGet("/files/{fileId}", DownloadFileEndpoint.HandleRoute));
+		}
+
+		private DefaultTusConfiguration CreateTusConfiguration(IServiceProvider serviceProvider)
+		{
+			var env = (IWebHostEnvironment)serviceProvider.GetRequiredService(typeof(IWebHostEnvironment));
+
+			//File upload path
+			var tusFiles = @"C:\tusfiles\";
+
+			return new DefaultTusConfiguration
+			{
+				UrlPath = "/files",
+				//File storage path
+				Store = new TusDiskStore(tusFilesو  deletePartialFilesOnConcat: true),
+				//Does metadata allow null values
+				MetadataParsingStrategy = MetadataParsingStrategy.AllowEmptyValues,
+				//The file will not be updated after expiration
+				Expiration = new AbsoluteExpiration(TimeSpan.FromMinutes(5)),
+				//Event handling (various events, meet your needs)
+				Events = new Events
+				{
+					//Upload completion event callback
+					OnFileCompleteAsync = async ctx =>
+					{
+						// The OnBeforeCreate event is fired just before a file is created.
+						OnBeforeCreateAsync = ctx =>
+								{
+									if (!ctx.Metadata.ContainsKey("name"))
+									{
+										ctx.FailRequest("name metadata must be specified. ");
+									}
+
+									if (!ctx.Metadata.ContainsKey("contentType"))
+									{
+										ctx.FailRequest("contentType metadata must be specified. ");
+									}
+
+									return Task.CompletedTask;
+								}
+
+						//Get upload file
+						ITusFile file = await ctx.GetFileAsync();
+
+						//Get upload file元数据
+						var metadatas = await file.GetMetadataAsync(ctx.CancellationToken);
+
+						//Get the target file name in the above file metadata
+						var fileNameMetadata = metadatas["name"];
+
+						//The target file name is encoded in Base64, so it needs to be decoded here
+						var fileName = fileNameMetadata.GetString(Encoding.UTF8);
+
+						var extensionName = Path.GetExtension(fileName);
+
+						//Convert the uploaded file to the actual target file
+						File.Move(Path.Combine(tusFiles, ctx.FileId), Path.Combine(tusFiles, $"{ctx.FileId}{extensionName}"));
+					}
+				}
+			};
 		}
 	}
 }
