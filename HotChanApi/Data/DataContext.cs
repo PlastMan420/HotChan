@@ -16,8 +16,9 @@ namespace HotChanApi.Data
 		protected override void OnConfiguring(DbContextOptionsBuilder options)
 			=> options.UseSqlServer();
 
-		public DbSet<Post>	Posts { get; set; }
+		public DbSet<Post>	Posts	{ get; set; }
 		public DbSet<Reply> Replies { get; set; }
+		public DbSet<User>	UserDb	{ get; set; }
 
 	}
 }
