@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package PostView;
+option csharp_namespace = "HotChanShared.Models";
+
+import "google/protobuf/timestamp.proto";
+
+service Chan {
+	rpc PostQuery(PostId) returns (Post) {}
+
+}
+
+// all 'id' are of C#'s System.Guid type
+
+message PostId {
+	bytes post_id = 1;
+}
+
+message Post {
+	bytes post_id = 1;
+	bytes user_id = 2;
+	string user_name = 3;
+	string post_title = 4;
+	string post_description = 5;
+	string media_url = 6;
+	repeated string tags = 7;
+	google.protobuf.Timestamp post_time = 8; 
+	repeated PostReplies replies = 9;
+}
+
+message PostReplies {
+	bytes post_id = 1;
+	bytes user_id = 2;
+	string user_name = 3;
+	string user_reply = 4;
+	google.protobuf.Timestamp reply_time = 5;
+
+}

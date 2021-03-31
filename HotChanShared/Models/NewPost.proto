@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package NewPost;
+option csharp_namespace = "HotChanShared.Models";
+
+service Chan {
+	rpc UploadPost(stream Post) returns (UploadStatusCode) {}
+
+}
+
+enum UploadStatusCode {
+        Unknown = 0;
+        Ok = 1;
+        Failed = 2;
+}
+
+message FileUploadRequest {
+	bytes user_id = 1;
+	string title = 2;
+	string tags = 3;
+    File file = 4;
+	string comment = 5;
+	UploadStatusCode Code = 6;
+	
+}
+
+message File {
+	bytes file_data = 1;
+    MetaData metadata = 2;
+
+}
+
+message MetaData {
+	string file_name = 1;
+	uint64 file_size = 2;
+	string file_ext = 3;
+}
