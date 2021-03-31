@@ -1,3 +1,6 @@
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +21,20 @@ namespace HotChanWasm
 			builder.RootComponents.Add<App>("#app");
 
 			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+			
+			// Authentication Service
+			builder.Services.AddOidcAuthentication(options =>
+			{
+				builder.Configuration.Bind("Local", options.ProviderOptions);
+			});
+
+			//builder.Services.AddSingleton(services =>
+			//{
+			//	var httpClient = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
+			//	var baseUri = services.GetRequiredService<NavigationManager>().BaseUri;
+			//	var channel = GrpcChannel.ForAddress(baseUri, new GrpcChannelOptions { HttpClient = httpClient });
+			//	return new WeatherForecasts.WeatherForecastsClient(channel);
+			//});
 
 			await builder.Build().RunAsync();
 		}
