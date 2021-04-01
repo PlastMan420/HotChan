@@ -2,19 +2,25 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace HotChanApi.Models
 {
 	public class PostDialogueDto
 	{
-		public string name { get; set; }
-		public string title { get; set; }
-		public string tags { get; set; }
-		public string comment { get; set; }
-
+		[Required]
+		public string	UserId		{ get; set; }
+		
+		[Required]
+		public string	PostTitle	{ get; set; }
+		
+		[Required]
+		public List<Guid> Tags		{ get; set; }
+		
 		[Required]
 		public IFormFile file { get; set; }
+
+		public string Description { get; set; }
+
 	}
 }

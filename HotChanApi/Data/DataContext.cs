@@ -20,5 +20,13 @@ namespace HotChanApi.Data
 		public DbSet<Reply> Replies { get; set; }
 		public DbSet<User>	UserDb	{ get; set; }
 
+		//#region Required
+		//protected override void OnModelCreating(ModelBuilder modelBuilder)
+		//{
+		//	modelBuilder.Entity<User>()
+		//		.Property(b => b.PostIds)
+		//		.IsRequired();
+		//}
+		//#endregion
 	}
 }
