@@ -15,27 +15,26 @@ namespace HotChanApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "6.0.0-preview.2.21154.2")
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("HotChanApi.Models.Post", b =>
                 {
-                    b.Property<long>("PostId")
+                    b.Property<Guid>("PostId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Comment")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MediaThumbnailUrl")
+                    b.Property<string>("InternalReplyIds")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MediaUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("PostTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tags")
@@ -44,60 +43,76 @@ namespace HotChanApi.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("PostId");
+
+                    b.HasIndex("PostId")
+                        .IsUnique();
 
                     b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("HotChanApi.Models.Reply", b =>
                 {
-                    b.Property<long>("ReplyId")
+                    b.Property<Guid>("ReplyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AvatarThumbnailUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MediaThumbnailUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MediaUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("PostId")
-                        .HasColumnType("bigint");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("ReplyId");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("ReplyId")
+                        .IsUnique();
 
                     b.ToTable("Replies");
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.Reply", b =>
+            modelBuilder.Entity("HotChanApi.Models.User", b =>
                 {
-                    b.HasOne("HotChanApi.Models.Post", "Post")
-                        .WithMany("Replies")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Navigation("Post");
-                });
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
 
-            modelBuilder.Entity("HotChanApi.Models.Post", b =>
-                {
-                    b.Navigation("Replies");
+                    b.Property<string>("InternalPostIds")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KeyHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RegisterationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserMail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserDb");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,7 +2,7 @@
 
 namespace HotChanApi.Migrations
 {
-    public partial class subpostsAsString : Migration
+    public partial class CleanMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

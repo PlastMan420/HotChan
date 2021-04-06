@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotChanApi.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210401041221_UsersTable")]
-    partial class UsersTable
+    [Migration("20210406145931_CleanMigrations")]
+    partial class CleanMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,6 +50,9 @@ namespace HotChanApi.Migrations
 
                     b.HasKey("PostId");
 
+                    b.HasIndex("PostId")
+                        .IsUnique();
+
                     b.ToTable("Posts");
                 });
 
@@ -75,6 +78,9 @@ namespace HotChanApi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ReplyId");
+
+                    b.HasIndex("ReplyId")
+                        .IsUnique();
 
                     b.ToTable("Replies");
                 });
@@ -104,6 +110,9 @@ namespace HotChanApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("UserDb");
                 });
