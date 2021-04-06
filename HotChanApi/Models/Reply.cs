@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace HotChanApi.Models
 {
+	[Index(nameof(ReplyId), IsUnique = true)]
 	public class Reply
 	{
 		[Key]
