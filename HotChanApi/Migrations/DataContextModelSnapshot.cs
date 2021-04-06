@@ -32,12 +32,15 @@ namespace HotChanApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MediaUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostTitle")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Time")
@@ -61,9 +64,11 @@ namespace HotChanApi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("AvatarThumbnailUrl")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Comment")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("PostId")
@@ -90,21 +95,25 @@ namespace HotChanApi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Avatar")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InternalPostIds")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KeyHash")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegisterationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserMail")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");
