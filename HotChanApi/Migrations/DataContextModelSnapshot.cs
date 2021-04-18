@@ -16,19 +16,17 @@ namespace HotChanApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "6.0.0-preview.2.21154.2")
+                .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("HotChanApi.Models.Post", b =>
+            modelBuilder.Entity("HotChanShared.Models.Post", b =>
                 {
-                    b.Property<Guid>("PostId")
+                    b.Property<long>("PostId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InternalReplyIds")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MediaUrl")
@@ -37,7 +35,8 @@ namespace HotChanApi.Migrations
 
                     b.Property<string>("PostTitle")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Tags")
                         .IsRequired()
@@ -46,22 +45,20 @@ namespace HotChanApi.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("PostId");
-
-                    b.HasIndex("PostId")
-                        .IsUnique();
 
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.Reply", b =>
+            modelBuilder.Entity("HotChanShared.Models.Reply", b =>
                 {
-                    b.Property<Guid>("ReplyId")
+                    b.Property<decimal>("ReplyId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("decimal(20,0)")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
                     b.Property<string>("AvatarThumbnailUrl")
                         .IsRequired()
@@ -71,14 +68,14 @@ namespace HotChanApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<decimal>("PostId")
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<decimal>("UserId")
+                        .HasColumnType("decimal(20,0)");
 
                     b.HasKey("ReplyId");
 
@@ -88,17 +85,15 @@ namespace HotChanApi.Migrations
                     b.ToTable("Replies");
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.User", b =>
+            modelBuilder.Entity("HotChanShared.Models.User", b =>
                 {
-                    b.Property<Guid>("UserId")
+                    b.Property<decimal>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("decimal(20,0)")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
                     b.Property<string>("Avatar")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InternalPostIds")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("KeyHash")
