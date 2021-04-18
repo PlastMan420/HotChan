@@ -3,7 +3,7 @@ syntax = "proto3";
 package Catalog;
 option csharp_namespace = "HotChanShared.Models";
 
-service Chan {
+service ChanCatalog {
 	  rpc CatalogView(PageQuery) returns (CatalogReply);
 
 }
@@ -12,7 +12,7 @@ message CatalogReply {
 	repeated PostList post_list = 1;
 }
 
-message PageQuery {
+message PageQueryRequest {
 	uint64 page = 1;
 }
 
