@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using HotChanApi.Models;
+using HotChanShared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,11 @@ namespace HotChanApi.Helpers
 	{
 		public AutoMapperProfiles()
 		{
+			// Entity Models
 			CreateMap<PostDialogueDto, Post>();
+
+			// View Models
+			CreateMap<Post, PostReply>();
 
 		}
 	}
