@@ -1,15 +1,19 @@
-using Grpc.Net.Client;
-using Grpc.Net.Client.Web;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+
+using Grpc.Net.Client;
+using Grpc.Net.Client.Web;
+
+using HotChanShared.Models;
 
 namespace HotChanWasm
 {
@@ -19,22 +23,26 @@ namespace HotChanWasm
 		{
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("#app");
-
-			builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 			
-			// Authentication Service
-			builder.Services.AddOidcAuthentication(options =>
+			// gRPC client =>
+			builder.Services.AddSingleton(services =>
 			{
-				builder.Configuration.Bind("Local", options.ProviderOptions);
-			});
+				#if DEBUG
+					var backendurl = "https://localhost:5001"; // local debug url
+				#else
+					var backendurl = "https://some.external.url:12345"; // production url
+				#endif
 
-			//builder.Services.AddSingleton(services =>
-			//{
-			//	var httpClient = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
-			//	var baseUri = services.GetRequiredService<NavigationManager>().BaseUri;
-			//	var channel = GrpcChannel.ForAddress(baseUri, new GrpcChannelOptions { HttpClient = httpClient });
-			//	return new WeatherForecasts.WeatherForecastsClient(channel);
-			//});
+				// Create a channel with a GrpcWebHandler that is addressed to the backend server.
+				//
+				// GrpcWebText is used because server streaming requires it. If server streaming is not used in your app
+				// then GrpcWeb is recommended because it produces smaller messages.
+				var httpHandler = new GrpcWebHandler(GrpcWebMode.GrpcWebText, new HttpClientHandler());
+
+
+				return GrpcChannel.ForAddress(backendurl, new GrpcChannelOptions { HttpHandler = httpHandler });
+				//return new chanpostview.chanpostviewclient(channel);
+			});
 
 			await builder.Build().RunAsync();
 		}
