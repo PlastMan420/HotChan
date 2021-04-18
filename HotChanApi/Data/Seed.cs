@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using HotChanApi.Models;
+using HotChanShared.Models;
 
 namespace HotChanApi.Data
 {

@@ -1,4 +1,4 @@
-﻿using HotChanApi.Models;
+﻿using HotChanShared.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,8 +17,19 @@ namespace HotChanApi.Data
 			=> options.UseSqlServer();
 
 		public DbSet<Post>	Posts	{ get; set; }
+		//public DbSet<PostReply> ProtoPosts { get; set; }
 		public DbSet<Reply> Replies { get; set; }
 		public DbSet<User>	UserDb	{ get; set; }
+
+		//#region Required
+		//protected override void OnModelCreating(ModelBuilder modelBuilder)
+		//{
+		//	modelBuilder
+		//		.Entity<PostReply>()
+		//		.HasKey(c => c.PostId)
+			
+		//}
+		//#endregion
 
 		//#region Required
 		//protected override void OnModelCreating(ModelBuilder modelBuilder)

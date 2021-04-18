@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 
 using HotChanApi.Data;
-using HotChanApi.Models;
+using HotChanShared.Models;
 using HotChanApi.Filters;
 using HotChanApi.Helpers;
 using HotChanApi.Services;
@@ -30,6 +30,7 @@ namespace HotChanApi.Controllers
 		private readonly IUriService _uriService;
 
 		enum allowedExtensions { png, apng, jpg, jpeg, bmp, avif, heic, gif, pnga, mp4, webm, mkv };
+
 		public ChanController(DataContext context, IThreadBox threadbox, IMapper mapper, IWebHostEnvironment environment, IUriService uriService)
 		{
 			_db = context;
@@ -41,11 +42,11 @@ namespace HotChanApi.Controllers
 		}
 
 		[HttpGet("{PostId}")]
-		public async Task<Post> GetPostbyId(long id)
-		{
-			return await _db.Posts.FirstOrDefaultAsync(x => x.PostId == id);
+		//public async Task<Post> GetPostbyId(long id)
+		//{
+		//	return await _db.Posts.FirstOrDefaultAsync(x => x.PostId == id);
 			
-		}
+		//}
 
 		[HttpGet("catalog")]
 		public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
@@ -88,7 +89,7 @@ namespace HotChanApi.Controllers
 			var newPost = _mapper.Map<Post>(newPostDialogueDto);
 			
 			///// PLACEHOLDER FUNCTIONALITY//////////////////////////
-			newPost.MediaUrl = filePath;
+			//newPost.MediaUrl = filePath;
 			/////////////////////////////////////////////////////////
 			// give the new post the server's time.
 			newPost.Time = DateTime.Now;
@@ -101,7 +102,7 @@ namespace HotChanApi.Controllers
 		public async Task<IActionResult> AddReply([FromForm]ReplyDialogueDto newReplyDialogueDto, long postId)
 		{
 			var newReply = _mapper.Map<Reply>(newReplyDialogueDto);
-			newReply.PostId = postId;
+			//newReply.PostId = postId;
 			var createdPost = await _threadBox.ReplyPost(postId, newReply);
 			return Ok(createdPost.ReplyId);
 		}
