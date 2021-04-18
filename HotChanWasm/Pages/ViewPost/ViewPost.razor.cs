@@ -10,36 +10,25 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-using HotChanWasm.Data;
-using HotChanWasm.Models;
+using Google.Protobuf;
+
+using HotChanShared.Models;
+using static HotChanShared.Models.ChanPostView;
 
 namespace HotChanWasm.Pages.ViewPost
 {
 	public partial class ViewPost : ComponentBase
 	{
-		private string Uri = "http://localhost:5000";
-		private Post post;
-		private string errorMessage;
-		private DateTime time = DateTime.Now;
+		private string _uri; 
+		private Post _post;
+		private string _errorMessage;
+		private DateTime _time = DateTime.Now;
+		private HttpClient _httpClient;
+
 
 		public ViewPost() {
+			_uri = "https://localhost:5001";
 		}
 
-		public async Task GetPost() {
-			// https://jasonwatmore.com/post/2020/09/20/blazor-webassembly-http-get-request-examples
-			HttpClient httpClient = new HttpClient();
-
-			var p = await httpClient.GetAsync(this.Uri);
-
-			if (!p.IsSuccessStatusCode)
-    		{
-				// set error message for display, log to console and return
-				errorMessage = p.ReasonPhrase;
-				Console.WriteLine($"HTTP GET ERROR: {errorMessage}");
-				return;
-			}
-
-			this.post = await p.Content.ReadFromJsonAsync<Post>();
-		}
 	}
 }
