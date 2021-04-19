@@ -1,10 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Numerics;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 
 namespace HotChanShared.Models
 {
@@ -16,20 +12,21 @@ namespace HotChanShared.Models
 
 		[Required]
 		[Column(TypeName = "bigint")]
-		public ulong	UserId		{ get; set; }
+		public ulong UserId { get; set; }
 
-		[Required] [MaxLength(20)]
-		public	string		PostTitle	{ get; set; }
-		public	string		Tags		{ get; set; }
-		public	string		Description	{ get; set; }
 		[Required]
-		public	DateTime	Time		{ get; set; }
+		[MaxLength(20)]
+		public string PostTitle { get; set; }
+
+		public string Tags { get; set; }
+		public string Description { get; set; }
+
 		[Required]
-		public	Uri			MediaUrl	{ get; set; }
+		public DateTime Time { get; set; }
+
+		[Required]
+		public Uri MediaUrl { get; set; }
 
 		//public string InternalReplyIds	{ get; set; }
-		
-	
-
 	}
 }
