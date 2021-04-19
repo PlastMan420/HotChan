@@ -1,17 +1,21 @@
-@page "/post/postid"
+@page "/post/26"
+
+@using HotChanShared.Models
+@using Google.Protobuf.WellKnownTypes
+@inject GrpcChannel Channel
 
 <div class="container">
 	<div class="row">
 		<div class="image-frame">
-			<img src="assets/samples/pic.jpg" alt="" sizes="" srcset="">
+			<img  src="@_reply.MediaUrl"/>
 		</div>
 	</div>
 
 
 	<div class="row">
 		<div class="post-meta">
-			<h3>macOS Big Sir</h3>
-			<h6>@time </h6>
+			<h3>@_reply.PostTitle</h3>
+			<h6>@_reply.PostDescription</h6>
 
 		</div>
 
@@ -21,8 +25,8 @@
 		<div class="comments">
 			<div class="card text-white bg-dark">
 				<div class="card-body">
-					<h5 class="card-title">User Name</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+					<h5 class="card-title">Reply User</h5>
+					<p class="card-text">Reply Block</p>
 				</div>
 			</div>
 
@@ -36,3 +40,16 @@
 	
 
 </div>
+
+@code {
+	//[Parameter]
+	//public ulong _postid { get; set; }
+	PostReply _reply = new PostReply();
+	// gRPC Client Postview Request =>
+	protected override async Task OnInitializedAsync()
+	{
+		var client = new ChanPostView.ChanPostViewClient(Channel);
+		_reply = await client.PostQueryAsync(new PostIdRequest { PostId = 26} );
+
+	}
+}
