@@ -19,9 +19,7 @@ using Microsoft.Extensions.Logging;
 
 // API internal classes
 using HotChanApi.Data;
-using HotChanApi.Endpoints;
 using HotChanApi.Services;
-
 
 namespace HotChanApi
 {
