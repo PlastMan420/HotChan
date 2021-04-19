@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HotChanApi.Migrations
 {
-    public partial class CleanMigrations : Migration
+    public partial class ulongForIds : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,14 +11,13 @@ namespace HotChanApi.Migrations
                 name: "Posts",
                 columns: table => new
                 {
-                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PostTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    PostTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Tags = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MediaUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InternalReplyIds = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    MediaUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +28,9 @@ namespace HotChanApi.Migrations
                 name: "Replies",
                 columns: table => new
                 {
-                    ReplyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ReplyId = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
+                    PostId = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
+                    UserId = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
                     Comment = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AvatarThumbnailUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -45,24 +44,17 @@ namespace HotChanApi.Migrations
                 name: "UserDb",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserMail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KeyHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RegisterationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InternalPostIds = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserDb", x => x.UserId);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Posts_PostId",
-                table: "Posts",
-                column: "PostId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Replies_ReplyId",

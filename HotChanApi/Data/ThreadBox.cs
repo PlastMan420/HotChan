@@ -7,7 +7,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 
 using HotChanApi.Data;
-using HotChanApi.Models;
+using HotChanShared.Models;
 
 using Microsoft.AspNetCore.DataProtection.XmlEncryption;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,7 @@ using System.IO;
 
 namespace HotChanApi.Data
 {
-	public  class ThreadBox : IThreadBox
+	public  class ThreadBox 
 	{
 		private readonly DataContext _db;
 		// This value has to be stored and updated in a db or a  file.
@@ -40,26 +40,25 @@ namespace HotChanApi.Data
 			public  async Task<Reply> ReplyPost(long postId, Reply reply)
 		{
 			reply.Time = DateTime.Now;
-			reply.PostId = postId;
 			
 			await _db.Replies.AddAsync(reply);
-			var mainPost = await _db.Posts.FirstOrDefaultAsync(x => x.PostId == postId).ConfigureAwait(false);
+			//var mainPost = await _db.Posts.FirstOrDefaultAsync(x => x.PostId == postId).ConfigureAwait(false);
 			await _db.SaveChangesAsync().ConfigureAwait(false);
 			return reply;
 		}
 
-		public  async void Prune(long postId)
-		{
-			// TODO: remove replies from the replies table
-			var post = _db.Posts.SingleOrDefault(b => b.PostId == postId);
-			if (post != null)
-			{
-				_db.Posts.Attach(post);
-				_db.Posts.Remove(post);
-				await _db.SaveChangesAsync().ConfigureAwait(false); ;
-			}
+		//public  async void Prune(long postId)
+		//{
+		//	// TODO: remove replies from the replies table
+		//	var post = _db.Posts.SingleOrDefault(b => b.PostId == postId);
+		//	if (post != null)
+		//	{
+		//		_db.Posts.Attach(post);
+		//		_db.Posts.Remove(post);
+		//		await _db.SaveChangesAsync().ConfigureAwait(false); ;
+		//	}
 			
-		}
+		//}
 		
 	}
 }

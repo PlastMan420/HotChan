@@ -1,17 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Numerics;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace HotChanApi.Models
+namespace HotChanShared.Models
 {
 	[Index(nameof(UserId), IsUnique = true)]
 	public class User
 	{
 		[Key]
-		public Guid		UserId				{ get; set; }
+		public ulong UserId				{ get; set; }
 		[Required]
 		public string	UserName			{ get; set; }
 		[Required]
@@ -23,19 +24,17 @@ namespace HotChanApi.Models
 		[Required]
 		public Uri		Avatar				{ get; set; }
 		
-		public string InternalPostIds { get; set; }
-		[NotMapped]
-		public Guid[] PostIds 
-		{
-			get
-			{
-				return Array.ConvertAll(InternalPostIds.Split(';'), Guid.Parse);
-			}
-			set
-			{
-				InternalPostIds = String.Join(";", value.Select(p => p.ToString()).ToArray());
-			}
-		}
+		//public string InternalPostIds { get; set; }
+		//[NotMapped]
+		//public BigInteger[] PostIds 
+		//{
+		//	get
+		//	{
+		//	}
+		//	set
+		//	{
+		//	}
+		//}
 
 	}
 }

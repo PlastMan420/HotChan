@@ -3,12 +3,12 @@ syntax = "proto3";
 package NewPost;
 option csharp_namespace = "HotChanShared.Models";
 
-service Chan {
-	rpc UploadPost(stream Post) returns (UploadStatusCode) {}
+service ChanSubmitPost {
+	rpc UploadPost(stream FileUploadRequest) returns (UploadStatusCode) {}
 
 }
 
-enum UploadStatusCode {
+enum UploadStatusCodeReply {
         Unknown = 0;
         Ok = 1;
         Failed = 2;
@@ -25,7 +25,7 @@ message FileUploadRequest {
 }
 
 message File {
-	bytes file_data = 1;
+	bytes chunk = 1;
     MetaData metadata = 2;
 
 }
@@ -33,5 +33,4 @@ message File {
 message MetaData {
 	string file_name = 1;
 	uint64 file_size = 2;
-	string file_ext = 3;
 }

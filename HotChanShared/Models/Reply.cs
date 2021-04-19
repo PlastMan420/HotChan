@@ -1,19 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Numerics;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotChanApi.Models
+namespace HotChanShared.Models
 {
 	[Index(nameof(ReplyId), IsUnique = true)]
 	public class Reply
 	{
 		[Key]
-		public Guid		ReplyId				{ get; set; }
+		public ulong ReplyId				{ get; set; }
 		[Required]
-		public Guid		PostId				{ get; set; }
+		public ulong PostId				{ get; set; }
 		[Required]
-		public Guid		UserId				{ get; set; }
+		public ulong UserId				{ get; set; }
 		[Required]
 		public string	Comment				{ get; set; }
 		[Required]

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Numerics;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace HotChanApi.Models
+namespace HotChanShared.Models
 {
 	public class Post
 	{
@@ -15,18 +16,20 @@ namespace HotChanApi.Models
 
 		[Required]
 		[Column(TypeName = "bigint")]
-		public ulong UserId { get; set; }
+		public ulong	UserId		{ get; set; }
 
+		[Required] [MaxLength(20)]
+		public	string		PostTitle	{ get; set; }
+		public	string		Tags		{ get; set; }
+		public	string		Description	{ get; set; }
 		[Required]
-		[MaxLength(50)]
-		public string PostTitle { get; set; }
+		public	DateTime	Time		{ get; set; }
 		[Required]
-		public string Tags { get; set; }
-		public string Description { get; set; }
-		[Required]
-		public DateTime Time { get; set; }
-		[Required]
-		public Uri MediaUrl { get; set; }
+		public	Uri			MediaUrl	{ get; set; }
+
+		//public string InternalReplyIds	{ get; set; }
+		
+	
 
 	}
 }
