@@ -7,32 +7,26 @@ using System.Linq;
 
 namespace HotChanApi.Models
 {
-	[Index(nameof(PostId), IsUnique = true)]
 	public class Post
 	{
 		[Key]
-		public	Guid		PostId		{ get; set; }
-		public	Guid		UserId		{ get; set; }
-		public	string		PostTitle	{ get; set; }
-		public	string		Tags		{ get; set; }
-		public	string		Description	{ get; set; }
-		public	DateTime	Time		{ get; set; }
-		public	Uri			MediaUrl	{ get; set; }
+		[Column(TypeName = "bigint")]
+		public ulong PostId { get; set; }
 
-		public string InternalReplyIds	{ get; set; }
-		
-		[NotMapped]
-		public Guid[] ReplyIds
-		{
-			get
-			{
-				return Array.ConvertAll(InternalReplyIds.Split(';'), Guid.Parse);
-			}
-			set
-			{
-				InternalReplyIds = String.Join(";", value.Select(p => p.ToString()).ToArray());
-			}
-		}
+		[Required]
+		[Column(TypeName = "bigint")]
+		public ulong UserId { get; set; }
+
+		[Required]
+		[MaxLength(50)]
+		public string PostTitle { get; set; }
+		[Required]
+		public string Tags { get; set; }
+		public string Description { get; set; }
+		[Required]
+		public DateTime Time { get; set; }
+		[Required]
+		public Uri MediaUrl { get; set; }
 
 	}
 }

@@ -12,10 +12,15 @@ namespace HotChanApi.Models
 	{
 		[Key]
 		public Guid		UserId				{ get; set; }
+		[Required]
 		public string	UserName			{ get; set; }
+		[Required]
 		public string	UserMail			{ get; set; }
+		[Required]
 		public string	KeyHash				{ get; set; }
+		[Required]
 		public DateTime	RegisterationDate	{ get; set; }
+		[Required]
 		public Uri		Avatar				{ get; set; }
 		
 		public string InternalPostIds { get; set; }

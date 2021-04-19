@@ -10,10 +10,15 @@ namespace HotChanApi.Models
 	{
 		[Key]
 		public Guid		ReplyId				{ get; set; }
+		[Required]
 		public Guid		PostId				{ get; set; }
+		[Required]
 		public Guid		UserId				{ get; set; }
+		[Required]
 		public string	Comment				{ get; set; }
+		[Required]
 		public DateTime Time				{ get; set; }
+		[Required]
 		public Uri		AvatarThumbnailUrl	{ get; set; }
 	}
 }
