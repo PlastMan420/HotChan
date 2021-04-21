@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace HotChanApi.Models
 {
-	public class User : IdentityUser<ulong>
+	public class User : IdentityUser<Guid>
 	{
 		public DateTime RegisterationDate { get; set; }
 		public DateTime LastOnline { get; set; }
