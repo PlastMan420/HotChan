@@ -19,7 +19,6 @@ namespace HotChanApi.Data
 		public DbSet<Post>	Posts	{ get; set; }
 		//public DbSet<PostReply> ProtoPosts { get; set; }
 		public DbSet<Reply> Replies { get; set; }
-		public DbSet<User>	UserDb	{ get; set; }
 
 	}
 }
