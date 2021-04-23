@@ -18,5 +18,7 @@ namespace HotChanApi.Models
 		public Uri Avatar { get; set; }
 
 		public ICollection<UserRole> UserRoles { get; set; }
+		public ICollection<Post> Posts { get; set; }
+
 	}
 }

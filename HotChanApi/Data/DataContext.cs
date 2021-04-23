@@ -1,4 +1,6 @@
-﻿using HotChanShared.Models;
+﻿using HotChanApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,9 @@ using System.Threading.Tasks;
 
 namespace HotChanApi.Data
 {
-	public class DataContext : DbContext
+	public class DataContext : IdentityDbContext<User, Role, Guid,
+		IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>,
+		IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
 	{
 		public DataContext(DbContextOptions<DataContext> options)
 		: base(options)
@@ -17,8 +21,6 @@ namespace HotChanApi.Data
 			=> options.UseSqlServer();
 
 		public DbSet<Post>	Posts	{ get; set; }
-		//public DbSet<PostReply> ProtoPosts { get; set; }
-		public DbSet<Reply> Replies { get; set; }
 
 	}
 }
