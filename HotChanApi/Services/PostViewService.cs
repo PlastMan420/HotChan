@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Grpc.Core;
 using HotChanApi.Data;
-using HotChanShared.Models;
+using HotChanApi.Models;
+using HotChanShared.Messages;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,12 +25,12 @@ namespace HotChanApi.Services
 		{
 			var post = new Post();
 			var reply = new PostReply();
-
-			post = _db.Posts.FirstOrDefault(x => x.PostId == request.PostId);
+			var PostIdGuid = new Guid(request.PostId.ToByteArray());
+			post = _db.Posts.FirstOrDefault(x => x.PostId == PostIdGuid);
 			reply = _mapper.Map<PostReply>(post);
 
 			// doing this conversion in the service instead of at entityframework. since this format is not
-			// all that useful outside anything not gRPC related.
+			// all that useful outside anything not gRPC related. it must be in UTC Time.
 			reply.PostTime = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(post.Time.ToUniversalTime());
 
 			return Task.FromResult(reply);

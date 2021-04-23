@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package PostView;
-option csharp_namespace = "HotChanShared.Models";
+option csharp_namespace = "HotChanShared.Messages";
 
 import "google/protobuf/timestamp.proto";
 
@@ -11,12 +11,12 @@ service ChanPostView {
 }
 
 message PostIdRequest {
-	uint64 post_id = 1;
+	bytes post_id = 1;
 }
 
 message PostReply {
-	uint64 post_id = 1;
-	uint64 user_id = 2;
+	bytes post_id = 1;
+	bytes user_id = 2;
 	string post_title = 3;
 	string description = 4;
 	string media_url = 5;

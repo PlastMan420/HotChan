@@ -1,6 +1,6 @@
-@page "/post/26"
+@page "/post/{postid:Guid}"
 
-@using HotChanShared.Models
+@using HotChanShared.Messages
 @using Google.Protobuf.WellKnownTypes
 @inject GrpcChannel Channel
 
@@ -42,14 +42,16 @@
 </div>
 
 @code {
-	//[Parameter]
-	//public ulong _postid { get; set; }
+	[Parameter]
+	public Guid postid { get; set; }
 	PostReply _reply = new PostReply();
+
 	// gRPC Client Postview Request =>
 	protected override async Task OnInitializedAsync()
 	{
+		var MessagePostId = postid.ToByteArray();
 		var client = new ChanPostView.ChanPostViewClient(Channel);
-		_reply = await client.PostQueryAsync(new PostIdRequest { PostId = 26} );
+		_reply = await client.PostQueryAsync(new PostIdRequest { PostId = Google.Protobuf.ByteString.CopyFrom(MessagePostId)});
 
 	}
 }
