@@ -18,6 +18,7 @@ namespace HotChanApi
 {
 	public class Startup
 	{
+		private string _PostGresConnectionString;
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -47,10 +48,22 @@ namespace HotChanApi
 					   .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
 			}));
 
+			// Add JWT Tokens. Also authentication must be Added inorder to get services.AddIdentityCore<>() to work.
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+				options.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+					// no validation rn since we will be just using localhost -->
+					ValidateIssuer = false,
+					ValidateAudience = false
+				});
+
+			// DbContext and Postgres connection string.
 			// Connection String is in the secrets storage.
-			string PostGresConnectionString = Configuration["ConnectionStrings:hotchandatabase-postgres-dev"];
+			_PostGresConnectionString = Configuration["ConnectionStrings:hotchandatabase-postgres-dev"];
 			services.AddDbContext<DataContext>(options =>
-				options.UseNpgsql(Configuration.GetConnectionString(PostGresConnectionString)));
+				options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev")));
 
 			// AddIdentity: for server-side razor pages.
 			// AddIDentityCore: same as add Identity without server side razor pages.
@@ -63,18 +76,7 @@ namespace HotChanApi
 			builder.AddRoleValidator<RoleValidator<Role>>();
 			builder.AddRoleManager<RoleManager<Role>>();
 			builder.AddSignInManager<SignInManager<User>>();
-
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-				options.TokenValidationParameters = new TokenValidationParameters
-				{
-						ValidateIssuerSigningKey = true,
-						IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
-						.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
-						ValidateIssuer = false,
-						ValidateAudience = false
-					};
-				});          
-			//
+			builder.AddUserManager<UserManager<User>>();
 
 
 			//services.AddScoped<IThreadBox, ThreadBox>();
@@ -88,6 +90,7 @@ namespace HotChanApi
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+
 			}
 
 			app.UseStaticFiles();
