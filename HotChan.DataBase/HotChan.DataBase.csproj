@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+	<UserSecretsId>4b4bdf7f-947e-45f0-94bd-b3ced0382057</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="post.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="post.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
+  </ItemGroup>
+
+</Project>
