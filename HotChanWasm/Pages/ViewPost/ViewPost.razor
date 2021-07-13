@@ -1,9 +1,5 @@
 @page "/post/{postid:Guid}"
 
-@using HotChanShared.Messages
-@using Google.Protobuf.WellKnownTypes
-@inject GrpcChannel Channel
-
 <div class="container">
 	<div class="row">
 		<div class="image-frame">
@@ -44,14 +40,5 @@
 @code {
 	[Parameter]
 	public Guid postid { get; set; }
-	PostReply _reply = new PostReply();
-
-	// gRPC Client Postview Request =>
-	protected override async Task OnInitializedAsync()
-	{
-		var MessagePostId = postid.ToByteArray();
-		var client = new ChanPostView.ChanPostViewClient(Channel);
-		_reply = await client.PostQueryAsync(new PostIdRequest { PostId = Google.Protobuf.ByteString.CopyFrom(MessagePostId)});
-
-	}
+	
 }

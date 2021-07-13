@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components.Forms;
 
 using HotChanWasm.Data;
 using HotChanWasm.Models;
+using System.IO;
 
 namespace HotChanWasm.Pages.PostDialogue
 {
@@ -20,8 +21,7 @@ namespace HotChanWasm.Pages.PostDialogue
 		public string mediaData { get; set; }
 		[Parameter]
 		public EventCallback<string> OnChange { get; set; }
-		//[Inject]
-		//public IProductHttpRepository Repository { get; set; }
+
 
 		private IList<string> imageData = new List<string>();
 
@@ -51,38 +51,16 @@ namespace HotChanWasm.Pages.PostDialogue
 			
 		}
 
-		private async Task OnInputFileChange(InputFileChangeEventArgs e)
+		private async Task OnInputFile(InputFileChangeEventArgs e)
 		{
 			
 			var extension = Array.Exists(format, element => element == e.File.ContentType);
 
-			var buffer = new byte[e.File.Size];
-			// write data into buffer
-			await e.File.OpenReadStream().ReadAsync(buffer);
-			
-			this.mediaData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
-			
+
+
+
+
 		}
 
-		//private async Task HandleSelected(InputFileChangeEventArgs e)
-		//{
-		//	var imageFiles = e.GetMultipleFiles();
-		//	foreach (var imageFile in imageFiles)
-		//	{
-		//		if (imageFile != null)
-		//		{
-		//			var resizedFile = await imageFile.RequestImageFileAsync("image/png", 300, 500);
-
-		//			using (var ms = resizedFile.OpenReadStream(resizedFile.Size))
-		//			{
-		//				var content = new MultipartFormDataContent();
-		//				content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
-		//				content.Add(new StreamContent(ms, Convert.ToInt32(resizedFile.Size)), "image", imageFile.Name);
-		//				ImgUrl = await Repository.UploadProductImage(content);
-		//				await OnChange.InvokeAsync(ImgUrl);
-		//			}
-		//		}
-		//	}
-		//}
 	}
 }

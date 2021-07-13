@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-
-using Google.Protobuf;
-
-using HotChanShared.Models;
-using static HotChanShared.Models.ChanPostView;
+using HotChan.DataBase.Models;
 
 namespace HotChanWasm.Pages.ViewPost
 {
