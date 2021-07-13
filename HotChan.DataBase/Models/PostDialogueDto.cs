@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 
 namespace HotChan.DataBase.Models
 {
@@ -16,9 +14,6 @@ namespace HotChan.DataBase.Models
 		
 		[Required]
 		public List<Guid> Tags		{ get; set; }
-		
-		[Required]
-		public IFormFile file { get; set; }
 
 		public string Description { get; set; }
 

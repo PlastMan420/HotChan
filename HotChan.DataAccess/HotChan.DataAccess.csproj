@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Authorization\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HotChan.DataBase\HotChan.DataBase.csproj" />
+  </ItemGroup>
+
+</Project>
