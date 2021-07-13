@@ -13,8 +13,10 @@ using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using HotChan.DataAccess.Data;
-using GraphiQl;
 using HotChan.DataBase.Models;
+using HotChocolate.AspNetCore;
+using HotChocolate.AspNetCore.Playground;
+using HotChan.DataBase;
 
 namespace HotChanApi
 {
@@ -73,8 +75,11 @@ namespace HotChanApi
 
 			// DbContext and Postgres connection string.
 			// Connection String is in the secrets storage.
-			_PostGresConnectionString = Configuration["ConnectionStrings:hotchandatabase-postgres-dev"];
-			services.AddDbContext<DataContext>(options =>
+			//_PostGresConnectionString = Configuration["ConnectionStrings:hotchandatabase-postgres-dev"];
+			//services.AddDbContext<DataContext>(options =>
+			//	options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev")));
+
+			services.AddPooledDbContextFactory<HotChanContext>(options =>
 				options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev")));
 
 			// AddIdentity: for server-side razor pages.
@@ -107,9 +112,6 @@ namespace HotChanApi
 
 			app.UseStaticFiles();
 
-			// Use with dotnet run =>
-			//seeder.SeedUsers();
-
 			app.UseRouting()
 				.UseEndpoints(endpoints =>
 				{
@@ -120,7 +122,8 @@ namespace HotChanApi
 
 			app.UseCors();
 
-			app.UseGraphiQl();
+			app.UsePlayground(new PlaygroundOptions { QueryPath = "/graphql", Path = "/playground" });
+
 		}
 	}
 }

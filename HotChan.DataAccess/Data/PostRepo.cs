@@ -5,26 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HotChocolate.Data;
+using HotChocolate;
 
 namespace HotChan.DataAccess.Data
 {
-	public class PostRepo : IPostRepo
+	public class PostRepo
 	{
-		private readonly HotChanContext _hotchanContext;
 
-		public PostRepo(HotChanContext context)
+		[UseDbContext(typeof(HotChanContext))]
+		public Post GetPost([ScopedService] HotChanContext hotchanContext, Guid PostId)
 		{
-			_hotchanContext = context;
+			return hotchanContext.Posts.FirstOrDefault(x => x.PostId == PostId);
 		}
 
-		public Post GetPost(Guid PostId)
-		{
-			return _hotchanContext.Posts.FirstOrDefault(x => x.PostId == PostId);
-		}
-
-		public IEnumerable<Post> PostCatalog()
-		{
-			return _hotchanContext.Posts;
-		}
+		[UseDbContext(typeof(HotChanContext))]
+		public IQueryable<Post> PostCatalog([ScopedService] HotChanContext hotchanContext)
+			=> hotchanContext.Posts;
+		
 	}
 }
