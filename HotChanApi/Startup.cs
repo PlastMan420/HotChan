@@ -1,6 +1,5 @@
 ﻿using HotChanApi.Data;
-using HotChanApi.Models;
-using HotChanApi.Services;
+//using HotChanApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HotChan.DataAccess.Data;
+using GraphiQl;
+using HotChan.DataBase.Models;
 
 namespace HotChanApi
 {
@@ -31,22 +33,32 @@ namespace HotChanApi
 		{
 			services.AddAutoMapper(typeof(Startup));
 			services.AddHttpContextAccessor();
-			services.AddTransient<Seed>();
+			//services.AddTransient<Seed>();
 
-			// add gRPC service
-			services.AddGrpc();
+			// init gRPC.
+			//services.AddGrpc();
+
 			services.AddResponseCompression(opts =>
 			{
 				opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
 					new[] { "application/octet-stream" });
 			});
-			services.AddCors(o => o.AddPolicy("AllowAll", builder =>
-			{
-				builder.AllowAnyOrigin()
-					   .AllowAnyMethod()
-					   .AllowAnyHeader()
-					   .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
-			}));
+
+			services.AddMvcCore();
+
+			//services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+			//services.AddTransient<IPostRepo, PostRepo>();
+			//services.AddSingleton<PostQuery>();
+			//services.AddSingleton<PostViewType>();
+
+			//// schema time
+			////var sp = services.BuildServiceProvider();
+			//services.AddSingleton<ISchema, PostViewSchema>();
+
+			//services.AddSingleton<ISchema, PostViewSchema>(services => new PostViewSchema(new SelfActivatingServiceProvider(services)));
+
+			services.AddGraphQLServer()
+					.AddQueryType<PostRepo>();
 
 			// Add JWT Tokens. Also authentication must be Added inorder to get services.AddIdentityCore<>() to work.
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -98,21 +110,17 @@ namespace HotChanApi
 			// Use with dotnet run =>
 			//seeder.SeedUsers();
 
-			app.UseRouting();
-
-			app.UseGrpcWeb();
+			app.UseRouting()
+				.UseEndpoints(endpoints =>
+				{
+					endpoints.MapGraphQL();
+				});
 
 			app.UseHttpsRedirection();
 
 			app.UseCors();
 
-			app.UseEndpoints(endpoints =>
-			{
-				endpoints.MapGrpcService<PostViewService>().RequireCors("AllowAll").EnableGrpcWeb();
-				//endpoints.MapRazorPages();
-				//endpoints.MapControllers();
-				endpoints.MapFallbackToFile("index.html");
-			});
+			app.UseGraphiQl();
 		}
 	}
 }
