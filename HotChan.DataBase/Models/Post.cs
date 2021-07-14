@@ -19,7 +19,7 @@ namespace HotChan.DataBase.Models
 		public string Description { get; set; }
 
 		[Required]
-		public DateTime Time { get; set; }
+		public DateTimeOffset Time { get; set; }
 
 		[Required]
 		public Uri MediaUrl { get; set; }

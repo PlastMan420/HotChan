@@ -10,14 +10,20 @@ namespace HotChan.DataBase.Models
 	{
 		[Key]
 		public Guid		ReplyId				{ get; set; }
+
 		[Required]
 		public Guid		PostId				{ get; set; }
+
 		[Required]
 		public Guid		UserId				{ get; set; }
+
 		[Required]
+		[MaxLength(400)]
 		public string	Comment				{ get; set; }
+
 		[Required]
-		public DateTime Time				{ get; set; }
+		public DateTimeOffset Time				{ get; set; }
+
 		[Required]
 		public Uri		AvatarThumbnailUrl	{ get; set; }
 	}

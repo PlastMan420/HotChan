@@ -7,14 +7,16 @@ namespace HotChan.DataBase.Models
 	public class PostDialogueDto
 	{
 		[Required]
-		public string	UserId		{ get; set; }
+		public Guid	UserId		{ get; set; }
 		
 		[Required]
+		[MaxLength(20)]
 		public string	PostTitle	{ get; set; }
 		
 		[Required]
 		public List<Guid> Tags		{ get; set; }
 
+		[MaxLength(500)]
 		public string Description { get; set; }
 
 	}

@@ -10,9 +10,9 @@ namespace HotChan.DataBase.Models
 {
 	public class User : IdentityUser<Guid>
 	{
-		public DateTime RegisterationDate { get; set; }
-		public DateTime LastOnline { get; set; }
-		public DateTime DOB { get; set; }
+		public DateTimeOffset RegisterationDate { get; set; }
+		public DateTimeOffset LastOnline { get; set; }
+		public DateTimeOffset DOB { get; set; }
 
 		[PersonalData]
 		public Uri Avatar { get; set; }
