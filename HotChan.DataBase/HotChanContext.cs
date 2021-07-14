@@ -13,9 +13,8 @@ namespace HotChan.DataBase
 		IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>,
 		IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
 	{
-		public HotChanContext(DbContextOptions<HotChanContext> options)
-		: base(options)
-		{
+		public HotChanContext(DbContextOptions<HotChanContext> options): base(options)
+		{	
 		}
 
 		public DbSet<Post>	Posts	{ get; set; }
