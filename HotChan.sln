@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanApi", "HotChanApi\HotChanApi.csproj", "{002C3F11-04A3-4432-ABA5-4415DAD7AAB9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{05020703-92AF-4870-838A-AE0BD540AF1D} = {05020703-92AF-4870-838A-AE0BD540AF1D}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanWasm", "HotChanWasm\HotChanWasm.csproj", "{15C08326-C1CA-466A-A938-168A1F9F10FF}"
 EndProject

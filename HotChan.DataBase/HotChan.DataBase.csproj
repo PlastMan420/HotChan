@@ -1,9 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 	<UserSecretsId>4b4bdf7f-947e-45f0-94bd-b3ced0382057</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="HotChanContextFactory.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Remove="post.json" />
@@ -18,15 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0-preview.6.21355.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0-preview.6.21352.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-preview.6.21352.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0-preview.6.21352.12" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0-preview.6.21352.12" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0-preview5" />
   </ItemGroup>
 
 </Project>

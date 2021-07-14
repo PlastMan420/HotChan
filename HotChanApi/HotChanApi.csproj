@@ -1,45 +1,60 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <UserSecretsId>4b4bdf7f-947e-45f0-94bd-b3ced0382057</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <Compile Remove="Migrations\**" />
     <Compile Remove="Models\**" />
     <Compile Remove="Queries\**" />
     <Compile Remove="Schema\**" />
+    <Content Remove="Data\**" />
+    <Content Remove="Migrations\**" />
     <Content Remove="Models\**" />
     <Content Remove="Queries\**" />
     <Content Remove="Schema\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="Models\**" />
     <EmbeddedResource Remove="Queries\**" />
     <EmbeddedResource Remove="Schema\**" />
+    <None Remove="Data\**" />
+    <None Remove="Migrations\**" />
     <None Remove="Models\**" />
     <None Remove="Queries\**" />
     <None Remove="Schema\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="20210424005644_UserIdentity.cs" />
+    <Compile Remove="20210424005644_UserIdentity.Designer.cs" />
+    <Compile Remove="DataContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20210424005644_UserIdentity.cs" />
+    <Compile Include="Migrations\20210424005644_UserIdentity.Designer.cs" />
+    <Compile Include="Migrations\DataContextModelSnapshot.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="graphiql" Version="2.0.0" />
-    <PackageReference Include="GraphQL" Version="4.5.0" />
-    <PackageReference Include="GraphQL.MicrosoftDI" Version="4.5.0" />
-    <PackageReference Include="GraphQL.Server.All" Version="5.0.2" />
-    <PackageReference Include="GraphQL.SystemTextJson" Version="4.5.0" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />
-    <PackageReference Include="Grpc.AspNetCore.Web" Version="2.38.0" />
     <PackageReference Include="HotChocolate" Version="11.3.1" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.8" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
+    <PackageReference Include="HotChocolate.AspNetCore.Playground" Version="10.5.5" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.6.21355.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0-preview.6.21355.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.6.21352.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.6.21362.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0-preview5" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
   </ItemGroup>
 
@@ -54,6 +69,10 @@
   <ItemGroup>
     <ProjectReference Include="..\HotChan.DataAccess\HotChan.DataAccess.csproj" />
   </ItemGroup>
+
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TypeScriptTarget>ES2016</TypeScriptTarget>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
     <TypeScriptTarget>ES2020</TypeScriptTarget>
@@ -70,6 +89,8 @@
     <TypeScriptMapRoot />
     <TypeScriptSourceRoot />
   </PropertyGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
 </Project>
