@@ -38,9 +38,6 @@ namespace HotChanApi
 			//		new[] { "application/octet-stream" });
 			//});
 
-			services.AddMvcCore();
-			services.AddHttpContextAccessor();
-
 			// Add JWT Tokens. Also authentication must be Added inorder to get services.AddIdentityCore<>() to work.
 			// TODO
 			//services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -58,16 +55,18 @@ namespace HotChanApi
 			//_PostGresConnectionString = Configuration["ConnectionStrings:hotchandatabase-postgres-dev"];
 			//services.AddDbContext<HotChanContext>(options =>
 			//	options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev")));
+			var ConnectionString = Configuration.GetConnectionString("hotchandatabase-postgres-dev");
+			var migrationAssembly = this.GetType().Assembly.FullName;
 
 			services.AddPooledDbContextFactory<HotChanContext>(options => 
-				options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev"),
-				b => b.MigrationsAssembly("HotChanApi"))
+				options.UseNpgsql(ConnectionString, b => b.MigrationsAssembly(migrationAssembly))
 			);
 
 			services.AddGraphQLServer()
-					.AddQueryType<PostQuery>()
+					.AddQueryType<PostIdQuery>()
 					.AddMutationType<PostMutation>()
 					.AddDataLoader<PostIdDL>()
+					
 					;
 
 			// AddIdentity: for server-side razor pages.
@@ -92,7 +91,6 @@ namespace HotChanApi
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UsePlayground(new PlaygroundOptions { QueryPath = "/graphql", Path = "/playground" });
 
 			}
 			else
@@ -104,11 +102,13 @@ namespace HotChanApi
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 
-			app.UseRouting()
-				.UseEndpoints(endpoints =>
-				{
-					endpoints.MapGraphQL();
-				});
+			app.UseWebSockets();
+			app.UseRouting();
+
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapGraphQL();
+			});
 
 			//app.UseCors();
 			//app.UseAuthentication();

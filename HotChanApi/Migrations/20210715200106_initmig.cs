@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HotChanApi.Migrations
 {
-    public partial class UserIdentity : Migration
+    public partial class initmig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,9 +27,9 @@ namespace HotChanApi.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    RegisterationDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    LastOnline = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DOB = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    RegisterationDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastOnline = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DOB = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     Avatar = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -162,22 +162,29 @@ namespace HotChanApi.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PostTitle = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
-                    Tags = table.Column<string>(type: "text", nullable: true),
+                    PostTitle = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    Time = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    MediaUrl = table.Column<string>(type: "text", nullable: false),
-                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                    Time = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    MediaUrl = table.Column<string>(type: "text", nullable: true),
+                    Tags = table.Column<string[]>(type: "text[]", nullable: true),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.PostId);
                     table.ForeignKey(
+                        name: "FK_Posts_AspNetUsers_Id",
+                        column: x => x.Id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Posts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -216,6 +223,11 @@ namespace HotChanApi.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_Id",
+                table: "Posts",
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",

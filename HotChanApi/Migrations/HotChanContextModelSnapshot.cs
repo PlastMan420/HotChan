@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotChanApi.Migrations
 {
     [DbContext(typeof(HotChanContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    partial class HotChanContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

@@ -10,18 +10,18 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotChanApi.Migrations
 {
     [DbContext(typeof(HotChanContext))]
-    [Migration("20210424005644_UserIdentity")]
-    partial class UserIdentity
+    [Migration("20210715200106_initmig")]
+    partial class initmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.5")
+                .HasAnnotation("ProductVersion", "6.0.0-preview.6.21352.1")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-            modelBuilder.Entity("HotChanApi.Models.Post", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.Post", b =>
                 {
                     b.Property<Guid>("PostId")
                         .ValueGeneratedOnAdd()
@@ -30,31 +30,36 @@ namespace HotChanApi.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("MediaUrl")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PostTitle")
+                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.Property<string>("Tags")
-                        .HasColumnType("text");
+                    b.Property<string[]>("Tags")
+                        .HasColumnType("text[]");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("Time")
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("PostId");
+
+                    b.HasIndex("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.Role", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -78,10 +83,10 @@ namespace HotChanApi.Migrations
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.User", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,8 +102,8 @@ namespace HotChanApi.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DOB")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("DOB")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -107,8 +112,8 @@ namespace HotChanApi.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("LastOnline")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("LastOnline")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -133,8 +138,8 @@ namespace HotChanApi.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("RegisterationDate")
-                        .HasColumnType("timestamp without time zone");
+                    b.Property<DateTimeOffset>("RegisterationDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
@@ -155,10 +160,10 @@ namespace HotChanApi.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.UserRole", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.UserRole", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -170,7 +175,7 @@ namespace HotChanApi.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("AspNetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -193,7 +198,7 @@ namespace HotChanApi.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("AspNetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
@@ -216,7 +221,7 @@ namespace HotChanApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("AspNetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
@@ -237,7 +242,7 @@ namespace HotChanApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("AspNetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -256,29 +261,33 @@ namespace HotChanApi.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.Post", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.Post", b =>
                 {
-                    b.HasOne("HotChanApi.Models.User", "User")
+                    b.HasOne("HotChan.DataBase.Models.User", "User")
                         .WithMany("Posts")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("HotChan.DataBase.Models.User", null)
+                        .WithMany("Favorits")
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.UserRole", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.UserRole", b =>
                 {
-                    b.HasOne("HotChanApi.Models.Role", "Role")
+                    b.HasOne("HotChan.DataBase.Models.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HotChanApi.Models.User", "User")
+                    b.HasOne("HotChan.DataBase.Models.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -291,7 +300,7 @@ namespace HotChanApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("HotChanApi.Models.Role", null)
+                    b.HasOne("HotChan.DataBase.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -300,7 +309,7 @@ namespace HotChanApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("HotChanApi.Models.User", null)
+                    b.HasOne("HotChan.DataBase.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -309,7 +318,7 @@ namespace HotChanApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("HotChanApi.Models.User", null)
+                    b.HasOne("HotChan.DataBase.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -318,20 +327,22 @@ namespace HotChanApi.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("HotChanApi.Models.User", null)
+                    b.HasOne("HotChan.DataBase.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.Role", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.Role", b =>
                 {
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("HotChanApi.Models.User", b =>
+            modelBuilder.Entity("HotChan.DataBase.Models.User", b =>
                 {
+                    b.Navigation("Favorits");
+
                     b.Navigation("Posts");
 
                     b.Navigation("UserRoles");
