@@ -26,7 +26,10 @@ namespace HotChan.DataAccess.DataLoader
         }
 
 
-        protected override async Task<IReadOnlyDictionary<Guid, Post>> LoadBatchAsync(IReadOnlyList<Guid> keys, CancellationToken cancellationToken)
+        protected override async Task<IReadOnlyDictionary<Guid, Post>> LoadBatchAsync(
+            IReadOnlyList<Guid> keys, 
+            CancellationToken cancellationToken
+            )
         {
             await using HotChanContext dbContext =
                 _dbContextFactory.CreateDbContext();

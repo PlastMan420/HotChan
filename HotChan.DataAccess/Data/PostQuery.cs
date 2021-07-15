@@ -19,18 +19,22 @@ namespace HotChan.DataAccess.Data
 	{
 
 		[UseApplicationDbContext]
-		public Task<Post> GetPost(
+		public Task<List<Post>> GetPosts(
+			[ScopedService] HotChanContext hotchanContext,
+			PostIdDL postIdDl,
+			CancellationToken cancellationToken
+		)
+			=> hotchanContext.Posts.ToListAsync();
+
+		[UseApplicationDbContext]
+		[UsePaging(MaxPageSize = 25)]
+		public Task<Post> GetPostAsync(
 			[ScopedService] HotChanContext hotchanContext,
 			PostIdDL postIdDl,
 			CancellationToken cancellationToken,
 			Guid PostId
-		)
+			)
 			=> postIdDl.LoadAsync(PostId, cancellationToken);
-
-		[UseApplicationDbContext]
-		[UsePaging(MaxPageSize = 25)]
-		public Task<List<Post>> PostCatalog([ScopedService] HotChanContext hotchanContext)
-			=>  hotchanContext.Posts.ToListAsync();
 
 	}
 }

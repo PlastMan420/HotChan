@@ -12,13 +12,18 @@ namespace HotChan.DataAccess.Data
 {
 	public interface IPostQuery
 	{
-		public Task<Post> GetPost(
-					HotChanContext hotchanContext,
-					PostIdDL postIdDl,
-					CancellationToken cancellationToken,
-					Guid PostId
+		public Task<List<Post>> GetPosts(
+			HotChanContext hotchanContext,
+			PostIdDL postIdDl,
+			CancellationToken cancellationToken
 			);
-			
-		public Task<List<Post>> PostCatalog(HotChanContext hotchanContext);
+
+
+		public Task<Post> GetPostAsync(
+			HotChanContext hotchanContext,
+			PostIdDL postIdDl,
+			CancellationToken cancellationToken,
+			Guid PostId
+			);
 	}
 }
