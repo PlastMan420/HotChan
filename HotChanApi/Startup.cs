@@ -59,8 +59,10 @@ namespace HotChanApi
 			//services.AddDbContext<HotChanContext>(options =>
 			//	options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev")));
 
-			services.AddPooledDbContextFactory<HotChanContext>(options =>
-				options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev")));
+			services.AddPooledDbContextFactory<HotChanContext>(options => 
+				options.UseNpgsql(Configuration.GetConnectionString("hotchandatabase-postgres-dev"),
+				b => b.MigrationsAssembly("HotChanApi"))
+			);
 
 			services.AddGraphQLServer()
 					.AddQueryType<PostQuery>()
