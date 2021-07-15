@@ -11,21 +11,21 @@ namespace HotChan.DataBase.Models
 	{
 		[Key]
 		public Guid PostId { get; set; }
-
+		
+		[Required]
 		[MaxLength(20)]
 		public string PostTitle { get; set; }
 
-		public string Tags { get; set; }
 		public string Description { get; set; }
 
-		[Required]
 		public DateTimeOffset Time { get; set; }
 
-		[Required]
 		public Uri MediaUrl { get; set; }
 
+		public string[] Tags { get; set; }
+
 		[ForeignKey("User")]
-		public Guid UserId { get; set; }
+		public Guid Id { get; set; }
 		public User User { get; set; }
 
 	}

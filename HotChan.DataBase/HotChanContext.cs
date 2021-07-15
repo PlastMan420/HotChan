@@ -24,6 +24,7 @@ namespace HotChan.DataBase
 			// this must be set in case of inheriting from IdentityDbContext 
 			base.OnModelCreating(builder);
 
+			// User Roles
 			builder.Entity<UserRole>(userRole =>
 			{
 				userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
@@ -38,6 +39,12 @@ namespace HotChan.DataBase
 				.HasForeignKey(ur => ur.UserId)
 				.IsRequired();
 			});
+
+			// One to Many user -> posts. ef conventions were not working for some reason
+			builder.Entity<Post>()
+			.HasOne(p => p.User)
+			.WithMany(b => b.Posts)
+			;
 		}
 	}
 }
