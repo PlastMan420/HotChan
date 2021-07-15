@@ -19,7 +19,7 @@ namespace HotChan.DataBase.Models
 
 		public ICollection<UserRole> UserRoles { get; set; }
 		public ICollection<Post> Posts { get; set; }
-		public ICollection<Favorite> Favorits { get; set; }
+		public ICollection<Post> Favorits { get; set; }
 
 	}
 }
