@@ -7,41 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\**" />
-    <Compile Remove="Migrations\**" />
-    <Compile Remove="Models\**" />
-    <Compile Remove="Queries\**" />
-    <Compile Remove="Schema\**" />
-    <Content Remove="Data\**" />
-    <Content Remove="Migrations\**" />
-    <Content Remove="Models\**" />
-    <Content Remove="Queries\**" />
-    <Content Remove="Schema\**" />
-    <EmbeddedResource Remove="Data\**" />
-    <EmbeddedResource Remove="Migrations\**" />
-    <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="Queries\**" />
-    <EmbeddedResource Remove="Schema\**" />
-    <None Remove="Data\**" />
-    <None Remove="Migrations\**" />
-    <None Remove="Models\**" />
-    <None Remove="Queries\**" />
-    <None Remove="Schema\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="20210424005644_UserIdentity.cs" />
-    <Compile Remove="20210424005644_UserIdentity.Designer.cs" />
-    <Compile Remove="DataContextModelSnapshot.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Migrations\20210424005644_UserIdentity.cs" />
-    <Compile Include="Migrations\20210424005644_UserIdentity.Designer.cs" />
-    <Compile Include="Migrations\DataContextModelSnapshot.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="HotChocolate" Version="11.3.1" />
     <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.1" />
@@ -49,6 +14,7 @@
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.6.21355.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0-preview.6.21355.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-preview.6.21352.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0-preview.6.21352.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -59,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\media\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>
