@@ -76,8 +76,7 @@ namespace HotChanApi
 					.AddMutationType<PostMutation>()
 					.AddDataLoader<PostsDL>()
 					.AddDataLoader<UsersDL>()
-					.AddRemoteSchema(Users)
-					.AddRemoteSchema(Posts	)
+
 					;
 
 			// AddIdentity: for server-side razor pages.
