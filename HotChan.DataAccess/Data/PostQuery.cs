@@ -15,26 +15,25 @@ using System.Threading;
 
 namespace HotChan.DataAccess.Data
 {
-	public class PostQuery : IPostQuery
+	[ExtendObjectType(Name = "Query")]
+	public class PostQuery
 	{
+		public IQueryable<Post> GetPosts(
+			[ScopedService] HotChanContext hotchanContext) =>
+			hotchanContext.Posts;
 
 		[UseApplicationDbContext]
-		public Task<List<Post>> GetPosts(
-			[ScopedService] HotChanContext hotchanContext,
-			PostIdDL postIdDl,
-			CancellationToken cancellationToken
-		)
-			=> hotchanContext.Posts.ToListAsync();
-
-		[UseApplicationDbContext]
-		[UsePaging(MaxPageSize = 25)]
 		public Task<Post> GetPostAsync(
-			[ScopedService] HotChanContext hotchanContext,
-			PostIdDL postIdDl,
+			PostsDL postIdDl,
 			CancellationToken cancellationToken,
-			Guid PostId
+			[GraphQLName("PostId")] Guid PostId
 			)
 			=> postIdDl.LoadAsync(PostId, cancellationToken);
+
+		[UseApplicationDbContext]
+		public async Task<List<Post>> GetPostsAsync(
+			[ScopedService] HotChanContext hotchanContext)
+			=> await hotchanContext.Posts.ToListAsync();
 
 	}
 }

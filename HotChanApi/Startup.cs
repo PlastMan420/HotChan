@@ -13,15 +13,19 @@ using System.Text;
 using HotChan.DataAccess.Data;
 using HotChan.DataBase.Models;
 using HotChocolate.AspNetCore;
-using HotChocolate.AspNetCore.Playground;
 using HotChan.DataBase;
 using Microsoft.AspNetCore.Authentication;
 using HotChan.DataAccess.DataLoader;
+using HotChan.DataAccess.Users;
+using System;
 
 namespace HotChanApi
 {
 	public class Startup
 	{
+		public const string Users = "users";
+		public const string Posts = "posts";
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -62,11 +66,18 @@ namespace HotChanApi
 				options.UseNpgsql(ConnectionString, b => b.MigrationsAssembly(migrationAssembly))
 			);
 
+			services.AddHttpClient(Users, c => c.BaseAddress = new Uri("https://users.localhost:5001/graphql"));
+			services.AddHttpClient(Posts, c => c.BaseAddress = new Uri("https://posts.localhost:5001/graphql"));
+
 			services.AddGraphQLServer()
-					.AddQueryType<PostIdQuery>()
+					.AddQueryType(d => d.Name("Query"))
+						.AddTypeExtension<UserQuery>()
+						.AddTypeExtension<PostQuery>()
 					.AddMutationType<PostMutation>()
-					.AddDataLoader<PostIdDL>()
-					
+					.AddDataLoader<PostsDL>()
+					.AddDataLoader<UsersDL>()
+					.AddRemoteSchema(Users)
+					.AddRemoteSchema(Posts	)
 					;
 
 			// AddIdentity: for server-side razor pages.
