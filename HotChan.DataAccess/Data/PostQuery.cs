@@ -12,17 +12,20 @@ using HotChocolate.Types;
 using HotChan.DataBase.Extensions;
 using HotChan.DataAccess.DataLoader;
 using System.Threading;
+using HotChocolate.Types.Relay;
 
 namespace HotChan.DataAccess.Data
 {
 	[ExtendObjectType(Name = "Query")]
 	public class PostQuery
 	{
+		[UseApplicationDbContext]
+		[UsePaging]
 		public IQueryable<Post> GetPosts(
 			[ScopedService] HotChanContext hotchanContext) =>
-			hotchanContext.Posts;
+			hotchanContext.Posts
+			.Include(u => u.User);
 
-		[UseApplicationDbContext]
 		public Task<Post> GetPostAsync(
 			PostsDL postIdDl,
 			CancellationToken cancellationToken,
@@ -30,11 +33,11 @@ namespace HotChan.DataAccess.Data
 			)
 			=> postIdDl.LoadAsync(PostId, cancellationToken);
 
-		[UseApplicationDbContext]
-		public async Task<List<Post>> GetPostsAsync(
-			[ScopedService] HotChanContext hotchanContext)
-			=> await hotchanContext.Posts.ToListAsync();
-
+		public async Task<IEnumerable<Post>> GetPostsByIdAsync(
+			   [ID(nameof(Post))] Guid[] ids,
+			   PostsDL postIdDl,
+			   CancellationToken cancellationToken) =>
+			   await postIdDl.LoadAsync(ids, cancellationToken);
 	}
 }
 

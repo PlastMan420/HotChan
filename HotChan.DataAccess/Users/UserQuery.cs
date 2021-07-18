@@ -6,6 +6,7 @@ using HotChan.DataBase.Models;
 using HotChocolate;
 using HotChocolate.Data;
 using HotChocolate.Types;
+using HotChocolate.Types.Relay;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,20 +20,22 @@ namespace HotChan.DataAccess.Users
 	[ExtendObjectType(Name = "Query")]
 	public class UserQuery
 	{
+		[UseApplicationDbContext]
+		[UsePaging]
 		public IQueryable<User> GetUsers(
-			[ScopedService] HotChanContext hotchanContext) =>
-			hotchanContext.Users;
+			[ScopedService] HotChanContext hotchanContext) 
+			=>	hotchanContext.Users;
 
-		[UseApplicationDbContext]
 		public Task<User> GetUserAsync(
-			UsersDL userIdDl,
+			UsersDL UserIdDl,
 			CancellationToken cancellationToken,
-			[GraphQLName("UserId")] Guid userId
-			)
-			=> userIdDl.LoadAsync(userId, cancellationToken);
+			[GraphQLName("UserId")] Guid UserId)
+			=>	UserIdDl.LoadAsync(UserId, cancellationToken);
 
-		[UseApplicationDbContext]
-		public async Task<List<User>> GetUsersAsync([ScopedService] HotChanContext hotchanContext)
-			=> await hotchanContext.Users.ToListAsync();
+		public async Task<IEnumerable<User>> GetUsersByIdAsync(
+			   [ID(nameof(User))] Guid[] ids,
+			   UsersDL UserIdDl,
+			   CancellationToken cancellationToken) 
+			=>	await UserIdDl.LoadAsync(ids, cancellationToken);
 	}
 }
