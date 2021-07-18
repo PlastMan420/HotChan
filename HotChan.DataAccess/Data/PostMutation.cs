@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace HotChan.DataAccess.Data
 {
-	public class PostMutation : IPostMutation
+	public class PostMutation
 	{
 		[UseApplicationDbContext]
 		public async Task<Guid> AddPost([ScopedService] HotChanContext hotchanContext, PostDialogueDto req)
@@ -21,7 +21,7 @@ namespace HotChan.DataAccess.Data
 				PostTitle = req.PostTitle,
 				Description = req.Description,
 				Time = DateTimeOffset.Now,
-				UserId = req.UserId,
+				Id = req.UserId,
 			};
 
 			hotchanContext.Posts.Add(post);
