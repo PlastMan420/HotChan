@@ -14,19 +14,32 @@ namespace HotChan.DataAccess.Data
 	public class PostMutation
 	{
 		[UseApplicationDbContext]
-		public async Task<Guid> AddPost([ScopedService] HotChanContext hotchanContext, PostDialogueDto req)
+		public async Task<Post> AddPost([ScopedService] HotChanContext hotchanContext,
+			Guid userId,
+			string postTitle,
+			string description,
+			string[] tags,
+			Uri mediaUrl
+
+			)
 		{
 			var post = new Post
 			{
-				PostTitle = req.PostTitle,
-				Description = req.Description,
+				PostTitle = postTitle,
+				Description = description,
 				Time = DateTimeOffset.Now,
-				Id = req.UserId,
+				Tags = tags,
+				MediaUrl = mediaUrl,
+				Id = userId,
+				User = hotchanContext.Users.FirstOrDefault(d => d.Id == userId)
 			};
 
-			hotchanContext.Posts.Add(post);
+
+			await hotchanContext.Posts.AddAsync(post);
+
 			await hotchanContext.SaveChangesAsync();
-			return post.PostId;
+
+			return post;
 		}
 	}
 }
