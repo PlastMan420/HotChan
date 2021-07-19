@@ -1,5 +1,4 @@
-﻿using GreenDonut;
-using HotChan.DataAccess.DataLoader;
+﻿using HotChan.DataAccess.DataLoader;
 using HotChan.DataAccess.Filters;
 using HotChan.DataBase;
 using HotChan.DataBase.Extensions;
@@ -34,14 +33,9 @@ namespace HotChan.DataAccess.Users
 			=>	UserIdDl.LoadAsync(UserId, cancellationToken);
 
 		public async Task<IEnumerable<User>> GetUsersByIdAsync(
-			   [GraphQLName("UserIds")] Guid[] ids,
+			   [ID(nameof(User))] Guid[] ids,
 			   UsersDL UserIdDl,
 			   CancellationToken cancellationToken) 
 			=>	await UserIdDl.LoadAsync(ids, cancellationToken);
-
-		public async Task<Post[]> GetUserSubmissions(
-			[GraphQLName("UserId")] Guid UserId,
-			UserSubmissionsDL userSubmissions)
-			=> await userSubmissions.LoadAsync(UserId);
 	}
 }

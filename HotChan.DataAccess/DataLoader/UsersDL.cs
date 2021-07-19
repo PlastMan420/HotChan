@@ -31,8 +31,7 @@ namespace HotChan.DataAccess.DataLoader
             CancellationToken cancellationToken
             )
         {
-            await using HotChanContext dbContext =
-                _dbContextFactory.CreateDbContext();
+            await using HotChanContext dbContext = _dbContextFactory.CreateDbContext();
 
             return await dbContext.Users
                 .Where(s => keys.Contains(s.Id))
