@@ -1,0 +1,77 @@
+﻿schema {
+  query: PostIdQuery
+  mutation: PostMutation
+}
+
+type PostIdQuery {
+  postById(PostId: Uuid!): Post
+}
+
+type PostMutation {
+  addPost(req: PostDialogueDtoInput): Uuid!
+}
+
+scalar Uuid
+
+type Post {
+  postId: Uuid!
+  postTitle: String!
+  description: String
+  time: DateTime!
+  mediaUrl: Url
+  tags: [String]
+  id: Uuid!
+  user: User
+}
+
+input PostDialogueDtoInput {
+  userId: Uuid!
+  postTitle: String!
+  tags: [String]!
+  description: String
+}
+
+type User {
+  registerationDate: DateTime!
+  lastOnline: DateTime!
+  dOB: DateTime!
+  avatar: Url
+  userRoles: [UserRole]
+  posts: [Post]
+  favorits: [Post]
+  id: Uuid!
+  userName: String
+  normalizedUserName: String
+  email: String
+  normalizedEmail: String
+  emailConfirmed: Boolean!
+  passwordHash: String
+  securityStamp: String
+  concurrencyStamp: String
+  phoneNumber: String
+  phoneNumberConfirmed: Boolean!
+  twoFactorEnabled: Boolean!
+  lockoutEnd: DateTime
+  lockoutEnabled: Boolean!
+  accessFailedCount: Int!
+}
+
+scalar Url
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+type UserRole {
+  user: User
+  role: Role
+  userId: Uuid!
+  roleId: Uuid!
+}
+
+type Role {
+  userRoles: [UserRole]
+  id: Uuid!
+  name: String
+  normalizedName: String
+  concurrencyStamp: String
+}

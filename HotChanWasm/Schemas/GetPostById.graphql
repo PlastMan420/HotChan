@@ -1,0 +1,6 @@
+query GetPostById{
+  postById(PostId: "d44f7077-ab86-4bd7-aca8-2d8640297a47") {
+    postTitle
+    description
+  }
+}
