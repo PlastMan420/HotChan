@@ -15,16 +15,6 @@ namespace HotChanWasm.Pages.ViewPost
 {
 	public partial class ViewPost : ComponentBase
 	{
-		private string _uri; 
-		private Post _post;
-		private string _errorMessage;
-		private DateTime _time = DateTime.Now;
-		private HttpClient _httpClient;
-
-
-		public ViewPost() {
-			_uri = "https://localhost:5001";
-		}
 
 	}
 }

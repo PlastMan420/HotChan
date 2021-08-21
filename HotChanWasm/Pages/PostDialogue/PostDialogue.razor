@@ -2,7 +2,7 @@
 @inject IJSRuntime JsRuntime;
 @inject NavigationManager NavManager
 
-<div class="file-form">
+@*<div class="file-form">
 	<EditForm Model="@postDialogueDto" OnValidSubmit="Submit" class="">
 		<div class="form-group mb-3">
 			<label for="name" class="col-form-label">Name</label>
@@ -44,7 +44,7 @@
 			<button type="cancel" class="btn btn-danger" @onclick="Cancel">Cancel</button>
 		</div>
 	</EditForm>
-</div>
+</div>*@
 
 @code {
 	 private async Task Cancel()

@@ -1,17 +1,19 @@
 @page "/post/{postid:Guid}"
+@implements IDisposable
+@inject HotChanWasmClient HotChanWasmClient;
 
 <div class="container">
 	<div class="row">
 		<div class="image-frame">
-			<img  src="@_reply.MediaUrl"/>
+			<img  src="@postMediaUri"/>
 		</div>
 	</div>
 
 
 	<div class="row">
 		<div class="post-meta">
-			<h3>@_reply.PostTitle</h3>
-			<h6>@_reply.Description</h6>
+			<h3>@postTitle</h3>
+			<h6>@postDescription</h6>
 
 		</div>
 
@@ -40,5 +42,32 @@
 @code {
 	[Parameter]
 	public Guid postid { get; set; }
-	
+	private IDisposable storeSession;
+
+	// post
+	string postTitle;
+	string postDescription;
+	Uri postMediaUri;
+
+
+	 protected override async Task OnInitializedAsync()
+    {
+        var result = await HotChanWasmClient.GetPostById.ExecuteAsync();
+		postTitle = result.Data.PostById.PostTitle;
+	}
+
+	protected override void OnInitialized()
+{
+    storeSession =
+        HotChanWasmClient
+            .GetPostById
+            .Watch(StrawberryShake.ExecutionStrategy.CacheFirst)
+            .Where(t => !t.Errors.Any())
+            .Select(t => t.Data.PostById.PostTitle)
+            .Subscribe(result =>
+            {
+                postTitle = result;
+                StateHasChanged();
+            });
+}
 }

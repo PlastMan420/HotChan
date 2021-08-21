@@ -2,10 +2,8 @@ using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
-
+using HotChan.DataBase.Models;
 using Microsoft.AspNetCore.Components;
-
-using HotChanWasm.Models;
 
 namespace HotChanWasm.Pages.Catalog
 {
