@@ -44,7 +44,9 @@ namespace HotChan.DataBase
 			builder.Entity<Post>()
 			.HasOne(p => p.User)
 			.WithMany(b => b.Posts)
-			;
+			.HasForeignKey(fk => fk.Id);
+
+
 		}
 	}
 }
