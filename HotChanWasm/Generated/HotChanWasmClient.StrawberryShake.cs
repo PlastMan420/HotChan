@@ -3,7 +3,7 @@
 
 namespace HotChanWasmClient.GraphQL
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostByIdResult : global::System.IEquatable<GetPostByIdResult>, IGetPostByIdResult
     {
         public GetPostByIdResult(global::HotChanWasmClient.GraphQL.IGetPostById_PostById? postById)
@@ -68,7 +68,7 @@ namespace HotChanWasmClient.GraphQL
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostById_PostById_Post : global::System.IEquatable<GetPostById_PostById_Post>, IGetPostById_PostById_Post
     {
         public GetPostById_PostById_Post(global::System.String postTitle, global::System.String? description)
@@ -137,13 +137,13 @@ namespace HotChanWasmClient.GraphQL
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public interface IGetPostByIdResult
     {
         public global::HotChanWasmClient.GraphQL.IGetPostById_PostById? PostById { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public interface IGetPostById_PostById
     {
         public global::System.String PostTitle { get; }
@@ -151,7 +151,7 @@ namespace HotChanWasmClient.GraphQL
         public global::System.String? Description { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public interface IGetPostById_PostById_Post : IGetPostById_PostById
     {
     }
@@ -171,7 +171,7 @@ namespace HotChanWasmClient.GraphQL
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostByIdQueryDocument : global::StrawberryShake.IDocument
     {
         private GetPostByIdQueryDocument()
@@ -207,7 +207,7 @@ namespace HotChanWasmClient.GraphQL
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostByIdQuery : global::HotChanWasmClient.GraphQL.IGetPostByIdQuery
     {
         private readonly global::StrawberryShake.IOperationExecutor<IGetPostByIdResult> _operationExecutor;
@@ -260,7 +260,7 @@ namespace HotChanWasmClient.GraphQL
     /// }
     /// </code>
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public interface IGetPostByIdQuery : global::StrawberryShake.IOperationRequestFactory
     {
         global::System.Threading.Tasks.Task<global::StrawberryShake.IOperationResult<IGetPostByIdResult>> ExecuteAsync(global::System.Threading.CancellationToken cancellationToken = default);
@@ -270,7 +270,7 @@ namespace HotChanWasmClient.GraphQL
     /// <summary>
     /// Represents the HotChanWasmClient GraphQL client
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class HotChanWasmClient : global::HotChanWasmClient.GraphQL.IHotChanWasmClient
     {
         private readonly global::HotChanWasmClient.GraphQL.IGetPostByIdQuery _getPostById;
@@ -286,7 +286,7 @@ namespace HotChanWasmClient.GraphQL
     /// <summary>
     /// Represents the HotChanWasmClient GraphQL client
     /// </summary>
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public interface IHotChanWasmClient
     {
         global::HotChanWasmClient.GraphQL.IGetPostByIdQuery GetPostById { get; }
@@ -295,7 +295,7 @@ namespace HotChanWasmClient.GraphQL
 
 namespace HotChanWasmClient.GraphQL.State
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class PostEntity
     {
         public PostEntity(global::System.String postTitle = default !, global::System.String? description = default !)
@@ -309,7 +309,7 @@ namespace HotChanWasmClient.GraphQL.State
         public global::System.String? Description { get; }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostByIdResultFactory : global::StrawberryShake.IOperationResultDataFactory<global::HotChanWasmClient.GraphQL.GetPostByIdResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -357,7 +357,7 @@ namespace HotChanWasmClient.GraphQL.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostByIdResultInfo : global::StrawberryShake.IOperationResultDataInfo
     {
         private readonly global::System.Collections.Generic.IReadOnlyCollection<global::StrawberryShake.EntityId> _entityIds;
@@ -379,7 +379,7 @@ namespace HotChanWasmClient.GraphQL.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostById_PostById_PostFromPostEntityMapper : global::StrawberryShake.IEntityMapper<global::HotChanWasmClient.GraphQL.State.PostEntity, GetPostById_PostById_Post>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -399,7 +399,7 @@ namespace HotChanWasmClient.GraphQL.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class GetPostByIdBuilder : global::StrawberryShake.IOperationResultBuilder<global::System.Text.Json.JsonDocument, global::HotChanWasmClient.GraphQL.IGetPostByIdResult>
     {
         private readonly global::StrawberryShake.IEntityStore _entityStore;
@@ -509,7 +509,7 @@ namespace HotChanWasmClient.GraphQL.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class HotChanWasmClientEntityIdFactory : global::StrawberryShake.IEntityIdSerializer
     {
         private static readonly global::System.Text.Json.JsonWriterOptions _options = new global::System.Text.Json.JsonWriterOptions()
@@ -549,7 +549,7 @@ namespace HotChanWasmClient.GraphQL.State
         }
     }
 
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public partial class HotChanWasmClientStoreAccessor : global::StrawberryShake.StoreAccessor
     {
         public HotChanWasmClientStoreAccessor(global::StrawberryShake.IOperationStore operationStore, global::StrawberryShake.IEntityStore entityStore, global::StrawberryShake.IEntityIdSerializer entityIdSerializer, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationRequestFactory> requestFactories, global::System.Collections.Generic.IEnumerable<global::StrawberryShake.IOperationResultDataFactory> resultDataFactories) : base(operationStore, entityStore, entityIdSerializer, requestFactories, resultDataFactories)
@@ -560,7 +560,7 @@ namespace HotChanWasmClient.GraphQL.State
 
 namespace Microsoft.Extensions.DependencyInjection
 {
-    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCode("StrawberryShake", "11.3.5.0")]
     public static partial class HotChanWasmClientServiceCollectionExtensions
     {
         public static global::StrawberryShake.IClientBuilder<global::HotChanWasmClient.GraphQL.State.HotChanWasmClientStoreAccessor> AddHotChanWasmClient(this global::Microsoft.Extensions.DependencyInjection.IServiceCollection services, global::StrawberryShake.ExecutionStrategy strategy = global::StrawberryShake.ExecutionStrategy.NetworkOnly)

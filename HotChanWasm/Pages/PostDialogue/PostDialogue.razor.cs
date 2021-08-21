@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace HotChanWasm.Pages.PostDialogue
+namespace HotChanWasm.Pages.PostDialogue;
+
+public partial class PostDialogue : ComponentBase
 {
-	public partial class PostDialogue : ComponentBase
-	{
 
 
-	}
 }
+
