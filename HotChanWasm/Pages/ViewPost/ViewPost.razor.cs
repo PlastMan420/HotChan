@@ -1,20 +1,44 @@
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-using HotChan.DataBase.Models;
+using HotChanWasmClient.GraphQL;
+using System.Reactive.Linq;
 
-namespace HotChanWasm.Pages.ViewPost
+namespace HotChanWasm.Pages.ViewPost;
+
+public partial class ViewPost : ComponentBase, IDisposable
 {
-	public partial class ViewPost : ComponentBase
-	{
+    [Parameter] public Guid postid { get; set; }
+    [Inject] private IHotChanWasmClient HotChanWasmClient { get; set;  }
+    private IDisposable storeSession;
 
-	}
+    // post
+    string postTitle;
+    string postDescription;
+    Uri postMediaUri;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await HotChanWasmClient.GetPostById.ExecuteAsync();
+        postTitle = result.Data.PostById.PostTitle;
+    }
+
+    protected override void OnInitialized()
+    {
+        storeSession =
+            HotChanWasmClient
+                .GetPostById
+                .Watch(StrawberryShake.ExecutionStrategy.CacheFirst)
+                .Where(t => !t.Errors.Any())
+                .Select(t => t.Data.PostById.PostTitle)
+                .Subscribe(result =>
+                {
+                    postTitle = result;
+                    StateHasChanged();
+                });
+    }
+
+	public void Dispose()
+	{
+        storeSession?.Dispose();
+    }
 }
