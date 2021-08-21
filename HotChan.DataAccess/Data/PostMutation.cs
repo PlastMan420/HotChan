@@ -2,12 +2,9 @@
 using HotChan.DataBase.Extensions;
 using HotChan.DataBase.Models;
 using HotChocolate;
-using HotChocolate.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+
+//using Microsoft.AspNetCore.Http;
 
 namespace HotChan.DataAccess.Data
 {
@@ -40,6 +37,30 @@ namespace HotChan.DataAccess.Data
 			await hotchanContext.SaveChangesAsync();
 
 			return post;
+		}
+
+		public async Task<bool> UploadFileAsync(IFormFile file)
+		{
+			//string uploads = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+			string postUploads = @"d:\hcmedia\" + file.FileName;
+			DirectoryInfo di = Directory.CreateDirectory(postUploads);
+			
+			string filePath = System.IO.Path.Combine(postUploads, file.FileName);
+
+			try
+			{
+				using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+				{
+					await file.CopyToAsync(fileStream);
+				}
+			}
+			catch(Exception e)
+			{
+				Console.WriteLine("Saving file failed: /n" + e);
+				return false;
+			}
+
+			return true;
 		}
 	}
 }

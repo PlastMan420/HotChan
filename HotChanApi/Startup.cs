@@ -19,6 +19,7 @@ using HotChan.DataAccess.DataLoader;
 using HotChan.DataAccess.Repository;
 using HotChan.DataAccess.Users;
 using System;
+using HotChocolate.Types;
 
 namespace HotChanApi
 {
@@ -89,8 +90,10 @@ namespace HotChanApi
 				.AddMutationType<PostMutation>()
 				.AddDataLoader<PostsDL>()
 				.AddDataLoader<UsersDL>()
-				.AddDataLoader<UserSubmissionsDL>();
-				;
+				.AddDataLoader<UserSubmissionsDL>()
+				.AddType<UploadType>();
+
+			;
 
 		}
 
