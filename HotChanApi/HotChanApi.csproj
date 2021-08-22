@@ -14,6 +14,7 @@
     <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.3.5" />
     <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="11.3.5" />
     <PackageReference Include="HotChocolate.Stitching" Version="11.3.5" />
+    <PackageReference Include="Isopoh.Cryptography.Argon2" Version="1.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-preview.7.21378.6" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0-preview.7.21378.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0-preview.7.21378.4" />
@@ -23,6 +24,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-preview.7.21413.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0-preview7" />
+    <PackageReference Include="System.Collections.Immutable" Version="6.0.0-preview.7.21377.19" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
   </ItemGroup>
 
