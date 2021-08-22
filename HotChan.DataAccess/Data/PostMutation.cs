@@ -4,7 +4,6 @@ using HotChan.DataBase.Models;
 using HotChocolate;
 using Microsoft.AspNetCore.Http;
 
-//using Microsoft.AspNetCore.Http;
 
 namespace HotChan.DataAccess.Data
 {
