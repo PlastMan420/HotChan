@@ -1,12 +1,12 @@
 @page "/authentication/login"
 
-<form>
+<form style="margin-top: 10rem;">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Username or Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
   </div>
   <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <label for="password" class="form-label">Password</label>
     <input type="password" class="form-control" id="password">
   </div>
   <div class="mb-3 form-check">
@@ -14,5 +14,5 @@
     <label class="form-check-label" for="preserveAuth">Stay logged in</label>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <p>If your Username or Email address were not found in the database. a New account shall be created.</p>
+  <p class="text-muted pt-3 user-select-none">If your Username or Email address were not found in the database. A new account shall be created.</p>
 </form>
