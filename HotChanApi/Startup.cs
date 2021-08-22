@@ -20,6 +20,7 @@ using HotChan.DataAccess.Repository;
 using HotChan.DataAccess.Users;
 using System;
 using HotChocolate.Types;
+using HotChocolate.Language;
 
 namespace HotChanApi
 {
@@ -82,11 +83,15 @@ namespace HotChanApi
 			// GraphQL
 			services
 				.AddSingleton<IUserRepository, UserRepository>()
+				.AddMemoryCache()
+				.AddSha256DocumentHashProvider(HashFormat.Hex)
 				.AddGraphQLServer()
 				.AddAuthorization()
 				.AddQueryType(d => d.Name("Query"))
 					.AddTypeExtension<UserQuery>()
 					.AddTypeExtension<PostQuery>()
+					.UseAutomaticPersistedQueryPipeline()
+					.AddInMemoryQueryStorage()
 				.AddMutationType<PostMutation>()
 				.AddDataLoader<PostsDL>()
 				.AddDataLoader<UsersDL>()
