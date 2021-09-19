@@ -12,7 +12,6 @@ namespace HotChan.DataAccess.Repository
 		public UserRepository(UserManager<User> userManager)
 		{
 			_userManager = userManager;
-
 		}
 
 		public async Task<User> CreateUser(User newUser, string password)
@@ -23,6 +22,11 @@ namespace HotChan.DataAccess.Repository
 			await _userManager.AddToRoleAsync(newUser, "Member");
 			
 			return newUser;
+		}
+
+		public async Task ElevateUser(User user)
+		{
+			await _userManager.AddToRoleAsync(user, "Admin");
 		}
 
 		// TODO. Login
