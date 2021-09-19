@@ -8,6 +8,10 @@ namespace HotChan.DataBase.Models
 {
 	public class Role : IdentityRole<Guid>
 	{
+		public Role(string roleName) : base(roleName)
+		{
+		}
+
 		public ICollection<UserRole> UserRoles { get; set; }
 
 	}
