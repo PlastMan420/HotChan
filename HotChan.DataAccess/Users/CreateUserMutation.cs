@@ -27,9 +27,9 @@ namespace HotChan.DataAccess.Users
 			var user = new User
 			{
 				UserName = userName,
-				NormalizedUserName = userName.ToLower(),
+				NormalizedUserName = userName.ToUpper(),
 				Email = email,
-				NormalizedEmail = email.ToLower(),
+				NormalizedEmail = email.ToUpper(),
 				RegisterationDate = DateTimeOffset.Now,
 			};
 
