@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using HotChan.DataBase.Models;
@@ -30,6 +31,8 @@ public class AuthController : ControllerBase
 	[HttpPost]
 	public async Task<IActionResult> Login(UserAuth userAuth)
 	{
+		DateTime jwtDate = DateTime.Now;
+
 		User user = await _userManager.FindByEmailAsync(userAuth.UserMail);
 		if(user.Id != Guid.Empty)
 		{
@@ -38,9 +41,12 @@ public class AuthController : ControllerBase
 			{
 				return Ok(new
 				{
-					token = GenerateJwtToken(user)
+					token = GenerateJwtToken(user, jwtDate),
+					unixTimeExpiresAt = new DateTimeOffset(jwtDate).ToUnixTimeMilliseconds(),
 				});
 			}
+			else
+				return BadRequest("Login Error");
 		}
 		else
 		{
@@ -55,7 +61,7 @@ public class AuthController : ControllerBase
 		}
 	}
 
-	private async Task<string> GenerateJwtToken(User user)
+	private async Task<string> GenerateJwtToken(User user, DateTime jwtDate)
 	{
 		var claims = new List<Claim>
 		{
@@ -70,21 +76,33 @@ public class AuthController : ControllerBase
 			claims.Add(new Claim(ClaimTypes.Role, role));
 		}
 
-		var key = new AsymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:rs512-public"]));
+		using RSA rsa = RSA.Create();
+		rsa.ImportRSAPrivateKey( // Convert the loaded key from base64 to bytes.
+				source: Convert.FromBase64String(_configuration["jwt:rs512-private"]), // Use the private key to sign tokens
+				bytesRead: out int _); // Discard the out variable
 
-		var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+		var signingCredentials = new SigningCredentials(
+						key: new RsaSecurityKey(rsa),
+						algorithm: SecurityAlgorithms.RsaSha512 // Important to use RSA version of the SHA algo 
+					);
 
-		var tokenDescriptor = new SecurityTokenDescriptor
-		{
-			Subject = new ClaimsIdentity(claims),
-			Expires = DateTime.Now.AddDays(1),
-			SigningCredentials = creds
-		};
+		var jwt = new JwtSecurityToken(
+				audience: "jwt-test",
+				issuer: "jwt-test",
+				claims: claims,
+				notBefore: jwtDate,
+				expires: jwtDate.AddDays(3),
+				signingCredentials: signingCredentials
+			);
 
-		var tokenHandler = new JwtSecurityTokenHandler();
+		string token = new JwtSecurityTokenHandler().WriteToken(jwt);
+		return token;
+	}
 
-		var token = tokenHandler.CreateToken(tokenDescriptor);
-
-		//var user = _mapper.Map<UserForListDto>(userFromRepo);
+	[HttpGet]
+	[Authorize(AuthenticationSchemes = "Asymmetric")] // Use the "Asymmetric" authentication scheme
+	public IActionResult ValidateTokenAsymmetric()
+	{
+		return Ok();
 	}
 }
