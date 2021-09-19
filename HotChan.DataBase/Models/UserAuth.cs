@@ -16,6 +16,6 @@ namespace HotChan.DataBase.Models
 		public string UserMail { get; set; }
 
 		[Required]
-		public string KeyHash { get; set; }
+		public string Key { get; set; }
 	}
 }
