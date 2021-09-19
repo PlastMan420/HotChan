@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Components;
 using HotChanWasmClient.GraphQL;
 using System.Reactive.Linq;
+using System;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace HotChanWasm.Pages.ViewPost;
 
