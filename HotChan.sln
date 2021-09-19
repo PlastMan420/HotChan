@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31512.422
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.DataAccess", "HotChan.DataAccess\HotChan.DataAccess.csproj", "{A835B18A-B14C-4039-A10D-367AEB9F13E5}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanApi", "HotChanApi\HotChanApi.csproj", "{95F9674A-6C31-41BA-A409-FF9EFDA09819}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7861B522-5F08-4DC7-ADBD-B04EBC31620C} = {7861B522-5F08-4DC7-ADBD-B04EBC31620C}
@@ -16,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.DataBase", "HotChan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChanApiTest", "HotChanApiTest\HotChanApiTest.csproj", "{710FB1B6-05DB-4837-A87F-FA844912CFF2}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.DataAccess", "HotChan.DataAccess\HotChan.DataAccess.csproj", "{EDDDF952-9557-400A-A48D-675CB6896A05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,14 +24,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Debug|x64.Build.0 = Debug|Any CPU
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Release|x64.ActiveCfg = Release|Any CPU
-		{A835B18A-B14C-4039-A10D-367AEB9F13E5}.Release|x64.Build.0 = Release|Any CPU
 		{95F9674A-6C31-41BA-A409-FF9EFDA09819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{95F9674A-6C31-41BA-A409-FF9EFDA09819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95F9674A-6C31-41BA-A409-FF9EFDA09819}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -64,6 +56,14 @@ Global
 		{710FB1B6-05DB-4837-A87F-FA844912CFF2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{710FB1B6-05DB-4837-A87F-FA844912CFF2}.Release|x64.ActiveCfg = Release|Any CPU
 		{710FB1B6-05DB-4837-A87F-FA844912CFF2}.Release|x64.Build.0 = Release|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Debug|x64.Build.0 = Debug|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Release|x64.ActiveCfg = Release|Any CPU
+		{EDDDF952-9557-400A-A48D-675CB6896A05}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
