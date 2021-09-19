@@ -21,11 +21,15 @@ using HotChan.DataAccess.Users;
 using System;
 using HotChocolate.Types;
 using HotChocolate.Language;
+using System.Data.SqlClient;
+using System.Security.Cryptography;
 
 namespace HotChanApi
 {
 	public class Startup
 	{
+		private string _connection = null;
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -36,6 +40,8 @@ namespace HotChanApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddControllers();
+
 			//services.AddResponseCompression(opts =>
 			//{
 			//	opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
@@ -44,32 +50,58 @@ namespace HotChanApi
 
 			// Add JWT Tokens. Also authentication must be Added inorder to get services.AddIdentityCore<>() to work.
 			// TODO
+			// Asymmetric JWT auth:
+			// https://blog.devgenius.io/jwt-authentication-in-asp-net-core-e67dca9ae3e8
+			services.AddSingleton<RsaSecurityKey>(provider =>
+			{
+				RSA rsa = RSA.Create();
+
+				rsa.ImportRSAPublicKey(
+					source: Convert.FromBase64String(Configuration["jwt:rs512-public"]),
+					bytesRead: out int _
+				);
+				return new RsaSecurityKey(rsa);
+			});
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-				.AddJwtBearer(options =>
-				options.TokenValidationParameters = new TokenValidationParameters
+				.AddJwtBearer("Asymmetric", options =>
 				{
-						// no validation rn since we will be just using localhost -->
-						ValidateIssuerSigningKey = true,
-						ValidateAudience = false,
-						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("jwt:SymmetricKey"))
+					SecurityKey rsa = services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
+					options.IncludeErrorDetails = true; // <- great for debugging
 
+					// Configure the actual Bearer validation
+					options.TokenValidationParameters = new TokenValidationParameters
+					{
+						IssuerSigningKey = rsa,
+						ValidAudience = "jwt-test",
+						ValidIssuer = "jwt-test",
+						RequireSignedTokens = true,
+						RequireExpirationTime = true, // <- JWTs are required to have "exp" property set
+						ValidateLifetime = true, // <- the "exp" will be validated
+						ValidateAudience = true,
+						ValidateIssuer = true,
+					};
 				});
 
 			// DataBase
-			var ConnectionString = Configuration.GetConnectionString("hotchandatabase-postgres-dev");
+			var csBuilder = new SqlConnectionStringBuilder(
+				Configuration.GetConnectionString("hotchandatabase-postgres-dev"));
+			csBuilder.Password = Configuration["db:password"];
+			_connection = csBuilder.ConnectionString;
+
 			var migrationAssembly = this.GetType().Assembly.FullName;
 
 			services.AddPooledDbContextFactory<HotChanContext>(options => 
-				options.UseNpgsql(ConnectionString, b => b.MigrationsAssembly(migrationAssembly))
+				options.UseNpgsql(_connection, b => b.MigrationsAssembly(migrationAssembly))
 			);
 
 			// ASP.NET Identity
 			services.AddIdentity<User, Role>(
 				options => {
 					options.SignIn.RequireConfirmedAccount = false;
-					options.Password.RequiredLength = 10;
+					options.Password.RequiredLength = 12;
 					options.Password.RequiredUniqueChars = 1;
+					options.Password.RequireDigit = true;
 					options.User.RequireUniqueEmail = true;
 								//Other options go here
 				}
@@ -79,6 +111,22 @@ namespace HotChanApi
 			// Services
 			services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 			services.AddScoped<IUserRepository, UserRepository>();
+
+			services.AddAuthorization(options => {
+				options.AddPolicy("AdminAccess", policy => 
+					policy.RequireAssertion(context => 
+						context.User.IsInRole("Admin")));
+
+				options.AddPolicy("UserAccess", policy => 
+					policy.RequireAssertion(context =>
+						context.User.IsInRole("Member")));
+
+				options.AddPolicy("RestrictedAccess", policy =>
+					policy.RequireAssertion(context =>
+						context.User.IsInRole("Banned")));
+			});
+
+			var adminRole = new Role("Admin");
 
 			// GraphQL
 			services
@@ -97,8 +145,6 @@ namespace HotChanApi
 				.AddDataLoader<UsersDL>()
 				.AddDataLoader<UserSubmissionsDL>()
 				.AddType<UploadType>();
-
-			;
 
 		}
 
