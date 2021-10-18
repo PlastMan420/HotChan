@@ -1,11 +1,8 @@
-﻿using HotChan.DataBase.Models;
+﻿using HotChan.DataBase.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotChan.DataBase
 {
@@ -17,7 +14,8 @@ namespace HotChan.DataBase
 		{	
 		}
 
-		public DbSet<Post>	Posts	{ get; set; }
+		public virtual DbSet<Post>	Posts	{ get; set; }
+		public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{

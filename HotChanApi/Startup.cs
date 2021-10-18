@@ -7,12 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using HotChan.DataAccess.Data;
-using HotChan.DataBase.Models;
-using HotChocolate.AspNetCore;
 using HotChan.DataBase;
 using Microsoft.AspNetCore.Authentication;
 using HotChan.DataAccess.DataLoader;
@@ -23,6 +19,7 @@ using HotChocolate.Types;
 using HotChocolate.Language;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
+using HotChan.DataBase.Models.Entities;
 
 namespace HotChanApi
 {
@@ -141,8 +138,8 @@ namespace HotChanApi
 					.UseAutomaticPersistedQueryPipeline()
 					.AddInMemoryQueryStorage()
 				.AddMutationType<PostMutation>()
-				.AddDataLoader<PostsDL>()
-				.AddDataLoader<UsersDL>()
+				.AddDataLoader<PostsBatchDL>()
+				.AddDataLoader<UsersBatchDL>()
 				.AddDataLoader<UserSubmissionsDL>()
 				.AddType<UploadType>();
 

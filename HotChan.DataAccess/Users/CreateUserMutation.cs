@@ -1,7 +1,8 @@
 ﻿using HotChan.DataAccess.Repository;
 using HotChan.DataBase;
 using HotChan.DataBase.Extensions;
-using HotChan.DataBase.Models;
+using HotChan.DataBase.Models.Dtos;
+using HotChan.DataBase.Models.Entities;
 using HotChocolate;
 using System;
 using System.Threading.Tasks;

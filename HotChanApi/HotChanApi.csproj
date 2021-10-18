@@ -1,19 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.20348.0</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <UserSecretsId>4b4bdf7f-947e-45f0-94bd-b3ced0382057</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="HotChocolate" Version="11.3.5" />
-    <PackageReference Include="HotChocolate.AspNetCore" Version="11.3.5" />
-    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="11.3.5" />
-    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="11.3.5" />
-    <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="11.3.5" />
-    <PackageReference Include="HotChocolate.Stitching" Version="11.3.5" />
+    <PackageReference Include="HotChocolate" Version="12.0.1" />
+    <PackageReference Include="HotChocolate.AspNetCore" Version="12.0.1" />
+    <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="12.0.1" />
+    <PackageReference Include="HotChocolate.Data.EntityFramework" Version="12.0.1" />
+    <PackageReference Include="HotChocolate.PersistedQueries.InMemory" Version="12.0.1" />
+    <PackageReference Include="HotChocolate.Stitching" Version="12.0.1" />
     <PackageReference Include="Isopoh.Cryptography.Argon2" Version="1.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0-rc.1.21452.15" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0-rc.1.21452.15" />
@@ -23,7 +23,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0-rc.1.21464.1" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0-preview7" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.0-rc.1" />
     <PackageReference Include="System.Collections.Immutable" Version="6.0.0-rc.1.21451.13" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />

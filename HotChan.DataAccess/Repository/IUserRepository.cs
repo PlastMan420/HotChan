@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using HotChan.DataBase.Models;
+using HotChan.DataBase.Models.Entities;
 
 namespace HotChan.DataAccess.Repository
 {

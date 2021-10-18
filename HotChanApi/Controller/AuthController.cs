@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
-using HotChan.DataBase.Models;
+using HotChan.DataBase.Models.Dtos;
+using HotChan.DataBase.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,13 +19,21 @@ public class AuthController : ControllerBase
 {
 	private readonly UserManager<User> _userManager;
 	private readonly SignInManager<User> _signInManager;
+	private readonly TokenValidationParameters _tokenValidationParameters;
+
 	private IConfiguration _configuration { get; set; }
 
-	public AuthController(IConfiguration configuration, UserManager<User> userManager, SignInManager<User> signInManager)
+	public AuthController(
+		IConfiguration configuration,
+		UserManager<User> userManager,
+		SignInManager<User> signInManager,
+		TokenValidationParameters tokenValidationParameters
+)
 	{
 		this._userManager = userManager;
 		this._signInManager = signInManager;
 		this._configuration = configuration;
+		this._tokenValidationParameters = tokenValidationParameters;
 	}
 
 	[HttpPost]
@@ -91,7 +99,7 @@ public class AuthController : ControllerBase
 				issuer: "jwt-test",
 				claims: claims,
 				notBefore: jwtDate,
-				expires: jwtDate.AddDays(3),
+				expires: jwtDate.AddDays(1),
 				signingCredentials: signingCredentials
 			);
 

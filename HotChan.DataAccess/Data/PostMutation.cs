@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HotChan.DataBase;
 using HotChan.DataBase.Extensions;
-using HotChan.DataBase.Models;
+using HotChan.DataBase.Models.Entities;
 using HotChocolate;
 using Microsoft.AspNetCore.Http;
 

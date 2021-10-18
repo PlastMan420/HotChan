@@ -1,7 +1,6 @@
 ﻿using GreenDonut;
 using HotChan.DataBase;
-using HotChan.DataBase.Models;
-using HotChocolate.DataLoader;
+using HotChan.DataBase.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
