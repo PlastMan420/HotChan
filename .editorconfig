@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS8032: An instance of analyzer Microsoft.NET.Sdk.Razor.SourceGenerators.RazorSourceGenerator cannot be created from C:\Program Files\dotnet\sdk\6.0.100-preview.3.21202.5\Sdks\Microsoft.NET.Sdk.Razor\source-generators\Microsoft.NET.Sdk.Razor.SourceGenerators.dll : Could not load file or assembly 'Microsoft.CodeAnalysis, Version=3.10.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35' or one of its dependencies. The system cannot find the file specified..
+dotnet_diagnostic.CS8032.severity = warning
+
+# CS0006: Metadata file 'E:\Repo\HotChan\HotChanWasm\bin\Debug\net6.0\ref\HotChanWasm.dll' could not be found
+dotnet_diagnostic.CS0006.severity = none
