@@ -7,16 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  NavDirs: Record<string, string> = {
-    "Home": "/",
-    "Account": "/account",
-    "Upload": "/upload",
-    "Recent": "/recent"
-  }
-  
+  NavDirs = new Map([
+    ["Home", "/"],
+    ["Account", "/account"],
+    ["Upload", "/upload"],
+    ["Recent", "/recent"]
+  ]);
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  asIsOrder() {
+    return 1;
   }
 
 }
