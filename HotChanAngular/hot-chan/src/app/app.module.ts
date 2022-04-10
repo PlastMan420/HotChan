@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { InMemoryCache } from '@apollo/client';
-import { APOLLO_OPTIONS } from 'apollo-angular';
+import { ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { environment } from 'src/environments/environment';
 
@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     GraphQLModule,
-    HttpClientModule
+    ApolloModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
@@ -32,7 +35,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
             uri: environment.graphQlServer,
           }),
         };
-      }
+      },
+      deps: [HttpLink],
     }
   ],
   bootstrap: [AppComponent]
