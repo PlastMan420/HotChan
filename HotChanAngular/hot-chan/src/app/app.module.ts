@@ -13,32 +13,32 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    GraphQLModule,
-    ApolloModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
-  providers: [
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory: (httpLink: HttpLink) => {
-        return {
-          cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: environment.graphQlServer,
-          }),
-        };
-      },
-      deps: [HttpLink],
-    }
-  ],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		NavbarComponent
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		GraphQLModule,
+		ApolloModule,
+		HttpClientModule,
+		ReactiveFormsModule
+	],
+	providers: [
+		{
+			provide: APOLLO_OPTIONS,
+			useFactory: (httpLink: HttpLink) => {
+				return {
+					cache: new InMemoryCache(),
+					link: httpLink.create({
+						uri: environment.graphQlServer,
+					}),
+				};
+			},
+			deps: [HttpLink],
+		}
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

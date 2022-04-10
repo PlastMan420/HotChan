@@ -1,26 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+	selector: 'app-navbar',
+	templateUrl: './navbar.component.html',
+	styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
 
-  NavDirs = new Map([
-    ["Home", "/"],
-    ["Account", "/account"],
-    ["Upload", "/upload"],
-    ["Recent", "/recent"]
-  ]);
+	NavDirs = new Map([
+		["Home", "/"],
+		["Account", "/account"],
+		["Upload", "/upload"],
+		["Recent", "/recent"],
+		["sample post", "/post"]
+	]);
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit() {
-  }
+	ngOnInit() {
+	}
 
-  asIsOrder() {
-    return 1;
-  }
+	asIsOrder() {
+		return 1;
+	}
 
 }
