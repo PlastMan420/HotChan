@@ -4,47 +4,46 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 
-namespace HotChan.DataBase
+namespace HotChan.DataBase;
+
+public class HotChanContext : IdentityDbContext<User, IdentityRole<Guid>, Guid,
+    IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>,
+	IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
 {
-	public class HotChanContext : IdentityDbContext<User, Role, Guid,
-		IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>,
-		IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
+	public HotChanContext(DbContextOptions<HotChanContext> options): base(options)
+	{	
+	}
+
+	public virtual DbSet<Post> Posts => Set<Post>();
+	//public virtual DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+
+	protected override void OnModelCreating(ModelBuilder builder)
 	{
-		public HotChanContext(DbContextOptions<HotChanContext> options): base(options)
-		{	
-		}
+		// this must be set in case of inheriting from IdentityDbContext 
+		base.OnModelCreating(builder);
 
-		public virtual DbSet<Post>	Posts	{ get; set; }
-		public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
-
-		protected override void OnModelCreating(ModelBuilder builder)
+		// User Roles
+		builder.Entity<UserRole>(userRole =>
 		{
-			// this must be set in case of inheriting from IdentityDbContext 
-			base.OnModelCreating(builder);
+			userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
 
-			// User Roles
-			builder.Entity<UserRole>(userRole =>
-			{
-				userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+			userRole.HasOne(ur => ur.Role)
+			.WithMany(r => r.UserRoles)
+			.HasForeignKey(ur => ur.RoleId)
+			.IsRequired();
 
-				userRole.HasOne(ur => ur.Role)
-				.WithMany(r => r.UserRoles)
-				.HasForeignKey(ur => ur.RoleId)
-				.IsRequired();
+			userRole.HasOne(ur => ur.User)
+			.WithMany(r => r.UserRoles)
+			.HasForeignKey(ur => ur.UserId)
+			.IsRequired();
+		});
 
-				userRole.HasOne(ur => ur.User)
-				.WithMany(r => r.UserRoles)
-				.HasForeignKey(ur => ur.UserId)
-				.IsRequired();
-			});
+		// One to Many user -> posts. ef conventions were not working for some reason
+		builder.Entity<Post>()
+		.HasOne(p => p.User)
+		.WithMany(b => b.Posts)
+		.HasForeignKey(fk => fk.Id);
 
-			// One to Many user -> posts. ef conventions were not working for some reason
-			builder.Entity<Post>()
-			.HasOne(p => p.User)
-			.WithMany(b => b.Posts)
-			.HasForeignKey(fk => fk.Id);
-
-
-		}
 	}
 }
+
