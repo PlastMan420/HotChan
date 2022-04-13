@@ -4,7 +4,7 @@ import { PostViewComponent } from './post-view.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
   declarations: [PostViewComponent]
 })

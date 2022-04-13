@@ -25,16 +25,14 @@ namespace HotChan.DataAccess.Data
 
 		public Task<Post> GetPostAsync(
 			[Service] PostsBatchDL postIdDl,
-			CancellationToken cancellationToken,
 			[GraphQLName("PostId")] Guid PostId
 			)
-			=> postIdDl.LoadAsync(PostId, cancellationToken);
+			=> postIdDl.LoadAsync(PostId);
 
 		public async Task<IEnumerable<Post>> GetPostsByIdAsync(
 			   [ID(nameof(Post))] Guid[] ids,
-			   PostsBatchDL postIdDl,
-			   CancellationToken cancellationToken) =>
-			   await postIdDl.LoadAsync(ids, cancellationToken);
+			   PostsBatchDL postIdDl)
+			=> await postIdDl.LoadAsync(ids);
 	}
 }
 

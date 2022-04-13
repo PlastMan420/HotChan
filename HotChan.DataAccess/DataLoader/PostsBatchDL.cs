@@ -15,8 +15,8 @@ namespace HotChan.DataAccess.DataLoader
         private readonly IDbContextFactory<HotChanContext> _dbContextFactory;
 
         public PostsBatchDL(
-            IBatchScheduler batchScheduler,
             IDbContextFactory<HotChanContext> dbContextFactory,
+            IBatchScheduler batchScheduler,
             DataLoaderOptions options
             ) : base(batchScheduler, options)
         {
@@ -28,6 +28,7 @@ namespace HotChan.DataAccess.DataLoader
             CancellationToken cancellationToken
             )
         {
+            // await using automatically disposes of dbContext.
             await using HotChanContext dbContext =
                 _dbContextFactory.CreateDbContext();
 
