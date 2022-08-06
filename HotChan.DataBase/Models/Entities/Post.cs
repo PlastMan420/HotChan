@@ -19,10 +19,12 @@ public class Post
 
 	public Uri MediaUrl { get; set; }
 
+	public Uri ThumbnailUrl { get; set; }
+
 	public string[] Tags { get; set; }
 
 	[ForeignKey("User")]
-	public Guid Id { get; set; }
+	public Guid UserId { get; set; }
 	public User User { get; set; }
 
 }

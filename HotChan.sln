@@ -5,9 +5,11 @@ VisualStudioVersion = 17.0.31512.422
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.DataBase", "HotChan.DataBase\HotChan.DataBase.csproj", "{7861B522-5F08-4DC7-ADBD-B04EBC31620C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.DataAccess", "HotChan.DataAccess\HotChan.DataAccess.csproj", "{EDDDF952-9557-400A-A48D-675CB6896A05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.DataAccess.Gql", "HotChan.DataAccess.Gql\HotChan.DataAccess.Gql.csproj", "{EDDDF952-9557-400A-A48D-675CB6896A05}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.Api", "HotChan.Api\HotChan.Api.csproj", "{F31F6F76-2E6E-4271-9E00-4E19A3EFCAC6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotChan.DataAccess", "HotChan.DataAccess\HotChan.DataAccess.csproj", "{A8C052F8-5697-455C-856E-2C5A63C32C8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,14 @@ Global
 		{F31F6F76-2E6E-4271-9E00-4E19A3EFCAC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F31F6F76-2E6E-4271-9E00-4E19A3EFCAC6}.Release|x64.ActiveCfg = Release|Any CPU
 		{F31F6F76-2E6E-4271-9E00-4E19A3EFCAC6}.Release|x64.Build.0 = Release|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Debug|x64.Build.0 = Debug|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Release|x64.ActiveCfg = Release|Any CPU
+		{A8C052F8-5697-455C-856E-2C5A63C32C8F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,6 +15,7 @@ public class HotChanContext : IdentityDbContext<User, IdentityRole<Guid>, Guid,
 	}
 
 	public virtual DbSet<Post> Posts => Set<Post>();
+	public virtual DbSet<Comment> Comments => Set<Comment>();
 	//public virtual DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
 	protected override void OnModelCreating(ModelBuilder builder)
@@ -42,7 +43,7 @@ public class HotChanContext : IdentityDbContext<User, IdentityRole<Guid>, Guid,
 		builder.Entity<Post>()
 		.HasOne(p => p.User)
 		.WithMany(b => b.Posts)
-		.HasForeignKey(fk => fk.Id);
+		.HasForeignKey(fk => fk.UserId);
 
 	}
 }

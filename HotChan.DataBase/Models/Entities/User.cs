@@ -19,5 +19,7 @@ public class User : IdentityUser<Guid>
 
 	public string Salt { get; set; }
 
+	public bool IsBanned { get; set; }
+	public bool IsDisabled { get; set; }
 }
 
