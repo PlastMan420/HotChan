@@ -1,16 +1,9 @@
-using HotChan.DataAccess.Data;
-using HotChan.DataAccess.DataLoader;
-using HotChan.DataAccess.Repository;
-using HotChan.DataAccess.Users;
+using HotChan.DataAccess.Repositories;
 using HotChan.DataBase;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 //Microsoft.EntityFrameworkCore.Design import is required for efcore-tools. this is probably due to the "implicitusing usings" flag.
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.IdentityModel.Tokens;
-using System.Data.SqlClient;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,47 +16,12 @@ ConfigurationManager configuration = builder.Configuration;
 //csBuilder.Password = configuration["db:password"];
 //string _connection = csBuilder.ConnectionString;
 
-builder.Services.AddPooledDbContextFactory<HotChanContext>(options => options.UseNpgsql(configuration.GetConnectionString("hotchandatabase-postgres-dev")));
+builder.Services.AddPooledDbContextFactory<HotChanContext>(options => options.UseNpgsql("Host=localhost;Port=5432;User Id=postgres;Password=p1ckler1ck;Database=HotChanData-dev;Pooling=true;"));
+builder.Services.AddScoped<HotChanContext>();
+builder.Services.AddScoped<PostRepostiry>();
 
-// migrate any database changes on startup (includes initial db creation)
-//using (var scope = app.Services.CreateScope())
-//{
-//    var dataContext = scope.ServiceProvider.GetRequiredService<HotChanContext>();
-//    dataContext.Database.Migrate();
-//}
-
-// For Identity
-//builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-//    .AddEntityFrameworkStores<HotChanContext>()
-//    .AddDefaultTokenProviders();
-
-// Adding Authentication
-//builder.Services.AddAuthentication(options =>
-//{
-//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-//})
-
-//// Adding Jwt Bearer
-//.AddJwtBearer(options =>
-//{
-//    options.SaveToken = true;
-//    options.RequireHttpsMetadata = false;
-//    options.TokenValidationParameters = new TokenValidationParameters()
-//    {
-//        ValidateIssuer = true,
-//        ValidateAudience = true,
-//        ValidAudience = configuration["JWT:ValidAudience"],
-//        ValidIssuer = configuration["JWT:ValidIssuer"],
-//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
-//    };
-//});
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// wait for .NET 7.0
+//builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 builder.Services.AddCors(options =>
 {
@@ -76,49 +34,31 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services
-        //.AddSingleton<IUserRepository, UserRepository>()
-        .AddMemoryCache()
-        //.AddSha256DocumentHashProvider(HashFormat.Hex)
-        .AddGraphQLServer()
-        .RegisterDbContext<HotChanContext>(DbContextKind.Pooled)
-        //.AddAuthorization()
-        .AddQueryType<PostQuery>()
-        //.AddTypeExtension<UserQuery>()
-        //.AddTypeExtension<PostQuery>()
-        //.UseAutomaticPersistedQueryPipeline()
-        //.AddMutationType<PostMutation>()
-        .AddDataLoader<PostsBatchDL>()
-        //.AddDataLoader<UsersBatchDL>()
-        //.AddDataLoader<UserSubmissionsDL>()
-        //.AddType<UploadType>()
-        ;
 
 var app = builder.Build();
 
-app.MapGraphQL();
+// migrate any database changes on startup (includes initial db creation)
+//using (var scope = app.Services.CreateScope())
+//{
+//    var datacontext = scope.ServiceProvider.GetRequiredService<HotChanContext>();
+//    datacontext.Database.Migrate();
+//}
 
 // Configure the HTTP request pipeline.
 app.UseHttpsRedirection();
 
 app.UseCors();
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/post/{postId}", async (Guid postId, [FromServices]PostRepostiry postRepo) =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-       new WeatherForecast
-       (
-           DateTime.Now.AddDays(index),
-           Random.Shared.Next(-20, 55),
-           summaries[Random.Shared.Next(summaries.Length)]
-       ))
-        .ToArray();
-    return forecast;
+    var post = await postRepo.GetPostById(postId);
+    return post != null ? Results.Ok(post) : Results.NotFound();
+});
+
+app.MapGet("/post/catalog", async ([FromServices] PostRepostiry postRepo) =>
+{
+    var post = await postRepo.GetPostsforCatalog();
+    return Results.Ok(post);
 });
 
 app.Run();
-
-internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
