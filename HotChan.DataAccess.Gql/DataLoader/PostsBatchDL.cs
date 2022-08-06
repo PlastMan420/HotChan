@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HotChan.DataAccess.DataLoader
+namespace HotChan.DataAccess.Gql.DataLoader
 {
     public class PostsBatchDL : BatchDataLoader<Guid, Post>
     {

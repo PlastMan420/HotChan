@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using HotChan.DataBase.Models.Entities;
 
-namespace HotChan.DataAccess.Repository
+namespace HotChan.DataAccess.Gql.Repository
 {
 	public interface IUserRepository
 	{

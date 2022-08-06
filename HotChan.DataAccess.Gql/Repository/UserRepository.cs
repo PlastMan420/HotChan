@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using HotChan.DataBase.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace HotChan.DataAccess.Repository
+namespace HotChan.DataAccess.Gql.Repository
 {
 	public class UserRepository : IUserRepository
 	{

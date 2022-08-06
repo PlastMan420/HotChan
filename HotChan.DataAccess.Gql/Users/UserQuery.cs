@@ -1,4 +1,4 @@
-﻿using HotChan.DataAccess.DataLoader;
+﻿using HotChan.DataAccess.Gql.DataLoader;
 using HotChan.DataBase;
 using HotChan.DataBase.Extensions;
 using HotChan.DataBase.Models.Entities;
@@ -12,7 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HotChan.DataAccess.Users
+namespace HotChan.DataAccess.Gql.Users
 {
 	public class UserQuery
 	{

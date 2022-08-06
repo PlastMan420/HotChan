@@ -7,12 +7,12 @@ using HotChocolate;
 using Microsoft.EntityFrameworkCore;
 using HotChocolate.Types;
 using HotChan.DataBase.Extensions;
-using HotChan.DataAccess.DataLoader;
+using HotChan.DataAccess.Gql.DataLoader;
 using System.Threading;
 using HotChocolate.Types.Relay;
 using HotChan.DataBase.Models.Entities;
 
-namespace HotChan.DataAccess.Data
+namespace HotChan.DataAccess.Gql.Data
 {
 	public class PostQuery
 	{

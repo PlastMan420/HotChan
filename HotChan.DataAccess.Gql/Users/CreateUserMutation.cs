@@ -1,4 +1,4 @@
-﻿using HotChan.DataAccess.Repository;
+﻿using HotChan.DataAccess.Gql.Repository;
 using HotChan.DataBase;
 using HotChan.DataBase.Extensions;
 using HotChan.DataBase.Models.Dtos;
@@ -7,7 +7,7 @@ using HotChocolate;
 using System;
 using System.Threading.Tasks;
 
-namespace HotChan.DataAccess.Users
+namespace HotChan.DataAccess.Gql.Users
 {
 	class CreateUserMutation
 	{

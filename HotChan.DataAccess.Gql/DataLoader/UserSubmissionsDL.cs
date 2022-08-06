@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HotChan.DataAccess.DataLoader
+namespace HotChan.DataAccess.Gql.DataLoader
 {
 	public class UserSubmissionsDL : GroupedDataLoader<Guid, Post>
 	{
@@ -30,8 +30,8 @@ namespace HotChan.DataAccess.DataLoader
 		{
 			await using HotChanContext dbContext = _dbContextFactory.CreateDbContext();
 
-			var posts =  dbContext.Posts.Where(x => x.Id == key.ElementAt(0));
-			return posts.ToLookup(x => x.Id);
+			var posts =  dbContext.Posts.Where(x => x.UserId == key.ElementAt(0));
+			return posts.ToLookup(x => x.UserId);
 
 		}
 	}

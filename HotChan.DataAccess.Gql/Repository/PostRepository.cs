@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotChan.DataAccess.Repository
+namespace HotChan.DataAccess.Gql.Repository
 {
     internal class PostRepository
     {

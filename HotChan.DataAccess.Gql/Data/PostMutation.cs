@@ -9,7 +9,7 @@ using HotChocolate;
 using Microsoft.AspNetCore.Http;
 
 
-namespace HotChan.DataAccess.Data
+namespace HotChan.DataAccess.Gql.Data
 {
 	public class PostMutation
 	{
@@ -30,7 +30,7 @@ namespace HotChan.DataAccess.Data
 				Time = DateTimeOffset.Now,
 				Tags = tags,
 				MediaUrl = mediaUrl,
-				Id = userId,
+				UserId = userId,
 				User = hotchanContext.Users.FirstOrDefault(d => d.Id == userId)
 			};
 
