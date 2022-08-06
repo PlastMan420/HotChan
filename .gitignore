@@ -368,3 +368,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/HotChanAngular/hot-chan/src/assets/samples/faggot.jpg
+/HotChanAngular/hot-chan/src/assets/samples/floppa.gif
+/HotChanAngular/hot-chan/src/assets/samples/pic.jpg

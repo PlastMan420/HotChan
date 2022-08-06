@@ -1,29 +1,29 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
 using HotChan.DataAccess.Data;
 using HotChan.DataBase;
-using Microsoft.AspNetCore.Authentication;
 using HotChan.DataAccess.DataLoader;
 using HotChan.DataAccess.Repository;
 using HotChan.DataAccess.Users;
 using System;
-using HotChocolate.Types;
-using HotChocolate.Language;
-using System.Data.SqlClient;
 using System.Security.Cryptography;
 using HotChan.DataBase.Models.Entities;
+using HotChanApi.Services;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using HotChocolate.Language;
+using HotChocolate.Types;
+using HotChanApi.Authentication;
 
 namespace HotChanApi
 {
-	public class Startup
+    public class Startup
 	{
 		private string _connection = null;
 
@@ -39,58 +39,18 @@ namespace HotChanApi
 		{
 			services.AddControllers();
 
-			//services.AddResponseCompression(opts =>
-			//{
-			//	opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
-			//		new[] { "application/octet-stream" });
-			//});
-
-			// Add JWT Tokens. Also authentication must be Added inorder to get services.AddIdentityCore<>() to work.
-			// TODO
-			// Asymmetric JWT auth:
-			// https://blog.devgenius.io/jwt-authentication-in-asp-net-core-e67dca9ae3e8
-			services.AddSingleton<RsaSecurityKey>(provider =>
-			{
-				RSA rsa = RSA.Create();
-
-				rsa.ImportRSAPublicKey(
-					source: Convert.FromBase64String(Configuration["jwt:rs512-public"]),
-					bytesRead: out int _
-				);
-				return new RsaSecurityKey(rsa);
-			});
-
-			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-				.AddJwtBearer("Asymmetric", options =>
-				{
-					SecurityKey rsa = services.BuildServiceProvider().GetRequiredService<RsaSecurityKey>();
-					options.IncludeErrorDetails = true; // <- great for debugging
-
-					// Configure the actual Bearer validation
-					options.TokenValidationParameters = new TokenValidationParameters
-					{
-						IssuerSigningKey = rsa,
-						ValidAudience = "jwt-test",
-						ValidIssuer = "jwt-test",
-						RequireSignedTokens = true,
-						RequireExpirationTime = true, // <- JWTs are required to have "exp" property set
-						ValidateLifetime = true, // <- the "exp" will be validated
-						ValidateAudience = true,
-						ValidateIssuer = true,
-					};
-				});
-
 			// DataBase
 			var csBuilder = new SqlConnectionStringBuilder(
 				Configuration.GetConnectionString("hotchandatabase-postgres-dev"));
 			csBuilder.Password = Configuration["db:password"];
 			_connection = csBuilder.ConnectionString;
 
-			var migrationAssembly = this.GetType().Assembly.FullName;
+			//services.AddPooledDbContextFactory<HotChanContext>(options => 
+			//	options.UseNpgsql(_connection, b => b.MigrationsAssembly(migrationAssembly))
+			//);
 
-			services.AddPooledDbContextFactory<HotChanContext>(options => 
-				options.UseNpgsql(_connection, b => b.MigrationsAssembly(migrationAssembly))
-			);
+			services.AddDbContext<HotChanContext>(
+				options => options.UseNpgsql(_connection));
 
 			// ASP.NET Identity
 			services.AddIdentity<User, Role>(
@@ -148,7 +108,6 @@ namespace HotChanApi
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
-
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();

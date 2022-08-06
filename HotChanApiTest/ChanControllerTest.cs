@@ -6,10 +6,6 @@ namespace HotChanApiTest
 {
 	public class ChanControllerTest
 	{
-		[Fact]
-		public async Task ChanControllerTest()
-		{
 
-		}
 	}
 }
