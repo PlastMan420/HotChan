@@ -7,8 +7,22 @@ public class Comment
 {
     public Guid Id { get; set; }
     public string CommentText { get; set; }
-    public DateTime CreatedOn { get; set; }
-    public DateTime LastModified { get; set; }
+    public DateTimeOffset CreatedOn
+    {
+        get => CreatedOn;
+        set
+        {
+            CreatedOn = DateTime.UtcNow;
+        }
+    }
+    public DateTimeOffset LastModified
+    {
+        get => LastModified;
+        set
+        {
+            LastModified = DateTime.UtcNow;
+        }
+    }
     public bool IsModified { get; set; }
 
     [ForeignKey("User")]

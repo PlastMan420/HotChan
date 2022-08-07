@@ -15,7 +15,14 @@ public class Post
 
 	public string Description { get; set; }
 
-	public DateTimeOffset Time { get; set; }
+	public DateTimeOffset CreatedOn
+	{ 
+		get => CreatedOn; 
+		set 
+		{
+			CreatedOn = DateTime.UtcNow; 
+		} 
+	}
 
 	public Uri MediaUrl { get; set; }
 
@@ -28,4 +35,3 @@ public class Post
 	public User User { get; set; }
 
 }
-
