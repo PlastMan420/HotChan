@@ -10,10 +10,10 @@ export class NavbarComponent implements OnInit {
 	NavDirs = new Map([
 		["Home", "/"],
 		["Account", "/account"],
-		["Upload", "/upload"],
-		["Recent", "/recent"],
-		["sample post", "/post/4c8c0e04-a727-42b4-bcbc-e24aa082bc07"],
-		["sample gql post", "/post/4c8c0e04-a727-42b4-bcbc-e24aa082bc07"]
+		["Upload", "/post/upload"],
+		["Recent", "/post"],
+		["sample post", "/post/view/4c8c0e04-a727-42b4-bcbc-e24aa082bc07"],
+		["sample gql post", "/post/view/4c8c0e04-a727-42b4-bcbc-e24aa082bc07"]
 	]);
 
 	constructor() { }

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PostViewComponent } from './Posts/post-view/post-view.component';
 
 const routes: Routes = [
-	{ path: 'post', component: PostViewComponent },
-	{ path: 'post/:postid', component: PostViewComponent },
+	{
+    path: 'post',
+    loadChildren: () => import('./Posts/Posts.module').then(m => m.PostsModule)
+  }
 ];
 
 @NgModule({

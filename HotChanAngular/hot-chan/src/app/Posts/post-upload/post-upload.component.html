@@ -1,0 +1,12 @@
+
+<h6>Create New Post</h6>
+
+<input type="file"
+       id="fileSelector"
+       #fileSelector
+       accept="image/png, image/jpeg"
+       (change)="fileChange($event)"
+       multiple
+       >
+
+<gallery [items]="images"></gallery>

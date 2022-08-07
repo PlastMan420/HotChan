@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-// import { InMemoryCache } from '@apollo/client';
-// import { ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
-// import { HttpLink } from 'apollo-angular/http';
-// import { environment } from 'src/environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +9,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PostsModule } from './Posts/Posts.module';
 import { SharedModule } from './shared/shared.module.ts';
 
+// import { InMemoryCache } from '@apollo/client';
+// import { ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
+// import { HttpLink } from 'apollo-angular/http';
+// import { environment } from 'src/environments/environment';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -19,12 +21,12 @@ import { SharedModule } from './shared/shared.module.ts';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		BrowserAnimationsModule,
 		//GraphQLModule,
 		//ApolloModule,
 		HttpClientModule,
 		ReactiveFormsModule,
 		SharedModule,
-		PostsModule
 	],
 	providers: [
 		// {
