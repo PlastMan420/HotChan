@@ -16,3 +16,9 @@ export type User = {
 export type IFile = {
 	
 }
+
+export type UserAuth = {
+	username: string,
+	password: string,
+	key: string
+}

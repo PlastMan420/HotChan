@@ -1,1 +1,22 @@
-<form></form>
+<form [formGroup]="userForm">
+  <div class="d-flex flex-column">
+    <div class="form-control-block">
+      <label class="mr-auto" for="username">User Name: </label>
+      <input id="username" type="text" formControlName="userName" />
+    </div>
+
+		<div class="form-control-block">
+      <label class="mr-auto" for="mail">e-mail: </label>
+      <input id="mail" type="text" formControlName="emailAddress" />
+    </div>
+
+    <div class="form-control-block">
+      <label class="mr-auto" for="password">Password: </label>
+      <input id="password" type="password" formControlName="key" />
+    </div>
+    
+		<div class="form-control-block">
+			<button class="submit" (click)="submit()">Submit</button>
+		</div>
+  </div>
+</form>

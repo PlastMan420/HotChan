@@ -3,17 +3,15 @@ using HotChan.DataBase;
 using HotChan.DataBase.Models.Dtos;
 using HotChan.DataBase.Models.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace HotChan.DataAccess.Repositories;
 
-public class PostRepostiry
+public class PostRepository
 {
     private readonly HotChanContext _db;
     private readonly IMapper _mapper;
-    //private readonly ILogger _logger;
 
-    public PostRepostiry(HotChanContext dataContext, IMapper mapper)
+    public PostRepository(HotChanContext dataContext, IMapper mapper)
     {
         _db = dataContext;
         _mapper = mapper;
@@ -38,6 +36,7 @@ public class PostRepostiry
         }
         catch(Exception e)
         {
+           // _logger.LogError(e.Message);
             return false;
         }
     }

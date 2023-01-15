@@ -2,13 +2,14 @@
 using HotChan.DataBase.Models.Dtos;
 using HotChan.DataBase.Models.Entities;
 
-namespace HotChan.DataAccess.AutoMapper
+namespace HotChan.DataAccess.AutoMapper;
+
+internal class AutoMapperProfiles : Profile
 {
-    internal class AutoMapperProfiles : Profile
+    public AutoMapperProfiles()
     {
-        public AutoMapperProfiles()
-        {
-            CreateMap<PostDialogueDto, Post>();
-        }
+        CreateMap<PostDialogueDto, Post>();
+        CreateMap<User, UserInfoDto>();
+        CreateMap<UserAuth, User>();
     }
 }

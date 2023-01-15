@@ -4,34 +4,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotChan.DataBase.Models.Entities;
 
-public class Post
+public class Post : BaseEntity
 {
-	[Key]
-	public Guid PostId { get; set; }
-		
-	[Required]
-	[MaxLength(20)]
-	public string PostTitle { get; set; }
+    [Key]
+    public Guid PostId { get; set; }
 
-	public string Description { get; set; }
+    [Required]
+    [MaxLength(20)]
+    public string PostTitle { get; set; }
 
-	public DateTimeOffset CreatedOn
-	{ 
-		get => CreatedOn; 
-		set 
-		{
-			CreatedOn = DateTime.UtcNow; 
-		} 
-	}
+    public string Description { get; set; }
 
-	public Uri MediaUrl { get; set; }
+    public Uri MediaUrl { get; set; }
 
-	public Uri ThumbnailUrl { get; set; }
+    public Uri ThumbnailUrl { get; set; }
 
-	public string[] Tags { get; set; }
+    public string[] Tags { get; set; }
 
-	[ForeignKey("User")]
-	public Guid UserId { get; set; }
-	public User User { get; set; }
-
+    public bool Hidden { get; set; }
 }

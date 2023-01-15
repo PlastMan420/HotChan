@@ -18,5 +18,7 @@ public class PostDialogueDto
 	public string Description { get; set; }
 
 	public Uri MediaUrl { get; set; }
+
+	public bool Hidden { get; set; }
 }
 

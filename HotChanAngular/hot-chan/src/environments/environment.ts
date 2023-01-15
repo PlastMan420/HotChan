@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  devServerBaseUrl: "https://localhost:7032/",
+  devServerBaseUrl: "https://localhost:7032/api/",
   graphQlServer: "https://localhost:7032/graphql"
 };
 

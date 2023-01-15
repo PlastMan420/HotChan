@@ -1,0 +1,1 @@
+dotnet ef --startup-project ..\..\HotChan.Api\HotChan.Api.csproj migrations remove --context HotChanContext

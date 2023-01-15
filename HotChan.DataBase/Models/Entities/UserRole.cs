@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotChan.DataBase.Models.Entities;
 
 public class UserRole : IdentityUserRole<Guid>
 {
-	public User User { get; set; }
-	public Role Role { get; set; }
+    [NotMapped]
+    public Role Role { get; set; }
 }
-

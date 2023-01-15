@@ -17,7 +17,7 @@ namespace HotChan.DataBase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -31,13 +31,13 @@ namespace HotChan.DataBase.Migrations
                     b.Property<string>("CommentText")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTimeOffset>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsModified")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("LastModified")
+                    b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("PostId")
@@ -61,8 +61,14 @@ namespace HotChan.DataBase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<DateTimeOffset>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
+
+                    b.Property<bool>("Hidden")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("MediaUrl")
                         .HasColumnType("text");
@@ -72,16 +78,16 @@ namespace HotChan.DataBase.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
+                    b.Property<Guid>("PostedById")
+                        .HasColumnType("uuid");
+
                     b.Property<string[]>("Tags")
                         .HasColumnType("text[]");
 
                     b.Property<string>("ThumbnailUrl")
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset>("Time")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid?>("UserId1")
@@ -160,6 +166,9 @@ namespace HotChan.DataBase.Migrations
                     b.Property<string>("Salt")
                         .HasColumnType("text");
 
+                    b.Property<string>("SaltHash")
+                        .HasColumnType("text");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
@@ -190,9 +199,14 @@ namespace HotChan.DataBase.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uuid");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
@@ -228,6 +242,8 @@ namespace HotChan.DataBase.Migrations
                     b.ToTable("AspNetRoles", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<Guid>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -322,6 +338,9 @@ namespace HotChan.DataBase.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>");
 
+                    b.Property<int>("eRoleId")
+                        .HasColumnType("integer");
+
                     b.HasDiscriminator().HasValue("Role");
                 });
 
@@ -346,17 +365,13 @@ namespace HotChan.DataBase.Migrations
 
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.Post", b =>
                 {
-                    b.HasOne("HotChan.DataBase.Models.Entities.User", "User")
-                        .WithMany("Posts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HotChan.DataBase.Models.Entities.User", null)
                         .WithMany("Favorits")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
 
-                    b.Navigation("User");
+                    b.HasOne("HotChan.DataBase.Models.Entities.User", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.UserRole", b =>
@@ -373,11 +388,15 @@ namespace HotChan.DataBase.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HotChan.DataBase.Models.Entities.User", "User")
-                        .WithMany("UserRoles")
+                    b.HasOne("HotChan.DataBase.Models.Entities.User", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("HotChan.DataBase.Models.Entities.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Role");
 

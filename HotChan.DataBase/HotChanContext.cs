@@ -16,35 +16,13 @@ public class HotChanContext : IdentityDbContext<User, IdentityRole<Guid>, Guid,
 
 	public virtual DbSet<Post> Posts => Set<Post>();
 	public virtual DbSet<Comment> Comments => Set<Comment>();
+	public virtual DbSet<bookmarks> Bookmarks => Set<bookmarks>();
 	//public virtual DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
 	protected override void OnModelCreating(ModelBuilder builder)
 	{
 		// this must be set in case of inheriting from IdentityDbContext 
 		base.OnModelCreating(builder);
-
-		// User Roles
-		builder.Entity<UserRole>(userRole =>
-		{
-			userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
-
-			userRole.HasOne(ur => ur.Role)
-			.WithMany(r => r.UserRoles)
-			.HasForeignKey(ur => ur.RoleId)
-			.IsRequired();
-
-			userRole.HasOne(ur => ur.User)
-			.WithMany(r => r.UserRoles)
-			.HasForeignKey(ur => ur.UserId)
-			.IsRequired();
-		});
-
-		// One to Many user -> posts. ef conventions were not working for some reason
-		builder.Entity<Post>()
-		.HasOne(p => p.User)
-		.WithMany(b => b.Posts)
-		.HasForeignKey(fk => fk.UserId);
-
 	}
 }
 

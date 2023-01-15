@@ -9,10 +9,8 @@ import { PostRoutes } from './post.routing';
 import { PostUploadComponent } from './post-upload/post-upload.component';
 
 @NgModule({
-  imports: [
-    CommonModule, PostRoutes, SharedModule, GalleryModule
-  ],
+  imports: [CommonModule, PostRoutes, SharedModule, GalleryModule],
   declarations: [PostViewComponent, CatalogComponent, PostUploadComponent],
-  providers: [DataService]
+  providers: [DataService],
 })
-export class PostsModule { }
+export class PostsModule {}
