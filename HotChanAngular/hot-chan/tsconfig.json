@@ -15,6 +15,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
+    "useDefineForClassFields": false,
     "target": "ES2022",
     "module": "ES2022",
     "lib": [
@@ -22,8 +23,7 @@
       "dom",
       "esnext.asynciterable"
     ],
-    "allowSyntheticDefaultImports": true,
-    "useDefineForClassFields": false
+    "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

@@ -6,13 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PostsModule } from './Posts/Posts.module';
 import { SharedModule } from './shared/shared.module.ts';
 
-// import { InMemoryCache } from '@apollo/client';
-// import { ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
-// import { HttpLink } from 'apollo-angular/http';
-// import { environment } from 'src/environments/environment';
+import { InMemoryCache } from '@apollo/client';
+import { ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { environment } from 'src/environments/environment';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
 	declarations: [
@@ -22,25 +22,25 @@ import { SharedModule } from './shared/shared.module.ts';
 		BrowserModule,
 		AppRoutingModule,
 		BrowserAnimationsModule,
-		//GraphQLModule,
-		//ApolloModule,
+		ApolloModule,
 		HttpClientModule,
 		ReactiveFormsModule,
 		SharedModule,
+		GraphQLModule,
 	],
 	providers: [
-		// {
-		// 	provide: APOLLO_OPTIONS,
-		// 	useFactory: (httpLink: HttpLink) => {
-		// 		return {
-		// 			cache: new InMemoryCache(),
-		// 			link: httpLink.create({
-		// 				uri: environment.graphQlServer,
-		// 			}),
-		// 		};
-		// 	},
-		// 	deps: [HttpLink],
-		// }
+		{
+			provide: APOLLO_OPTIONS,
+			useFactory: (httpLink: HttpLink) => {
+				return {
+					cache: new InMemoryCache(),
+					link: httpLink.create({
+						uri: environment.graphQlServer,
+					}),
+				};
+			},
+			deps: [HttpLink],
+		}
 	],
 	bootstrap: [AppComponent]
 })
