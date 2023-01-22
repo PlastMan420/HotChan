@@ -1,0 +1,1 @@
+export type FooterFunction = { label: string; func: Function, funcName: string }

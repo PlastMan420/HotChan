@@ -1,0 +1,12 @@
+<footer>
+    <div class="d-flex">
+        <div class="flex-fill">{{ todaysDataTime }}</div>
+        <div class="flex-fill">Func:
+          <div class="d-flex">
+            <div *ngFor="let f of functions">
+              <p-button [label]="f.label" (click)="calledFn(f)"></p-button>
+            </div>
+          </div>
+        </div>
+    </div>
+</footer>
