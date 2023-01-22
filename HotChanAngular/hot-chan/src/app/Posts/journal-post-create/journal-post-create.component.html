@@ -1,0 +1,12 @@
+<form [formGroup]="journalPostForm">
+
+  <h2>{{journalPostForm.controls['title'].value || placeholderPostTitle}}</h2>
+
+  <div class="mb-3">
+    <h5>Basic</h5>
+    <input type="text" formControlName="title" pInputText> 
+  </div>
+
+    <h5>Content</h5>
+    <p-editor formControlName="postText" [style]="{'height':'320px'}"></p-editor>
+</form>

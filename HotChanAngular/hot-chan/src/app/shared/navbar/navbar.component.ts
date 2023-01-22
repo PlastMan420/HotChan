@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
 		["Home", "/"],
 		["Account", "/account"],
 		["Upload", "/post/upload"],
+		["New Journal", "/post/submitjournal"],
 		["Recent", "/post"],
 		["sample post", "/post/view/4c8c0e04-a727-42b4-bcbc-e24aa082bc07"],
 		["sample gql post", "/post/view/4c8c0e04-a727-42b4-bcbc-e24aa082bc07"],
