@@ -85,7 +85,7 @@ public class Program
             .RegisterService<PostRepository>()
             .SetPagingOptions(new PagingOptions{MaxPageSize = 20})
             .AddQueryType<HotChanQuery>()
-            //.AddMutationType<HotChanMutation>()
+            .AddMutationType<HotChanMutation>()
             //.AddExtendingTypesTypes()
             ;
 

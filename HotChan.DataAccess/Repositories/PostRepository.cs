@@ -40,4 +40,22 @@ public class PostRepository
             return false;
         }
     }
+
+    public async Task<bool> CreateJournalPost(PostDialogueDto newPost)
+    {
+        var post = _mapper.Map<Post>(newPost);
+
+        _db.Posts.Add(post);
+
+        try
+        {
+            await _db.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception e)
+        {
+            // _logger.LogError(e.Message);
+            return false;
+        }
+    }
 }
