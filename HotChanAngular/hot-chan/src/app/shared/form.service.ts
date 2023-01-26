@@ -12,7 +12,7 @@ export class FormService {
         this.formLabel = formLabel;
         this.initFooter();
 
-        this.footerSrv.callFn.subscribe((x) => {
+        this.footerSrv.callFn.subscribe({ next: (x) => {
             const funcName = x.pageFunctions[0].funcName;
             const ctx = x.context;
 
@@ -20,7 +20,7 @@ export class FormService {
 
             // use reflection
             f(ctx);
-        });
+        } });
     }
 
     form!: FormGroup;

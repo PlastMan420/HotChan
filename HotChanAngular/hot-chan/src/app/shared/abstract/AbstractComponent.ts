@@ -6,7 +6,7 @@ export abstract class AbstractComponent {
     constructor(
         private footerSrv: FooterService,
     ) {
-        this.footerSrv.callFn.subscribe((x) => {
+        this.footerSrv.callFn.subscribe({ next: (x) => {
             const funcName = x.pageFunctions[0].funcName;
             const ctx = x.context;
 
@@ -14,7 +14,7 @@ export abstract class AbstractComponent {
 
             // use reflection
             f(ctx);
-        });
+        } });
     }
 
     form!: FormGroup;

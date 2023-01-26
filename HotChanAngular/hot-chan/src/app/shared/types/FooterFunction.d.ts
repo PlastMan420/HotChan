@@ -8,4 +8,4 @@ export type Footer = {
     pageFunctions: FooterFunction[];
     context: object;
     footerLabel: string
-}
+};

@@ -30,7 +30,7 @@ export class PostUploadComponent implements OnInit  {
           console.log(event.target.result);
           const item = {data: event.target.result, type: 'jpg'};
           this.gallery.addImage({ src: event.target.result, thumb: event.target.result });
-      }
+      };
       reader.readAsDataURL(event.target.files[0]);
   }
 

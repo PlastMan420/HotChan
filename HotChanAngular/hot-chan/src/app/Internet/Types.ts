@@ -11,14 +11,14 @@ export type Post = {
 export type User = {
 	id: string,
 	userName: string,
-}
+};
 
 export type IFile = {
 	
-}
+};
 
 export type UserAuth = {
 	username: string,
 	password: string,
 	key: string
-}
+};

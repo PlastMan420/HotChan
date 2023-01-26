@@ -21,7 +21,7 @@ export class FooterState extends ComponentStore<FooterFunctionsState> {
 			return {
 				...s,
 				functions: [...s.functions, func]
-			}
+			};
 		});
 	}
 }

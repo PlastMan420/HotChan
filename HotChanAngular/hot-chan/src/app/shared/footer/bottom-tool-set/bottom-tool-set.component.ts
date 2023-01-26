@@ -19,9 +19,9 @@ export class BottomToolSetComponent implements OnInit {
         this.initTimer();
         this.setFooterFunctions();
 
-        this.footerServ.functionsChangeDetector.subscribe(x => {
+        this.footerServ.functionsChangeDetector.subscribe({ next: x => {
             this.setFooterFunctions();
-        });
+        } });
     }
 
     private setFooterFunctions() {
@@ -39,7 +39,7 @@ export class BottomToolSetComponent implements OnInit {
     }
 
     public calledFn(fn: FooterFunction) {
-        const event = {context: this.pageFooter.context, pageFunctions: [fn]} as Footer
+        const event = {context: this.pageFooter.context, pageFunctions: [fn]} as Footer;
 
         this.footerServ.calledFn(event);
     }

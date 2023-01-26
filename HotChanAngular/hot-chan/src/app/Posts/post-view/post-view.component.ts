@@ -39,13 +39,13 @@ export class PostViewComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.querySubscription.unsubscribe();
     this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.destroy$.complete();
   }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
+    this.route.paramMap.subscribe({ next: (params) => {
       this.postId = params.get('postid');
-    });
+    } });
 
     if (this.postId) {
       console.log(this.postId);

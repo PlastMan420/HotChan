@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, take, firstValueFrom } from 'rxjs';
-import { environment } from '../../environments/environment'
+import { environment } from '../../environments/environment';
 import { eRole } from './enums';
 import { Post, UserAuth } from './Types';
 
