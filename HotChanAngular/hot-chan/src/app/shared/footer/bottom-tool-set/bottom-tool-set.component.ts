@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FooterFunction } from '../../types/FooterFunction';
+import { Footer, FooterFunction } from '../../types/FooterFunction';
 import { FooterService } from '../footer.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class BottomToolSetComponent implements OnInit {
 
     today = new Date();
     todaysDataTime!: string;
-    functions!: FooterFunction[];
+    pageFooter!: Footer;
     persistant!: FooterFunction[];
 
     ngOnInit() {
@@ -25,7 +25,7 @@ export class BottomToolSetComponent implements OnInit {
     }
 
     private setFooterFunctions() {
-        this.functions = this.footerServ.pageFunctions;
+        this.pageFooter = this.footerServ.pageFooter;
     }
 
     private initTimer() {
@@ -39,6 +39,8 @@ export class BottomToolSetComponent implements OnInit {
     }
 
     public calledFn(fn: FooterFunction) {
-        this.footerServ.calledFn(fn);
+        const event = {context: this.pageFooter.context, pageFunctions: [fn]} as Footer
+
+        this.footerServ.calledFn(event);
     }
 }

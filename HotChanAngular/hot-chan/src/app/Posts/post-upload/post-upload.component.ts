@@ -1,5 +1,5 @@
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { GalleryComponent, GalleryItem, ImageItem } from 'ng-gallery';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { GalleryComponent, GalleryItem } from 'ng-gallery';
 
 @Component({
   selector: 'app-post-upload',
@@ -7,28 +7,25 @@ import { GalleryComponent, GalleryItem, ImageItem } from 'ng-gallery';
   styleUrls: ['./post-upload.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PostUploadComponent implements OnInit, AfterViewInit  {
+export class PostUploadComponent implements OnInit  {
 
   constructor() { }
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   //@ViewChild('#fileSelector') fileSelector!: HTMLInputElement;
   @ViewChild(GalleryComponent) gallery!: GalleryComponent;
 
   images: GalleryItem[] = [];
 
-  ngOnInit() {
-    
-  }
-
-  ngAfterViewInit(): void {
-    
-  }
 
   fileChange(event: any) {
-    let fileList: FileList = event.target.files;
+    const fileList: FileList = event.target.files;
     
     if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.onload = (event: any) => {
           console.log(event.target.result);
           const item = {data: event.target.result, type: 'jpg'};

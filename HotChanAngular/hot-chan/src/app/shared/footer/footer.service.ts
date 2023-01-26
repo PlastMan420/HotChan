@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { FooterFunction } from '../types/FooterFunction';
+import { Footer, FooterFunction } from '../types/FooterFunction';
 
 @Injectable({
     providedIn: 'root',
@@ -9,9 +9,11 @@ export class FooterService {
     constructor() {}
 
     private _pageFunctions!: FooterFunction[];
+    
+    pageFooter!: Footer;
+
     public functionsChangeDetector = new Subject();
-    public callFn = new Subject<FooterFunction>();
-    pageFooter!: FooterFunction[];
+    public callFn = new Subject<Footer>();
 
     callFn$ = this.callFn.asObservable();
 
@@ -24,19 +26,18 @@ export class FooterService {
         return this._pageFunctions;
     }
 
-    public calledFn(fn: FooterFunction){
+    public calledFn(fn: Footer){
         
-       // console.log(fn)
         this.callFn.next(fn);
     }
 
-    public setFooter(footerFunctions: FooterFunction[]) {
+    public setFooter(footerFunctions: Footer) {
         this.pageFooter = footerFunctions;
-        this.pageFunctions = this.pageFooter;
-      }
+        this.pageFunctions = this.pageFooter.pageFunctions;
+    }
   
     public appendFooterFunction(footerFunction: FooterFunction){
-        this.pageFooter.push(footerFunction);
-        this.pageFunctions = this.pageFooter;
+        this.pageFooter.pageFunctions.push(footerFunction);
+        this.pageFunctions = this.pageFooter.pageFunctions;
     }
 }

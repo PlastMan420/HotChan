@@ -1,12 +1,36 @@
 <footer>
     <div class="d-flex">
-        <div class="flex-fill">{{ todaysDataTime }}</div>
-        <div class="flex-fill">Func:
-          <div class="d-flex">
-            <div *ngFor="let f of functions">
-              <p-button [label]="f.label" (click)="calledFn(f)"></p-button>
+        <div #persistant class="flex-fill">
+            <div class="d-flex">
+                <div class="mx-1">
+                    {{ todaysDataTime }}
+                </div>
+
+                <div class="mx-1">
+                    <input
+                        class=""
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                    />
+                </div>
             </div>
-          </div>
+        </div>
+
+        <div class="flex-fill">
+            <div class="d-flex">
+                <ng-container *ngIf="pageFooter">
+                    <div class="me-auto">
+                        {{ pageFooter.footerLabel }}
+                    </div>
+                    <div *ngFor="let f of pageFooter.pageFunctions">
+                        <p-button
+                            [label]="f.label"
+                            (click)="calledFn(f)"
+                        ></p-button>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </div>
 </footer>

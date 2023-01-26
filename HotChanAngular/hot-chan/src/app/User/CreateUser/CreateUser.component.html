@@ -1,4 +1,4 @@
-<form [formGroup]="userForm">
+<form [formGroup]="form">
   <div class="d-flex flex-column">
     <div class="form-control-block">
       <label class="mr-auto" for="username">User Name: </label>
@@ -12,11 +12,7 @@
 
     <div class="form-control-block">
       <label class="mr-auto" for="password">Password: </label>
-      <input id="password" type="password" formControlName="key" />
+      <p-password formControlName="key"></p-password>
     </div>
-    
-		<div class="form-control-block">
-			<button class="submit" (click)="submit()">Submit</button>
-		</div>
   </div>
 </form>

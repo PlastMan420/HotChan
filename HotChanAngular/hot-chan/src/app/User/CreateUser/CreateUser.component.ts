@@ -1,40 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DataService } from 'src/app/Internet/Data.service';
-import { UserAuth } from 'src/app/Internet/Types';
+import { AbstractComponent } from 'src/app/shared/abstract/AbstractComponent';
+import { FooterService } from 'src/app/shared/footer/footer.service';
 
 @Component({
-  selector: 'app-CreateUser',
+  selector: 'app-create-user',
   templateUrl: './CreateUser.component.html',
   styleUrls: ['./CreateUser.component.scss']
 })
-export class CreateUserComponent implements OnInit {
+export class CreateUserComponent extends AbstractComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private dataservice: DataService) { }
+  constructor(footerSrv: FooterService, private dataservice: DataService)
+  {
+    super(footerSrv)
+  }
   
-  userForm!: FormGroup;
-  
+  override readonly formLabel = "User Authentication";
+
   ngOnInit() {
     this.initForm();
-    
+    this.initFooter();
   }
 
   private initForm(){
-    this.userForm = this.fb.group({
-      userName: [null, Validators.required],
-      emailAddress: [null, [Validators.required, Validators.email]],
-      key: [null, [Validators.required, Validators.minLength(6), Validators.maxLength(14)]],
+    this.form = new FormGroup({
+      userName: new FormControl(null, Validators.required),
+      emailAddress: new FormControl(null, [Validators.required, Validators.email]),
+      key: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(14)]),
     });
   }
 
-  submit(){
-    if(this.userForm.valid){
-      const data = this.userForm.value as UserAuth;
-      console.log(data);
-      this.dataservice.CreateUser(data);
-    }
-    else{
-      console.log("no")
-    }
+  submit(): void {
+    alert("booba")
   }
 }
