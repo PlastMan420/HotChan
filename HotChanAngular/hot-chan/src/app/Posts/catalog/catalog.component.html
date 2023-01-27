@@ -1,3 +1,9 @@
-<p>
-  catalog works!
-</p>
+<ng-container *ngFor="let post of catalog">
+  <div class="mx-3">
+    <h6>
+      {{post.postTitle}}
+    </h6>
+
+    <p [innerHTML]="post.description"></p>
+  </div>
+</ng-container>
