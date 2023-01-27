@@ -3,9 +3,10 @@ export type Post = {
 	description: string,
 	mediaUrl: string,
 	thumbnailUrl: string,
-	time: Date,
+	createdOn: Date | string,
 	hidden: boolean,
-	userId: string
+	postId: string,
+	tags: string[]
 };
 
 export type User = {
