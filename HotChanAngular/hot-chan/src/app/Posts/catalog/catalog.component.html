@@ -1,9 +1,27 @@
-<ng-container *ngFor="let post of catalog">
-  <div class="mx-3">
-    <h6>
-      {{post.postTitle}}
-    </h6>
+<div class="container">
+  <div class="row row-cols-auto">
+    <ng-container *ngFor="let post of catalog">
+      <div class="col mx-3 my-5" routerLink="/post/view/{{post.postId}}">
+          <p-card
+              [header]="post.postTitle"
+              [subheader]="'On '+ $any(post.createdOn | date:'EE, MMM d, y h:mm a')"
+              [style]="{
+                  width: '360px',
+                  height: '20vh',
+                  'max-height': '20vh',
+                  'overflow-y': 'hidden'
+              }"
+              styleClass="p-card-shadow hover-style"
+          >
+              <ng-container *ngIf="post.thumbnailUrl">
+                  <ng-template pTemplate="header">
+                      <img alt="Card" [ngSrc]="post.thumbnailUrl" />
+                  </ng-template>
+              </ng-container>
 
-    <p [innerHTML]="post.description"></p>
+              <p [innerHTML]="post.description"></p>
+          </p-card>
+      </div>
+  </ng-container>
   </div>
-</ng-container>
+</div>

@@ -9,7 +9,8 @@ query HotChanQuery {
     postId,
     postTitle,
     description,
-    thumbnailUrl
+    thumbnailUrl,
+    createdOn
   }
 }
 `;

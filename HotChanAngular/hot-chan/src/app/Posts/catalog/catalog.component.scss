@@ -1,0 +1,28 @@
+::ng-deep {
+    .p-card {
+        transition: box-shadow 0.3s;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+
+        &:hover,
+        &:focus {
+            box-shadow: 0 0 11px rgba(255, 255, 255);
+        }
+
+        &-body {
+            padding: 10px;
+        }
+
+				&-title{
+					font-weight: bold;
+				}
+
+				&-content {
+					margin-top: 15px;
+				}
+    }
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+	max-width: 90vw !important;
+}

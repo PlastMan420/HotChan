@@ -9,6 +9,7 @@ import { PostRoutes } from './post.routing';
 import { PostUploadComponent } from './post-upload/post-upload.component';
 import { JournalPostCreateComponent } from './journal-post-create/journal-post-create.component';
 import { SharedFormModule } from '../shared/shared-modules/sharedForm.module';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { SharedFormModule } from '../shared/shared-modules/sharedForm.module';
     PostRoutes,
     SharedModule,
     GalleryModule,
-    SharedFormModule
+    SharedFormModule,
+    CardModule
   ],
   declarations: [PostViewComponent, CatalogComponent, PostUploadComponent, JournalPostCreateComponent],
   providers: [DataService],
