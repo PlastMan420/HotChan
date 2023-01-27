@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import {InputTextModule} from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import {ButtonModule} from 'primeng/button';
 @NgModule({
   imports: [
     CommonModule,
+    NgOptimizedImage
   ],
   declarations: [],
   exports: [
@@ -33,7 +34,8 @@ import {ButtonModule} from 'primeng/button';
     SelectButtonModule,
     RatingModule,
     MultiSelectModule,
-    ButtonModule
+    ButtonModule,
+    NgOptimizedImage
   ]
 })
 export class SharedFormModule { }

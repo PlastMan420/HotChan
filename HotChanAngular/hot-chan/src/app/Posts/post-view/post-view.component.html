@@ -1,23 +1,18 @@
 <div class="post-view-body">
-	<div class="post-container">
-		<div class="post-view" *ngIf="!loading">
-			<img [src]="post.thumbnailUrl || post.mediaUrl" alt="smol floppa">
+	<div class="post-container" *ngIf="!loading">
+		<div class="post-view">
+			<ng-container *ngIf="!!post.mediaUrl">
+				<img [ngSrc]="post.mediaUrl" alt="smol floppa">
+			</ng-container>
 			<h5 class="title">{{post.postTitle}}</h5>
-			
-			<div class="btn-group">
-				<button (click)="download()" type="button" class="btn btn-outline-secondary">
-					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-down" viewBox="0 0 16 16" data-darkreader-inline-fill="" style="--darkreader-inline-fill:currentColor;">
-						<path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1h-2z"></path>
-						<path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z"></path>
-					</svg>
-					<span class="visually-hidden">Button</span>
-				</button>
+			<div class="time">on {{post.createdOn | date:'EE, MMM d, y h:mm a'}}</div>
 
+			<div class="btn-group">
+				<p-button *ngIf="post.mediaUrl" icon="pi-download" (click)="download()"></p-button>
 			</div>
 			
 			<div class="desccription">
-				<div class="description">{{post.description}}</div>
-				<div class="time">{{post.time}}</div>
+				<div class="description" [innerHTML]="post.description"></div>
 			</div>
 		</div>
 	</div>
@@ -25,6 +20,6 @@
 	<br class="my-3"/>
 
 	<div class="comments">
-		<app-post-comments></app-post-comments>
+		<!-- <app-post-comments></app-post-comments> -->
 	</div>
 </div>

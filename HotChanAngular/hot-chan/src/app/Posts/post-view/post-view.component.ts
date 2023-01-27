@@ -7,14 +7,14 @@ import { DataService } from 'src/app/Internet/Data.service';
 import { Post } from 'src/app/Internet/Types';
 
 const GET_POSTS = gql`
-  query GetPostById($postId: UUID!) {
-    post(PostId: $postId) {
-      postTitle
-      description
-      mediaUrl
-      time
-    }
+query HotChanQuery($postId: UUID!) {
+  post(postId: $postId) {
+    postTitle
+    description
+    mediaUrl
+    createdOn
   }
+}
 `;
 
 @Component({
@@ -75,7 +75,9 @@ export class PostViewComponent implements OnInit, OnDestroy {
     try {
       const response = await firstValueFrom(source$);
       console.log(response);
+
       this.post = response.data.post;
+      this.loading = false;
     } catch (e) {
       console.log(e);
     }
