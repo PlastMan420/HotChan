@@ -20,9 +20,7 @@
         <div class="flex-fill">
             <div class="d-flex">
                 <ng-container *ngIf="pageFooter">
-                    <div class="me-auto">
-                        {{ pageFooter.footerLabel }}
-                    </div>
+                    <div class="me-auto" [innerHTML]="pageFooter.footerLabel"></div>
                     <div *ngFor="let f of pageFooter.pageFunctions">
                         <p-button
                             [label]="f.label"

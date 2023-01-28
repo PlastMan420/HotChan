@@ -1,12 +1,20 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HotChan.DataBase.Models.Entities
+namespace HotChan.DataBase.Models.Entities;
+
+[Index(nameof(BookmarkListId), nameof(userId), IsUnique = true)]
+[PrimaryKey(nameof(userId), nameof(BookmarkListId))]
+public class Bookmarks
 {
-    public class bookmarks
-    {
-        public Guid Id { get; set; }
-        public Guid UserId { get; set; }
-        public ICollection<Post> Posts { get; set; }
-    }
+    [Key]
+    public Guid BookmarkListId { get; set; }
+    public Guid userId { get; set; }
+
+    [NotMapped]
+    public User user { get; set; }
+    public ICollection<Post> Favorites { get; set; }
 }

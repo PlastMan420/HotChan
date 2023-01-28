@@ -65,7 +65,6 @@ public class UserRepository
         user.SecurityStamp = Guid.NewGuid().ToString();
         user.Id = Guid.NewGuid();
         user.Salt = "asdsdfasdf";
-        user.SaltHash = Blake3.Hasher.Hash(Encoding.UTF8.GetBytes(user.Salt)).ToString();
         var result = _userManager.CreateAsync(user, userAuth.Key);
 
         //register role
@@ -75,5 +74,11 @@ public class UserRepository
         await _userManager.AddToRoleAsync(newUserFromDb, "USER");
 
         return result.IsCompletedSuccessfully;
+    }
+
+
+    public async Task<User> GetUserById(Guid userId)
+    {
+        return await _hotChanContext.Users.FindAsync(userId);
     }
 }

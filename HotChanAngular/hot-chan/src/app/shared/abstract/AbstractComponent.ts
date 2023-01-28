@@ -1,9 +1,8 @@
-import { FormGroup } from '@angular/forms';
 import { FooterService } from '../footer/footer.service';
 import { Footer, FooterFunction } from '../types/FooterFunction';
 
 export abstract class AbstractComponent {
-    constructor(private footerSrv: FooterService) {
+    constructor(public footerSrv: FooterService) {
         this.footerSrv.callFn.subscribe({
             next: (x) => {
                 const funcName = x.pageFunctions[0].funcName;
@@ -17,36 +16,24 @@ export abstract class AbstractComponent {
         });
     }
 
-    abstract form: FormGroup;
-    abstract formLabel: string;
-
-    public resetForm(ctx: typeof this) {
-        ctx.form.reset();
-
-        for (const field in ctx.form) {
-            ctx.form.get(field)?.reset();
-        }
-    }
-
     // all abstract methods must have the first parameter to be the execution context.
-    abstract submit(ctx: unknown): unknown;
 
-    public initFooter(
-        functions: FooterFunction[] = [
-            {
-                label: 'reset',
-                func: this.resetForm,
-                funcName: this.resetForm.name,
-            },
-            { label: 'Submit', func: this.submit, funcName: this.submit.name },
-        ]
-    ) {
+    public initFooter(ctx: this, functions: FooterFunction[]) 
+    {
         const footer = {
-            context: this,
-            footerLabel: this.formLabel,
+            context: ctx,
+            footerLabel: '',
             pageFunctions: functions,
         } as Footer;
 
         this.footerSrv.setFooter(footer);
+    }
+
+    public set FooterLabel(footerLabel: string) {
+        this.footerSrv.footerLabel = footerLabel;
+    }
+
+    public get FooterLabel() {
+        return this.footerSrv.footerLabel;
     }
 }

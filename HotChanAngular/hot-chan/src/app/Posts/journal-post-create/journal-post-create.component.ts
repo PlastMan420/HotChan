@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Apollo, gql } from 'apollo-angular';
 import { Post } from 'src/app/Internet/Types';
-import { AbstractComponent } from 'src/app/shared/abstract/AbstractComponent';
+import { AbstractComponentWithForm } from 'src/app/shared/abstract/AbstractComponentWithForm';
 import { FooterService } from 'src/app/shared/footer/footer.service';
 
 const SUBMIT = gql`
@@ -39,7 +39,7 @@ const SUBMIT = gql`
     styleUrls: ['./journal-post-create.component.scss'],
 })
 export class JournalPostCreateComponent
-    extends AbstractComponent
+    extends AbstractComponentWithForm
     implements OnInit
 {
     override form: FormGroup<any> = new FormGroup({
@@ -57,10 +57,10 @@ export class JournalPostCreateComponent
     }
 
     readonly placeholderPostTitle = '<Post Title>';
-    override readonly formLabel = 'Submit New Journal';
 
     ngOnInit() {
-        this.initFooter();
+        this.initFooterForForm(this);
+        this.FooterLabel = 'Submit New Journal';
     }
 
     override submit(ctx: this) {

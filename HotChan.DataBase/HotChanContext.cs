@@ -16,7 +16,8 @@ public class HotChanContext : IdentityDbContext<User, IdentityRole<Guid>, Guid,
 
 	public virtual DbSet<Post> Posts => Set<Post>();
 	public virtual DbSet<Comment> Comments => Set<Comment>();
-	public virtual DbSet<bookmarks> Bookmarks => Set<bookmarks>();
+	public virtual DbSet<Bookmarks> Bookmarks => Set<Bookmarks>();
+	public virtual DbSet<PostScore> PostScores => Set<PostScore>();
 	//public virtual DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
 	protected override void OnModelCreating(ModelBuilder builder)

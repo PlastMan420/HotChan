@@ -40,4 +40,8 @@ export class FooterService {
         this.pageFooter.pageFunctions.push(footerFunction);
         this.pageFunctions = this.pageFooter.pageFunctions;
     }
+
+    public set footerLabel(footerLabel: string) {
+        this.pageFooter.footerLabel = `<i>${footerLabel}</i>`;
+    }
 }
