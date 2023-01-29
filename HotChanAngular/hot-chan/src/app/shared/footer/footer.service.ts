@@ -44,4 +44,8 @@ export class FooterService {
     public set footerLabel(footerLabel: string) {
         this.pageFooter.footerLabel = `<i>${footerLabel}</i>`;
     }
+
+    public clearFooter(){
+        this.setFooter( {} as Footer);
+    }
 }

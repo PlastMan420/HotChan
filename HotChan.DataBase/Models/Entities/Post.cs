@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HotChan.DataBase.Models.Entities;
 
@@ -21,4 +22,7 @@ public class Post : BaseEntity
     public string[] Tags { get; set; }
 
     public bool Hidden { get; set; }
+
+    [NotMapped]
+    public int Score { get; set; }
 }

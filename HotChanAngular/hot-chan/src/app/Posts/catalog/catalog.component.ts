@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { firstValueFrom, Observable, takeUntil } from 'rxjs';
 import { Post } from 'src/app/Internet/Types';
+import { AbstractComponent } from 'src/app/shared/abstract/AbstractComponent';
+import { FooterService } from 'src/app/shared/footer/footer.service';
 
 const CATALOG = gql`
 query HotChanQuery {
@@ -20,10 +22,12 @@ query HotChanQuery {
   templateUrl: './catalog.component.html',
   styleUrls: ['./catalog.component.scss']
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent extends AbstractComponent implements OnInit {
   destroy$: Observable<any> = new Observable<any>;
 
-  constructor(private apollo: Apollo) { }
+  constructor(private apollo: Apollo, footerSrv: FooterService) { 
+    super(footerSrv);
+  }
   catalog!: Post[];
   
   ngOnInit() {

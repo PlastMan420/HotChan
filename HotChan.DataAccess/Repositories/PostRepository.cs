@@ -17,9 +17,32 @@ public class PostRepository
         _mapper = mapper;
     }
 
-    public async Task<Post> GetPostById(Guid postId) => await _db.Posts.FindAsync(postId);
+    public async Task<Post> GetPostById(Guid postId)
+    {
+        var post = await _db.Posts.FindAsync(postId);
+
+        if (post == null)
+        {
+            return null;
+        }
+
+        var score = await _db.PostScores.Where(x => x.postId == postId).SumAsync(x => x.score);
+
+        post.Score = score;
+
+        return post;
+    }
     
-    public async Task<List<Post>> GetPostsforCatalog() => await _db.Posts.Take(10).ToListAsync();
+    public async Task<List<Post>> GetPostsforCatalog()
+    {
+        var page = await _db.Posts.Take(10).ToListAsync();
+        foreach(var post in page) 
+        {
+            post.Score = await _db.PostScores.Where(x => x.postId == post.PostId).SumAsync(x => x.score);
+        }
+
+        return page.OrderByDescending(x => x.Score).ToList();
+    }
 
     public async Task<bool> CreatePost(PostDialogueDto newPost)
     {

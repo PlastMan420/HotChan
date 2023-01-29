@@ -28,8 +28,14 @@ export abstract class AbstractComponentWithForm extends AbstractComponent {
                 label: 'reset',
                 func: this.resetForm,
                 funcName: this.resetForm.name,
+                type: 'button',
             },
-            { label: 'Submit', func: this.submit, funcName: this.submit.name },
+            {
+                label: 'Submit',
+                func: this.submit,
+                funcName: this.submit.name,
+                type: 'button',
+            },
         ]
     ) {
         this.initFooter(ctx, functions);

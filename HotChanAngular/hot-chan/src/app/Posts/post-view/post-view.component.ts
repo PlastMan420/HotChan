@@ -15,6 +15,7 @@ const GET_POST = gql`
             mediaUrl
             createdOn
             postId
+            score
         }
     }
 `;
@@ -40,7 +41,8 @@ export class PostViewComponent
     loading = true;
     post!: Post;
     postId: string | null = null;
-    postScore: number = 0;
+    postScore: Subject<string> = new Subject<string>();
+
 
     constructor(
         private route: ActivatedRoute,
@@ -51,6 +53,7 @@ export class PostViewComponent
     }
 
     ngOnDestroy() {
+        this.footerSrv.clearFooter();
         this.querySubscription.unsubscribe();
         this.destroy$.next(true);
         this.destroy$.complete();
@@ -68,16 +71,29 @@ export class PostViewComponent
         }
 
         this.initFooter(this, [
-
             {
                 label: 'upvote',
-                func: this.upvote,
-                funcName: this.upvote.name,
+                type: 'label',
+                dataStream: this.postScore
+            },
+            {
+                label: 'Downvote',
+                func: this.toggleVote,
+                funcName: this.toggleVote.name,
+                funcParams: [-1],
+                type: 'button'
+            },
+            {
+                label: 'Upvote',
+                func: this.toggleVote,
+                funcName: this.toggleVote.name,
+                funcParams: [1],
+                type: 'button'
             },
         ]);
     }
 
-    async upvote(ctx: this) {
+    async toggleVote(ctx: this, score: number) {
         let post = ctx.post;
 
         ctx.apollo
@@ -85,13 +101,13 @@ export class PostViewComponent
                 mutation: UPVOTE,
                 variables: {
                     postId: post.postId,
-                    score: 1,
+                    score: score,
                 },
             })
             .subscribe({
                 next: (data: any) => {
-                    ctx.postScore = data.data.togglePostScore;
-                    console.log(ctx.postScore);
+                    console.log('upvoted', data.data.togglePostScore);
+                    ctx.postScore.next(data.data.togglePostScore);
                 },
                 error: (error: unknown) => {
                     console.log('bloopers', error);
@@ -119,6 +135,7 @@ export class PostViewComponent
 
             this.post = response.data.post;
             this.FooterLabel = `<strong>Post:</strong> ${this.post.postTitle}`;
+            this.postScore.next(this.post.score.toString());
             this.loading = false;
         } catch (e) {
             console.log(e);

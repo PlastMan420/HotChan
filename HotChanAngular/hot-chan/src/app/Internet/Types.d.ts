@@ -6,7 +6,8 @@ export type Post = {
 	createdOn: Date | string,
 	hidden: boolean,
 	postId: string,
-	tags: string[]
+	tags: string[],
+	score: number
 };
 
 export type User = {

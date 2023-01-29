@@ -4,11 +4,13 @@ import { PostCommentsComponent } from './post-comments/post-comments.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BottomToolSetComponent } from './footer/bottom-tool-set/bottom-tool-set.component';
 import { ButtonModule } from 'primeng/button';
+import {BadgeModule} from 'primeng/badge';
 
 @NgModule({
   imports: [
     CommonModule,
-    ButtonModule
+    ButtonModule,
+    BadgeModule
   ],
   declarations: [PostCommentsComponent, NavbarComponent, BottomToolSetComponent],
   exports: [

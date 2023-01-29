@@ -6,12 +6,13 @@ export abstract class AbstractComponent {
         this.footerSrv.callFn.subscribe({
             next: (x) => {
                 const funcName = x.pageFunctions[0].funcName;
+                const params = x.pageFunctions[0].funcParams as [];
                 const ctx = x.context;
 
                 const f = ctx[funcName as keyof typeof ctx] as Function;
 
                 // use reflection
-                Reflect.apply(f, undefined, [ctx]);
+                Reflect.apply(f, undefined, [ctx, ...params]);
             },
         });
     }
