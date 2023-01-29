@@ -5,15 +5,15 @@ import { DataService } from 'src/app/Internet/Data.service';
 import { AbstractComponentWithForm } from 'src/app/shared/abstract/AbstractComponentWithForm';
 import { FooterService } from 'src/app/shared/footer/footer.service';
 
-const USER_REGISTER = gql`
-  mutation HotChanMutation {
-    SubmitJournalPost() {
-      PostDialogueDto: {
+// const USER_REGISTER = gql`
+//   mutation HotChanMutation {
+//     SubmitJournalPost() {
+//       PostDialogueDto: {
         
-      }
-    }
-  }
-`;
+//       }
+//     }
+//   }
+// `;
 
 @Component({
     selector: 'app-create-user',
@@ -38,12 +38,12 @@ export class CreateUserComponent
 
     initForm() {
         this.form = new FormGroup({
-            userName: new FormControl(null, Validators.required),
-            emailAddress: new FormControl(null, [
+            userName: new FormControl<string|null>(null, Validators.required),
+            emailAddress: new FormControl<string|null>(null, [
                 Validators.required,
                 Validators.email,
             ]),
-            key: new FormControl(null, [
+            key: new FormControl<string|null>(null, [
                 Validators.required,
                 Validators.minLength(6),
                 Validators.maxLength(14),

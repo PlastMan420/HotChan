@@ -106,11 +106,10 @@ export class PostViewComponent
             })
             .subscribe({
                 next: (data: any) => {
-                    console.log('upvoted', data.data.togglePostScore);
                     ctx.postScore.next(data.data.togglePostScore);
                 },
                 error: (error: unknown) => {
-                    console.log('bloopers', error);
+                    console.error('bloopers', error);
                 },
             });
     }
@@ -131,14 +130,13 @@ export class PostViewComponent
 
         try {
             const response = await firstValueFrom(source$);
-            console.log(response);
 
             this.post = response.data.post;
             this.FooterLabel = `<strong>Post:</strong> ${this.post.postTitle}`;
             this.postScore.next(this.post.score.toString());
             this.loading = false;
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 }
