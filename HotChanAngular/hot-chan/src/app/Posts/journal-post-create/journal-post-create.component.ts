@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    FormControl,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
 import { Apollo, gql } from 'apollo-angular';
 import { Post } from 'src/app/Internet/Types';
 import { AbstractComponentWithForm } from 'src/app/shared/abstract/AbstractComponentWithForm';
@@ -43,7 +48,7 @@ export class JournalPostCreateComponent
     implements OnInit
 {
     override form: FormGroup<any> = new FormGroup({
-        postTitle: new FormControl(null, [
+        postTitle: new FormControl<string>('<Post Title>', [
             Validators.required,
             Validators.minLength(3),
         ]),
@@ -64,6 +69,12 @@ export class JournalPostCreateComponent
     }
 
     override submit(ctx: this) {
+        if (!ctx.formIsValidAndSane()) {
+            console.error('you fucking nigger');
+
+            return;
+        }
+
         let post = ctx.form.value as Post;
         post.postId = '00000000-0000-0000-0000-000000000000';
         console.log(post);
@@ -89,5 +100,20 @@ export class JournalPostCreateComponent
                     console.log('bloopers', error);
                 },
             });
+    }
+
+    private formIsValidAndSane(): boolean {
+        const postTitleControl = this.form.get('postTitle') as AbstractControl;
+
+        postTitleControl.setErrors({
+            'Yeaaaa, this is not a valid post title':
+                postTitleControl.value === this.placeholderPostTitle,
+        });
+        console.log(postTitleControl.errors);
+
+        if (this.form.valid) {
+            return true;
+        }
+        return false;
     }
 }
