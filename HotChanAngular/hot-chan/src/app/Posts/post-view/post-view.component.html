@@ -2,7 +2,7 @@
 	<div class="post-container" *ngIf="!loading">
 		<div class="post-view">
 			<ng-container *ngIf="!!post.mediaUrl">
-				<img [ngSrc]="post.mediaUrl" alt="smol floppa">
+				<img [ngSrc]="post.mediaUrl" alt="smol floppa" [alt]="post.postTitle">
 			</ng-container>
 			<h5 class="title">{{post.postTitle}}</h5>
 			<div class="time">on {{post.createdOn | date:'EE, MMM d, y h:mm a'}}</div>

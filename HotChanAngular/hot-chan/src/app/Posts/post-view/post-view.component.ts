@@ -72,23 +72,25 @@ export class PostViewComponent
 
         this.initFooter(this, [
             {
-                label: 'upvote',
+                label: 'votes',
                 type: 'label',
                 dataStream: this.postScore
             },
             {
-                label: 'Downvote',
                 func: this.toggleVote,
                 funcName: this.toggleVote.name,
                 funcParams: [-1],
-                type: 'button'
+                type: 'button',
+                buttonIconClass: 'ico downvote',
+                class: 'p-button-rounded'
             },
             {
-                label: 'Upvote',
                 func: this.toggleVote,
                 funcName: this.toggleVote.name,
                 funcParams: [1],
-                type: 'button'
+                type: 'button',
+                buttonIconClass: 'ico upvote',
+                class: 'p-button-rounded'
             },
         ]);
     }

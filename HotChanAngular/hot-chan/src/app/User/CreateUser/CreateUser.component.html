@@ -1,18 +1,50 @@
 <form [formGroup]="form">
-  <div class="d-flex flex-column">
-    <div class="form-control-block">
-      <label class="mr-auto" for="username">User Name: </label>
-      <input id="username" type="text" formControlName="userName" />
-    </div>
+    <div class="d-flex flex-column">
+        <div class="form-control-block">
+            <label class="mr-auto" for="username">User Name: </label>
+            <div>
+                <input id="username" type="text" formControlName="userName" />
+                <ng-container
+                    *ngTemplateOutlet="
+                        errorTemplate;
+                        context: { $implicit: 'userName' }
+                    "
+                ></ng-container>
+            </div>
+        </div>
 
-		<div class="form-control-block">
-      <label class="mr-auto" for="mail">e-mail: </label>
-      <input id="mail" type="text" formControlName="emailAddress" />
-    </div>
+        <div class="form-control-block">
+            <label class="mr-auto" for="mail">e-mail: </label>
+            <div>
+                <input id="mail" type="text" formControlName="emailAddress" />
+                <ng-container
+                    *ngTemplateOutlet="
+                        errorTemplate;
+                        context: { $implicit: 'emailAddress' }
+                    "
+                ></ng-container>
+            </div>
+        </div>
 
-    <div class="form-control-block">
-      <label class="mr-auto" for="password">Password: </label>
-      <p-password formControlName="key"></p-password>
+        <div class="form-control-block">
+            <label class="mr-auto" for="password">Password: </label>
+            <div>
+                <p-password formControlName="key"></p-password>
+                <ng-container
+                    *ngTemplateOutlet="
+                        errorTemplate;
+                        context: { $implicit: 'key' }
+                    "
+                ></ng-container>
+            </div>
+        </div>
     </div>
-  </div>
 </form>
+
+<ng-template #errorTemplate let-name>
+    <ng-container *ngFor="let err of form.get(name)?.errors | keyvalue">
+        <div class="error-state">
+            {{ err.key }}
+        </div>
+    </ng-container>
+</ng-template>

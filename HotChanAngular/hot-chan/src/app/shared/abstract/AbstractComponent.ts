@@ -37,4 +37,8 @@ export abstract class AbstractComponent {
     public get FooterLabel() {
         return this.footerSrv.footerLabel;
     }
+
+    public setFooterLabel(footerLabel: string, footerIcon?: string) {
+        this.footerSrv.setfooterLabel(footerLabel, footerIcon);
+    }
 }

@@ -45,6 +45,10 @@ export class FooterService {
         this.pageFooter.footerLabel = `<i>${footerLabel}</i>`;
     }
 
+    public setfooterLabel(footerLabel: string, footerIcon?: string) {
+        this.pageFooter.footerLabel = `<img src="${footerIcon}" alt="footerLabelIcon"/> <i>${footerLabel}</i>`;
+    }
+
     public clearFooter(){
         this.setFooter( {} as Footer);
     }

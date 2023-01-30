@@ -31,8 +31,10 @@
                             <ng-container [ngSwitch]="f.type">
                                 <div *ngSwitchCase="'button'">
                                     <p-button
-                                        [label]="f.label"
+                                        [label]="$any(f.label)"
                                         (click)="calledFn(f)"
+                                        [icon]="$any(f.buttonIconClass)"
+                                        [styleClass]="$any(f.class)"
                                     ></p-button>
                                 </div>
 
