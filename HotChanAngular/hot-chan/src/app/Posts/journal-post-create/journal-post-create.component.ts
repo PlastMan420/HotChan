@@ -3,6 +3,7 @@ import {
     AbstractControl,
     FormControl,
     FormGroup,
+    ValidatorFn,
     Validators,
 } from '@angular/forms';
 import { Apollo, gql } from 'apollo-angular';
@@ -47,14 +48,16 @@ export class JournalPostCreateComponent
     extends AbstractComponentWithForm
     implements OnInit
 {
+    readonly requiredNoWhiteSpace: ValidatorFn = Validators.compose([Validators.required, Validators.pattern(/^(?!\s*$)/)]) as ValidatorFn;
+
     override form: FormGroup<any> = new FormGroup({
         postTitle: new FormControl<string>('<Post Title>', [
-            Validators.required,
             Validators.minLength(3),
+            this.requiredNoWhiteSpace
         ]),
-        description: new FormControl(null, Validators.required),
+        description: new FormControl(null, this.requiredNoWhiteSpace),
         hidden: new FormControl(false),
-        tags: new FormControl(['test', 'testing'], Validators.required),
+        tags: new FormControl(['test', 'testing'], this.requiredNoWhiteSpace),
     });
 
     constructor(footerSrv: FooterService, private apollo: Apollo) {

@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+.error-state {
+	color: #ff0033;	
+}
+
+.ico{
+	width: 16px;
+	height: 16px;
+	background-repeat: no-repeat;
+}
+
+.ico.upvote {
+	background: url('./assets/gifs/smiley.png');
+}
+
+.ico.downvote {
+	background: url('./assets/gifs/sad.png');
+}
