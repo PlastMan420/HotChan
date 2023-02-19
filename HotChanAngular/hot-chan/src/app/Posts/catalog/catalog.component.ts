@@ -31,11 +31,26 @@ export class CatalogComponent extends AbstractComponent implements OnInit {
   catalog!: Post[];
   
   ngOnInit() {
-    this.getCatalog();
+    this.initFooter(this, [
+      // {
+      //     label: 'votes',
+      //     type: 'label',
+      //     dataStream: this.postScore
+      // },
+      {
+          label: 'Refresh',
+          func: this.getCatalog,
+          funcName: this.getCatalog.name,
+          funcParams: [1],
+          type: 'button',
+      },
+  ]);
+
+    this.getCatalog(this);
   }
 
-  async getCatalog(){
-    await this.getPostCatalogGql();
+  async getCatalog(ctx: this){
+    await ctx.getPostCatalogGql();
   }
 
   async getPostCatalogGql() {
