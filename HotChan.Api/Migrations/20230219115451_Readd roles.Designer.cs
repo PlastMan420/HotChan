@@ -3,6 +3,7 @@ using System;
 using HotChan.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotChan.Api.Migrations
 {
     [DbContext(typeof(HotChanContext))]
-    partial class HotChanContextModelSnapshot : ModelSnapshot
+    [Migration("20230219115451_Readd roles")]
+    partial class Readdroles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,33 +140,6 @@ namespace HotChan.Api.Migrations
                     b.ToTable("PostScores");
                 });
 
-            modelBuilder.Entity("HotChan.DataBase.Models.Entities.Role", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex");
-
-                    b.ToTable("AspNetRoles", (string)null);
-                });
-
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -258,11 +234,56 @@ namespace HotChan.Api.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("RoleId1")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("userId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
+                    b.HasIndex("RoleId1");
+
+                    b.HasIndex("userId");
+
                     b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<Guid>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -353,6 +374,16 @@ namespace HotChan.Api.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("HotChan.DataBase.Models.Entities.Role", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>");
+
+                    b.Property<int>("eRoleId")
+                        .HasColumnType("integer");
+
+                    b.HasDiscriminator().HasValue("Role");
+                });
+
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.Comment", b =>
                 {
                     b.HasOne("HotChan.DataBase.Models.Entities.Post", "Post")
@@ -385,26 +416,36 @@ namespace HotChan.Api.Migrations
 
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.UserRole", b =>
                 {
-                    b.HasOne("HotChan.DataBase.Models.Entities.Role", "Role")
-                        .WithMany("UserRoles")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HotChan.DataBase.Models.Entities.User", "User")
+                    b.HasOne("HotChan.DataBase.Models.Entities.Role", "Role")
                         .WithMany("UserRoles")
+                        .HasForeignKey("RoleId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HotChan.DataBase.Models.Entities.User", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("HotChan.DataBase.Models.Entities.User", "user")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("userId");
+
                     b.Navigation("Role");
 
-                    b.Navigation("User");
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("HotChan.DataBase.Models.Entities.Role", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -443,15 +484,15 @@ namespace HotChan.Api.Migrations
                     b.Navigation("Favorites");
                 });
 
-            modelBuilder.Entity("HotChan.DataBase.Models.Entities.Role", b =>
-                {
-                    b.Navigation("UserRoles");
-                });
-
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.User", b =>
                 {
                     b.Navigation("Posts");
 
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("HotChan.DataBase.Models.Entities.Role", b =>
+                {
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

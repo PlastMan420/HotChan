@@ -8,12 +8,12 @@ public class User : IdentityUser<Guid>
 {
     [PersonalData]
     public DateTimeOffset RegisterationDate {
-        get => RegisterationDate;
-        init => RegisterationDate = value;
+        get;
+        set;
     }
     public DateTimeOffset LastOnline { 
-        get => LastOnline;
-        init => LastOnline = DateTime.UtcNow;
+        get;
+        set;
     }
     public DateTimeOffset DOB { get; set; }
 

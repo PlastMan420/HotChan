@@ -6,6 +6,7 @@ namespace HotChan.DataBase.Models.Entities;
 
 public class UserRole : IdentityUserRole<Guid>
 {
-    [NotMapped]
     public Role Role { get; set; }
+
+    public User User { get; set; }
 }
