@@ -26,6 +26,6 @@ export type UserRegisterFormDtoInput = {
 };
 
 export type UserLoginDtoInput = {
-	username: string,
+	userName: string,
 	key: string
 };
