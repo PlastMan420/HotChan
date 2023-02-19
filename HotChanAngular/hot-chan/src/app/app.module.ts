@@ -6,13 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from './shared/shared.module.ts';
+import { SharedModule } from './shared/shared.module';
 
 import { InMemoryCache } from '@apollo/client';
 import { ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { environment } from 'src/environments/environment';
 import { GraphQLModule } from './graphql.module';
+import { FooterModule } from './shared/footer/footer.module';
 
 @NgModule({
 	declarations: [
@@ -27,6 +28,7 @@ import { GraphQLModule } from './graphql.module';
 		ReactiveFormsModule,
 		SharedModule,
 		GraphQLModule,
+		FooterModule
 	],
 	providers: [
 		{

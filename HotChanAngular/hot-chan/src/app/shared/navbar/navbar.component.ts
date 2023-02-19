@@ -13,9 +13,8 @@ export class NavbarComponent implements OnInit {
 		["Upload", "/post/upload"],
 		["New Journal", "/post/submitjournal"],
 		["Recent", "/post"],
-		["sample post", "/post/view/28e2dfef-f339-4ab6-b389-30afa2844846"],
 		["sample gql post", "/post/view/28e2dfef-f339-4ab6-b389-30afa2844846"],
-		["register", "/user/new"]
+		["Register", "/user/new"]
 	]);
 
 	constructor() { }

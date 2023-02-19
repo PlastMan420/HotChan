@@ -1,0 +1,52 @@
+<button type="text" pButton label="Login" (click)="op.toggle($event)"></button>
+
+
+<p-overlayPanel #op>
+  <ng-template pTemplate>
+      <ng-container *ngTemplateOutlet="loginForm"></ng-container>
+  </ng-template>
+</p-overlayPanel>
+
+
+<ng-template #loginForm>
+  <div class="login-form">
+    <form [formGroup]="form">
+      <div class="d-flex flex-column">
+          <div class="form-control-block">
+              <label class="mr-auto" for="username">User Name: </label>
+              <div>
+                  <input id="username" type="text" formControlName="userName" />
+                  <!-- <ng-container
+                      *ngTemplateOutlet="
+                          errorTemplate;
+                          context: { $implicit: 'userName' }
+                      "
+                  ></ng-container> -->
+              </div>
+          </div>
+    
+          <div class="form-control-block">
+              <label class="mr-auto" for="password">Password: </label>
+              <div>
+                  <p-password formControlName="key"></p-password>
+                  <!-- <ng-container
+                      *ngTemplateOutlet="
+                          errorTemplate;
+                          context: { $implicit: 'key' }
+                      "
+                  ></ng-container> -->
+              </div>
+          </div>
+      </div>
+    </form>
+  </div>
+  
+  <!-- <ng-template #errorTemplate let-name>
+    <ng-container *ngFor="let err of form.get(name)?.errors | keyvalue">
+        <div class="error-state">
+            {{ err.key }}
+        </div>
+    </ng-container>
+  </ng-template>
+   -->
+</ng-template>

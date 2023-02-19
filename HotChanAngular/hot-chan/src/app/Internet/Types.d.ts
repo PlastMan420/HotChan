@@ -19,8 +19,13 @@ export type IFile = {
 	
 };
 
-export type UserAuth = {
+export type UserRegisterFormDtoInput = {
+	userName: string,
+	userMail: string,
+	key: string
+};
+
+export type UserLoginDtoInput = {
 	username: string,
-	password: string,
 	key: string
 };

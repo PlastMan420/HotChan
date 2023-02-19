@@ -1,0 +1,16 @@
+::ng-deep
+{
+	// #main-content{
+	// 	filter: blur(4px);
+	// }
+	
+	.p-overlaypanel > .p-overlaypanel-content > .login-form {
+		border: 1px solid white;
+		padding: 10px;
+		box-shadow: 0 0 11px rgba(255, 255, 255);
+	}
+}
+
+label {
+	color: white;
+}
