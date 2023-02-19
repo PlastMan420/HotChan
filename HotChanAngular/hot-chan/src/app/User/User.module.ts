@@ -6,13 +6,16 @@ import { CreateUserComponent } from './CreateUser/CreateUser.component';
 import { UserProfileDetailsComponent } from './user-profile-details/user-profile-details.component';
 import { DataService } from '../Internet/Data.service';
 import { SharedFormModule } from '../shared/shared-modules/sharedForm.module';
+import { LoginUserComponent } from './LoginUser/LoginUser.component';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 @NgModule({
-  imports: [CommonModule, UserRoutes, SharedFormModule],
+  imports: [CommonModule, UserRoutes, SharedFormModule, OverlayPanelModule],
   declarations: [
     UserComponent,
     CreateUserComponent,
     UserProfileDetailsComponent,
+    LoginUserComponent
   ],
   providers: [DataService],
 })

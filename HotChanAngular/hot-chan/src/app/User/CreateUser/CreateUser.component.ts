@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { gql } from 'apollo-angular';
-import { DataService } from 'src/app/Internet/Data.service';
+import { Apollo, gql } from 'apollo-angular';
+import { UserRegisterFormDtoInput } from 'src/app/Internet/Types';
 import { AbstractComponentWithForm } from 'src/app/shared/abstract/AbstractComponentWithForm';
 import { FooterService } from 'src/app/shared/footer/footer.service';
 
-// const USER_REGISTER = gql`
-//   mutation HotChanMutation {
-//     SubmitJournalPost() {
-//       PostDialogueDto: {
-        
-//       }
-//     }
-//   }
-// `;
+const USER_REGISTER = gql`
+    mutation HotChanMutation(
+        $userName: String!
+        $userMail: String!
+        $key: String!
+    ) {
+        register(
+            newUser: {
+                userName: $userName
+                userMail: $userMail
+                key: $key
+            }
+        )
+    }
+`;
 
 @Component({
     selector: 'app-create-user',
@@ -24,7 +30,7 @@ export class CreateUserComponent
     extends AbstractComponentWithForm
     implements OnInit
 {
-    constructor(footerSrv: FooterService, private dataservice: DataService) {
+    constructor(footerSrv: FooterService, private apollo: Apollo) {
         super(footerSrv);
     }
 
@@ -38,12 +44,12 @@ export class CreateUserComponent
 
     initForm() {
         this.form = new FormGroup({
-            userName: new FormControl<string|null>(null, Validators.required),
-            emailAddress: new FormControl<string|null>(null, [
+            userName: new FormControl<string | null>(null, Validators.required),
+            userMail: new FormControl<string | null>(null, [
                 Validators.required,
                 Validators.email,
             ]),
-            key: new FormControl<string|null>(null, [
+            key: new FormControl<string | null>(null, [
                 Validators.required,
                 Validators.minLength(6),
                 Validators.maxLength(14),
@@ -51,7 +57,46 @@ export class CreateUserComponent
         });
     }
 
-    override submit(): void {
-        alert('booba');
+    override submit(ctx: this) {
+        // if (!ctx.formIsValidAndSane()) {
+        //     console.error('you fucking nigger');
+
+        //     return;
+        // }
+
+        let user = ctx.form.value as UserRegisterFormDtoInput;
+        console.log(user)
+        ctx.apollo
+            .mutate({
+                mutation: USER_REGISTER,
+                variables: {
+                    userName: user.userName,
+                    userMail: user.userMail,
+                    key: user.key
+                },
+            })
+            .subscribe({
+                next: ({ data }) => {
+                    console.log('Created new user successfully', data);
+                },
+                error: (error: unknown) => {
+                    console.log('bloopers', error);
+                },
+            });
+    }
+
+    private formIsValidAndSane() {
+        // const postTitleControl = this.form.get('postTitle') as AbstractControl;
+
+        // postTitleControl.setErrors({
+        //     'Yeaaaa, this is not a valid post title':
+        //         postTitleControl.value === this.placeholderPostTitle,
+        // });
+        // console.log(postTitleControl.errors);
+
+        // if (this.form.valid) {
+        //     return true;
+        // }
+        // return false;
     }
 }

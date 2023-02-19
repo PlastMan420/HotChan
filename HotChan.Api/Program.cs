@@ -1,6 +1,7 @@
 using HotChan.DataAccess.Repositories;
 using HotChan.DataBase;
 using HotChan.DataBase.Models.Entities;
+using HotChocolate.AspNetCore.Authorization;
 using HotChan.Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using AutoMapper;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using HotChocolate.Types.Pagination;
 using HotChan.Api.Schema.Data;
+using HotChan.Api.Exceptions;
 
 namespace HotChan.Api;
 
@@ -39,9 +41,10 @@ public class Program
                 options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
-                    options.Password.RequiredLength = 12;
-                    options.Password.RequiredUniqueChars = 1;
+                    options.Password.RequiredLength = 8;
                     options.Password.RequireDigit = true;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
                     options.User.RequireUniqueEmail = true;
                     //Other options go here
                 }
@@ -81,28 +84,33 @@ public class Program
         builder.Services
             .AddScoped<PostRepository>()
             .AddGraphQLServer()
+            //.AddAuthorization()
             .RegisterDbContext<HotChanContext>(DbContextKind.Pooled)
             .RegisterService<PostRepository>()
-            .SetPagingOptions(new PagingOptions{MaxPageSize = 20})
+            .SetPagingOptions(new PagingOptions { MaxPageSize = 20 })
             .AddQueryType<HotChanQuery>()
             .AddMutationType<HotChanMutation>()
             //.AddExtendingTypesTypes()
             ;
 
+
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
+        if (!app.Environment.IsDevelopment())
         {
-
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
         }
-
+       
+        app.AddGlobalErrorHandler();
         app.UseCors();
         app.UseHttpsRedirection();
         app.MapGraphQL();
 
         // app.UseAuthentication();
-        // app.UseAuthorization();
+       // app.UseAuthorization();
 
         app.MapControllers();
         

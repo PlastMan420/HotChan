@@ -6,7 +6,7 @@ using System;
 
 namespace HotChan.DataBase;
 
-public class HotChanContext : IdentityDbContext<User, IdentityRole<Guid>, Guid,
+public class HotChanContext : IdentityDbContext<User, Role, Guid,
     IdentityUserClaim<Guid>, UserRole, IdentityUserLogin<Guid>,
 	IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
 {
@@ -24,6 +24,18 @@ public class HotChanContext : IdentityDbContext<User, IdentityRole<Guid>, Guid,
 	{
 		// this must be set in case of inheriting from IdentityDbContext 
 		base.OnModelCreating(builder);
+
+		builder.Entity<User>()
+			.HasMany(ur => ur.UserRoles)
+			.WithOne(ur => ur.User)
+			.HasForeignKey(ur => ur.UserId)
+			.IsRequired();
+		
+		builder.Entity<Role>()
+			.HasMany(ur => ur.UserRoles)
+			.WithOne(ur => ur.Role)
+			.HasForeignKey(ur => ur.RoleId)
+			.IsRequired();
 	}
 }
 

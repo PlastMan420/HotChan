@@ -30,7 +30,7 @@ public class TokenService : ITokenService
 
         foreach(var role in roles )
         {
-            claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
+            //claims.Add(new Claim(ClaimTypes.Role, role.Role.Name));
         }
 
         var secret = _configuration["JWT:Key"];

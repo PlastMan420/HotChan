@@ -1,37 +1,46 @@
 ﻿using Isopoh.Cryptography.Argon2;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Configuration;
+using System.Text;
 
 namespace HotChan.Api.Services;
 
 public class PasswordHasher<TUser> : IPasswordHasher<TUser> where TUser : class
 {
-	private readonly IConfiguration _config;
+    private readonly IConfiguration _config;
 
-	public PasswordHasher(IConfiguration config)
-	{
-		_config = config;
-	}
+    public PasswordHasher(IConfiguration config)
+    {
+        _config = config;
+    }
 
-	public string HashPassword(TUser user, string password)
-	{
-		//It’s expected that this password hash contains everything required to validate the password.
-		//In other words, it should include any versioning information, the salt, and, of course, the password hash itself.
-		
-		// the password paramter is salted.
-		string pepper = _config["auth:pepper"];
-	
-		return Argon2.Hash(pepper + password);
-	}
+    // pepper key salt //
+    public string HashPassword(TUser user, string saltedPassword)
+    {
+        //It’s expected that this password hash contains everything required to validate the password.
+        //In other words, it should include any versioning information, the salt, and, of course, the password hash itself.
 
-	public PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string providedPassword)
-	{
-		// the providedPAssword parameter is salted
-		string pepper = _config["auth:pepper"];
+        // the password paramter is salted.
 
-		var isValid = Argon2.Verify(hashedPassword, providedPassword + pepper);
+        string pepperedKey = ApplyPepper(saltedPassword);
 
+        return Argon2.Hash(pepperedKey);
+    }
 
-		return isValid ? PasswordVerificationResult.Success : PasswordVerificationResult.Failed;
-	}
+    public PasswordVerificationResult VerifyHashedPassword(TUser user, string hashedPassword, string saltedPassword)
+    {
+        // the saltedPassword parameter is salted
+        string pepperedKey = ApplyPepper(saltedPassword);
+
+        var isValid = Argon2.Verify(hashedPassword, pepperedKey.ToString());
+
+        return isValid ? PasswordVerificationResult.Success : PasswordVerificationResult.Failed;
+    }
+
+    private string ApplyPepper(string saltedKey)
+    {
+        string pepper = _config["auth:pepper"];
+
+        var pepperedKey = new StringBuilder(pepper);
+        return pepperedKey.Append(saltedKey).ToString();
+    }
 }

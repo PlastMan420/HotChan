@@ -34,34 +34,34 @@ public class UserController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(UserAuth userAuth)
+    public async Task<IActionResult> Login(UserLoginDto userLogin)
     {
-        var user = await _userRepo.Login(userAuth);
+        var userToken = await _userRepo.Login(userLogin);
         
-        if (user == null)
+        if (userToken == null)
         {
             return BadRequest("Not Found");
         }
 
-        var token = _tokenService.GenerateJwtToken(user, user.UserRoles.ToList());
-        return Ok(token);
+        //var token = _tokenService.GenerateJwtToken(user, user.UserRoles.ToList());
+        return Ok(userToken);
     }
 
-    [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody]UserAuth userAuth)
-    {
-        var result = await _userRepo.Register(userAuth);
+    //[HttpPost("register")]
+    //public async Task<IActionResult> Register([FromBody]UserRegisterFormDto userAuth)
+    //{
+    //    var result = await _userRepo.Register(userAuth);
 
-        if (result)
-        {
-            return Ok(result);
-            //return CreatedAtRoute("GetUser", new { controller = "Users", id = user.Id });
-        }
-        else
-        {
-            return BadRequest("Registeration Failed");
-        }
-    }
+    //    if (result != null)
+    //    {
+    //        return Ok(result);
+    //        //return CreatedAtRoute("GetUser", new { controller = "Users", id = user.Id });
+    //    }
+    //    else
+    //    {
+    //        return BadRequest("Registeration Failed");
+    //    }
+    //}
 
     [HttpGet]
     public async Task<IActionResult> GetUserInfo(Guid userId)
