@@ -41,8 +41,6 @@ export class LoginUserComponent
         super(footerSrv);
     }
 
-    private destroy$: Subject<boolean> = new Subject<boolean>();
-
     ngOnInit() {}
 
     async submit() {
