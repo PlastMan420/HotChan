@@ -13,11 +13,13 @@ import {DropdownModule} from 'primeng/dropdown';
 import {CheckboxModule} from 'primeng/checkbox';
 import {ChipsModule} from 'primeng/chips';
 import {ButtonModule} from 'primeng/button';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    SharedModule
   ],
   declarations: [],
   exports: [

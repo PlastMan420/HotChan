@@ -1,22 +1,21 @@
 <footer>
-    <div class="d-flex">
+    <div class="d-flex" style="gap: 4px;">
         <div #persistant class="flex-fill">
             <div class="d-flex">
                 <div class="mx-1">
                     {{ todaysDataTime }}
                 </div>
 
-                <div class="mx-1">
+                <div *ngIf="!authService.activeSession" class="mx-1">
                     <app-bottom-login></app-bottom-login>
                 </div>
 
                 <div class="mx-1">
-                    <input
-                        class=""
-                        type="search"
-                        placeholder="Search"
-                        aria-label="Search"
-                    />
+                    <button class="separated" (click)="goToUserDetails()" routerLinkActive="active">{{authService.userName}}</button>
+                </div>
+
+                <div class="logout">
+                    <button *ngIf="authService.activeSession" class="separated" (click)="logOut()">Logout</button>
                 </div>
             </div>
         </div>

@@ -5,3 +5,15 @@ footer {
     width: 100vw;
     color: white;
 }
+
+::ng-deep app-bottom-tool-set {
+    button {
+        background: transparent;
+        color: white;
+        border: 0;
+    }
+
+    button.separated{
+        border-left: 1px solid white;
+    }
+}

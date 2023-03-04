@@ -10,7 +10,7 @@ export class FooterService {
 
     private _pageFunctions!: FooterFunction[];
     
-    pageFooter!: Footer;
+    pageFooter: Footer = {} as Footer;
 
     public functionsChangeDetector = new Subject();
     public callFn = new Subject<Footer>();

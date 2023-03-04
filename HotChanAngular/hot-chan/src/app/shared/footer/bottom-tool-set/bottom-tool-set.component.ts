@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../services/Authentication.service';
 import { Footer, FooterFunction } from '../../types/FooterFunction';
 import { FooterService } from '../footer.service';
 
@@ -8,12 +10,13 @@ import { FooterService } from '../footer.service';
     styleUrls: ['./bottom-tool-set.component.scss'],
 })
 export class BottomToolSetComponent implements OnInit {
-    constructor(private footerServ: FooterService) {}
+    constructor(private footerServ: FooterService, public authService: AuthenticationService, private router: Router) {}
 
     today = new Date();
     todaysDataTime!: string;
     pageFooter!: Footer;
     persistant!: FooterFunction[];
+    activeSession!: boolean;
 
     ngOnInit() {
         this.initTimer();
@@ -42,5 +45,14 @@ export class BottomToolSetComponent implements OnInit {
         const event = {context: this.pageFooter.context, pageFunctions: [fn]} as Footer;
 
         this.footerServ.calledFn(event);
+    }
+
+    logOut() {
+        this.authService.userLogout();
+    }
+
+    goToUserDetails()
+    {
+        this.router.navigate(['user/details']);
     }
 }

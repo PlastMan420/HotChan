@@ -14,6 +14,7 @@ import { HttpLink } from 'apollo-angular/http';
 import { environment } from 'src/environments/environment';
 import { GraphQLModule } from './graphql.module';
 import { FooterModule } from './shared/footer/footer.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
 	declarations: [
@@ -25,10 +26,10 @@ import { FooterModule } from './shared/footer/footer.module';
 		BrowserAnimationsModule,
 		ApolloModule,
 		HttpClientModule,
-		ReactiveFormsModule,
 		SharedModule,
 		GraphQLModule,
-		FooterModule
+		FooterModule,
+		CommonModule
 	],
 	providers: [
 		{

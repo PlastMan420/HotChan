@@ -57,16 +57,16 @@ export class CreateUserComponent
         });
     }
 
-    override submit(ctx: this) {
+    override submit() {
         // if (!ctx.formIsValidAndSane()) {
         //     console.error('you fucking nigger');
 
         //     return;
         // }
 
-        let user = ctx.form.value as UserRegisterFormDtoInput;
-        console.log(user)
-        ctx.apollo
+        let user = this.form.value as UserRegisterFormDtoInput;
+
+        this.apollo
             .mutate({
                 mutation: USER_REGISTER,
                 variables: {

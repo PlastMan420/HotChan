@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Apollo, gql } from 'apollo-angular';
 import { firstValueFrom, Subject, takeUntil } from 'rxjs';
 import { UserLoginDtoInput } from 'src/app/Internet/Types';
+import { AuthenticationService } from '../../services/Authentication.service';
 
 const LOGIN = gql`
 query HotChanQuery(
@@ -28,13 +30,13 @@ export class BottomLoginComponent implements OnInit, OnDestroy {
   form!: FormGroup<any>;
   private destroy$: Subject<boolean> = new Subject<boolean>();
   
-  constructor(private apollo: Apollo) {
+  constructor(private apollo: Apollo, private authService: AuthenticationService, private router: Router) {
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.complete();
-}
+  }
 
 
   ngOnInit() {
@@ -60,7 +62,7 @@ async submit() {
   // }
 
   const userLogin = this.form.value as UserLoginDtoInput;
-  console.log(userLogin)
+
   const jwt$ = this.apollo
       .watchQuery({
           query: LOGIN,
@@ -74,9 +76,10 @@ async submit() {
       try {
         const response = await firstValueFrom(jwt$);
         console.log(response);
-
-    } catch (e) {
+        this.authService.userLogin((<any>response.data).login as string);
+      } 
+      catch (e) {
         console.error(e);
-    }
+      }
   }
 }
