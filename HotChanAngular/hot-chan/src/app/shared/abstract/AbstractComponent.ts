@@ -1,3 +1,4 @@
+import { Subject } from 'rxjs';
 import { FooterService } from '../footer/footer.service';
 import { Footer, FooterFunction } from '../types/FooterFunction';
 
@@ -12,17 +13,19 @@ export abstract class AbstractComponent {
                 const f = ctx[funcName as keyof typeof ctx] as Function;
 
                 // use reflection
-                Reflect.apply(f, undefined, [ctx, ...params]);
+                Reflect.apply(f, ctx, [...params]);
             },
         });
     }
 
+    protected destroy$: Subject<boolean> = new Subject<boolean>();
+
     // all abstract methods must have the first parameter to be the execution context.
 
-    public initFooter(ctx: this, functions: FooterFunction[]) 
+    public initFooter(functions: FooterFunction[]) 
     {
         const footer = {
-            context: ctx,
+            context: this,
             footerLabel: '',
             pageFunctions: functions,
         } as Footer;

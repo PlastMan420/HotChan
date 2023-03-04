@@ -10,16 +10,16 @@ export abstract class AbstractComponentWithForm extends AbstractComponent {
 
     abstract form: FormGroup;
 
-    public resetForm(ctx: typeof this) {
-        ctx.form.reset();
+    public resetForm() {
+        this.form.reset();
 
-        for (const field in ctx.form) {
-            ctx.form.get(field)?.reset();
+        for (const field in this.form) {
+            this.form.get(field)?.reset();
         }
     }
 
     // all abstract methods must have the first parameter to be the execution context.
-    abstract submit(ctx: unknown): unknown;
+    abstract submit(): unknown;
 
     public initFooterForForm(
         ctx: this,
@@ -38,6 +38,6 @@ export abstract class AbstractComponentWithForm extends AbstractComponent {
             },
         ]
     ) {
-        this.initFooter(ctx, functions);
+        this.initFooter(functions);
     }
 }

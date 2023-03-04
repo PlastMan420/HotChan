@@ -36,13 +36,11 @@ export class PostViewComponent
     implements OnInit, OnDestroy
 {
     private querySubscription: Subscription = new Subscription();
-    private destroy$: Subject<boolean> = new Subject<boolean>();
 
     loading = true;
     post!: Post;
     postId: string | null = null;
     postScore: Subject<string> = new Subject<string>();
-
 
     constructor(
         private route: ActivatedRoute,
@@ -70,7 +68,7 @@ export class PostViewComponent
             this.getPostGql(this.postId);
         }
 
-        this.initFooter(this, [
+        this.initFooter([
             {
                 label: 'votes',
                 type: 'label',
@@ -95,10 +93,10 @@ export class PostViewComponent
         ]);
     }
 
-    async toggleVote(ctx: this, score: number) {
-        let post = ctx.post;
+    async toggleVote(score: number) {
+        let post = this.post;
 
-        ctx.apollo
+        this.apollo
             .mutate({
                 mutation: UPVOTE,
                 variables: {
@@ -108,7 +106,7 @@ export class PostViewComponent
             })
             .subscribe({
                 next: (data: any) => {
-                    ctx.postScore.next(data.data.togglePostScore);
+                    this.postScore.next(data.data.togglePostScore);
                 },
                 error: (error: unknown) => {
                     console.error('bloopers', error);

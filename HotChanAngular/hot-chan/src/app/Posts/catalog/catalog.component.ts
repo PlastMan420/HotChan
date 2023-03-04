@@ -23,7 +23,6 @@ query HotChanQuery {
   styleUrls: ['./catalog.component.scss']
 })
 export class CatalogComponent extends AbstractComponent implements OnInit {
-  destroy$: Observable<any> = new Observable<any>;
 
   constructor(private apollo: Apollo, footerSrv: FooterService) { 
     super(footerSrv);
@@ -31,7 +30,7 @@ export class CatalogComponent extends AbstractComponent implements OnInit {
   catalog!: Post[];
   
   ngOnInit() {
-    this.initFooter(this, [
+    this.initFooter([
       // {
       //     label: 'votes',
       //     type: 'label',
@@ -46,11 +45,11 @@ export class CatalogComponent extends AbstractComponent implements OnInit {
       },
   ]);
 
-    this.getCatalog(this);
+    this.getCatalog();
   }
 
-  async getCatalog(ctx: this){
-    await ctx.getPostCatalogGql();
+  async getCatalog(){
+    await this.getPostCatalogGql();
   }
 
   async getPostCatalogGql() {

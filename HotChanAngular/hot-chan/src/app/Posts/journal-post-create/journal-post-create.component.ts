@@ -74,19 +74,19 @@ export class JournalPostCreateComponent
         this.FooterLabel = 'Submit New Journal';
     }
 
-    override submit(ctx: this) {
-        if (!ctx.formIsValidAndSane()) {
+    override submit() {
+        if (!this.formIsValidAndSane()) {
             console.error('you fucking nigger');
 
             return;
         }
 
-        let post = ctx.form.value as Post;
+        let post = this.form.value as Post;
         post.postId = '00000000-0000-0000-0000-000000000000';
         console.log(post);
         post.createdOn = '2023-01-26T19:53:33.485Z';
         console.log('uploading post...');
-        ctx.apollo
+        this.apollo
             .mutate({
                 mutation: SUBMIT,
                 variables: {
