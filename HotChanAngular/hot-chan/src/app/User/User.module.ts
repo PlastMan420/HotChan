@@ -8,6 +8,7 @@ import { DataService } from '../Internet/Data.service';
 import { SharedFormModule } from '../shared/shared-modules/sharedForm.module';
 import { LoginUserComponent } from './LoginUser/LoginUser.component';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { IsLoggedInGuard } from '../shared/guards/isLoggedinGuard';
 
 @NgModule({
   imports: [CommonModule, UserRoutes, SharedFormModule, OverlayPanelModule],
@@ -17,6 +18,6 @@ import {OverlayPanelModule} from 'primeng/overlaypanel';
     UserProfileDetailsComponent,
     LoginUserComponent
   ],
-  providers: [DataService],
+  providers: [DataService, IsLoggedInGuard],
 })
 export class UserModule {}

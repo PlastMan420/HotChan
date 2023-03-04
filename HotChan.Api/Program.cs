@@ -81,10 +81,12 @@ public class Program
             };
         });
 
+        builder.Services.AddAuthorization();
+
         builder.Services
             .AddScoped<PostRepository>()
             .AddGraphQLServer()
-            //.AddAuthorization()
+            .AddAuthorization()
             .RegisterDbContext<HotChanContext>(DbContextKind.Pooled)
             .RegisterService<PostRepository>()
             .SetPagingOptions(new PagingOptions { MaxPageSize = 20 })
@@ -92,8 +94,6 @@ public class Program
             .AddMutationType<HotChanMutation>()
             //.AddExtendingTypesTypes()
             ;
-
-
 
         var app = builder.Build();
 
@@ -109,8 +109,10 @@ public class Program
         app.UseHttpsRedirection();
         app.MapGraphQL();
 
-        // app.UseAuthentication();
-       // app.UseAuthorization();
+        app.UseRouting();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.MapControllers();
         

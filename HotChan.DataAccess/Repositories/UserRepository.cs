@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotChan.DataAccess.Repositories;
 
@@ -114,7 +115,20 @@ public class UserRepository
 
     public async Task<User> GetUserById(Guid userId)
     {
-        return await _hotChanContext.Users.FindAsync(userId);
+        User user = await _hotChanContext.Users.Where(x => x.Id == userId).Select(x =>
+            new User()
+            {
+                Id = x.Id,
+                UserName = x.UserName,
+                Avatar = x.Avatar,
+                Posts = x.Posts,
+                RegisterationDate = x.RegisterationDate,
+            }
+        ).FirstOrDefaultAsync();
+
+        if (user == null) { return null; }
+
+        return user;
     }
 
     private JwtSecurityToken GetToken(List<Claim> authClaims)
