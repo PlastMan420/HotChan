@@ -1,0 +1,16 @@
+<div #newComment>
+    <ng-container *ngIf="authSrv.activeSession; else NoActiveSession">
+        <div class="d-flex">
+            <img src="" alt="your avatar" />
+            <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="3"
+            ></textarea>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #NoActiveSession>
+    <div> <img src="url('../../../../../../assets/gifs/lock.gif" alt=""> Please login to comment.</div>
+</ng-template>
