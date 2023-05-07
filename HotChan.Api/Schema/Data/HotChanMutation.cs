@@ -15,4 +15,7 @@ public class HotChanMutation
 
     [AllowAnonymous]
     public async Task<string> Register([Service] UserRepository usrRepo, UserRegisterFormDto newUser) => await usrRepo.Register(newUser);
+
+    [Authorize]
+    public async Task<bool> AddComment([Service] CommentRepository cmntRepo, Guid userId, Guid postId, Comment comment) => await cmntRepo.AddComment(userId, postId, comment);
 }

@@ -49,6 +49,7 @@ public class PostRepository
         var post = _mapper.Map<Post>(newPost);
         // get mediaUrl
         // get ThumbnailUrl
+        await _db.Threads.AddAsync(new ReplyThread());
 
         _db.Posts.Add(post);
 

@@ -13,9 +13,11 @@
 
 
 <ng-template #errorTemplate let-name>
+  <ng-container *ngIf="showValidation(name)">
     <ng-container *ngFor="let err of form.get(name)?.errors | keyvalue">
       <div class="error-state">
         {{err.key}}
       </div>
     </ng-container>
+  </ng-container>
 </ng-template>

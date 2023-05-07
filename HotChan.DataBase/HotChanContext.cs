@@ -16,6 +16,7 @@ public class HotChanContext : IdentityDbContext<User, Role, Guid,
 
 	public virtual DbSet<Post> Posts => Set<Post>();
 	public virtual DbSet<Comment> Comments => Set<Comment>();
+	public virtual DbSet<ReplyThread> Threads => Set<ReplyThread>();
 	public virtual DbSet<Bookmarks> Bookmarks => Set<Bookmarks>();
 	public virtual DbSet<PostScore> PostScores => Set<PostScore>();
 	//public virtual DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();

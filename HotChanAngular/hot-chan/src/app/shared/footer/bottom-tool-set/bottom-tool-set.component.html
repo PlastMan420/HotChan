@@ -10,13 +10,16 @@
                     <app-bottom-login></app-bottom-login>
                 </div>
 
-                <div class="mx-1">
-                    <button class="separated" (click)="goToUserDetails()" routerLinkActive="active">{{authService.userName}}</button>
-                </div>
+                <ng-container *ngIf="authService.activeSession">
+                    <div class="mx-1">
+                        <button class="separated glows" (click)="goToUserDetails()" routerLinkActive="active">{{authService.userName}}</button>
+                    </div>
 
-                <div class="logout">
-                    <button *ngIf="authService.activeSession" class="separated" (click)="logOut()">Logout</button>
-                </div>
+                    <div class="logout">
+                        <button class="separated glows" (click)="logOut()">Logout</button>
+                    </div>
+                </ng-container>
+
             </div>
         </div>
 
@@ -37,7 +40,7 @@
                                         [label]="$any(f.label)"
                                         (click)="calledFn(f)"
                                         [icon]="$any(f.buttonIconClass)"
-                                        [styleClass]="$any(f.class)"
+                                        [styleClass]="'glows ' + $any(f.class)"
                                     ></p-button>
                                 </div>
 

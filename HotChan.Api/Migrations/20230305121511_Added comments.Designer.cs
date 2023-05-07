@@ -3,6 +3,7 @@ using System;
 using HotChan.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HotChan.Api.Migrations
 {
     [DbContext(typeof(HotChanContext))]
-    partial class HotChanContextModelSnapshot : ModelSnapshot
+    [Migration("20230305121511_Added comments")]
+    partial class Addedcomments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,6 +59,9 @@ namespace HotChan.Api.Migrations
                     b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("Score")
                         .HasColumnType("integer");
 
@@ -66,6 +72,8 @@ namespace HotChan.Api.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.HasIndex("ThreadId");
 
@@ -148,20 +156,6 @@ namespace HotChan.Api.Migrations
                     b.ToTable("PostScores");
                 });
 
-            modelBuilder.Entity("HotChan.DataBase.Models.Entities.ReplyThread", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("Locked")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Threads");
-                });
-
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -187,6 +181,20 @@ namespace HotChan.Api.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("HotChan.DataBase.Models.Entities.Thread", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Locked")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Threads");
                 });
 
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.User", b =>
@@ -380,13 +388,19 @@ namespace HotChan.Api.Migrations
 
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.Comment", b =>
                 {
-                    b.HasOne("HotChan.DataBase.Models.Entities.ReplyThread", "Thread")
+                    b.HasOne("HotChan.DataBase.Models.Entities.Post", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId");
+
+                    b.HasOne("HotChan.DataBase.Models.Entities.Thread", "Thread")
                         .WithMany()
                         .HasForeignKey("ThreadId");
 
                     b.HasOne("HotChan.DataBase.Models.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Post");
 
                     b.Navigation("Thread");
 
@@ -395,7 +409,7 @@ namespace HotChan.Api.Migrations
 
             modelBuilder.Entity("HotChan.DataBase.Models.Entities.Post", b =>
                 {
-                    b.HasOne("HotChan.DataBase.Models.Entities.ReplyThread", "Thread")
+                    b.HasOne("HotChan.DataBase.Models.Entities.Thread", "Thread")
                         .WithMany()
                         .HasForeignKey("ThreadId");
 

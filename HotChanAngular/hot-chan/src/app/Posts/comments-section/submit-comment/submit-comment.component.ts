@@ -26,9 +26,12 @@ const SUBMIT_Comment = gql`
     styleUrls: ['./submit-comment.component.scss'],
 })
 export class SubmitCommentComponent extends AbstractComponentWithForm implements OnInit {
-  constructor(footerSrv: FooterService, authSrc: AuthenticationService, private apollo: Apollo) {
+  constructor(footerSrv: FooterService, protected authSrv: AuthenticationService, private apollo: Apollo) {
     super(footerSrv);
 }
+
+    commentsData: any[] = [];
+    
     ngOnInit() {}
 
     override form: FormGroup<any> = new FormGroup({

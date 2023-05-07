@@ -19,13 +19,10 @@ export class NavbarComponent implements OnInit {
     ]);
 
     ngOnInit() {
-        this.authService.activeSession$.subscribe({
-            next: (x) => {
-                if (!x) {
-                    this.NavDirs.set('Register', '/user/new');
-                }
-            },
-        });
+        if(!this.authService.activeSession)
+        {
+            this.NavDirs.set('Register', '/user/new');
+        }
     }
 
     asIsOrder() {

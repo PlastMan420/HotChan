@@ -11,6 +11,27 @@
     </ng-container>
 </div>
 
+<div class="d-flex justify-content-center">
+    <ng-container *ngIf="commentsData.length > 0; else noComments">
+        <!-- ngFor -->
+        <ng-container>
+            <div class="w-75">
+                <div class="comment-title">
+                    gay
+                </div>
+    
+                <div class="comment-body">
+                    gaaaaaaaaaaaaaay
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>
+
 <ng-template #NoActiveSession>
     <div> <img src="url('../../../../../../assets/gifs/lock.gif" alt=""> Please login to comment.</div>
+</ng-template>
+
+<ng-template #noComments>
+    No comments yet.
 </ng-template>

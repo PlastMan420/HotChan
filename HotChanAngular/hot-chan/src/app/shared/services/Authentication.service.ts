@@ -13,7 +13,6 @@ constructor() {
         this.activeSession$.complete();
     }
 
-    private _token: Jwt | null = null;
     private _payLoad!: JWTexPayload | null;
     private _expiresOn!: number | null;
     private _userName!: string | null;
@@ -59,16 +58,13 @@ constructor() {
     }
 
     private initSession() {
-        console.log("init session");
         this._payLoad = this.readJWT();
         if(this._payLoad){
-            console.log("found session");
             this._expiresOn = this._payLoad.exp ?? -8640000000000000;
 
-            if(this._expiresOn  >= Date.now()){
-                console.log("session expired");
-
+            if(this._expiresOn <= (Date.now() / 1000)){
                 this.userLogout();
+                return;
             }
 
             this._userName = this._payLoad.name;

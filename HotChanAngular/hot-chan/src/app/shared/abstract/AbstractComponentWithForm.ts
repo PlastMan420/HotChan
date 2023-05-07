@@ -1,4 +1,4 @@
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FooterService } from '../footer/footer.service';
 import { FooterFunction } from '../types/FooterFunction';
 import { AbstractComponent } from './AbstractComponent';
@@ -18,6 +18,11 @@ export abstract class AbstractComponentWithForm extends AbstractComponent {
         }
     }
 
+    readonly requiredNoWhiteSpace: ValidatorFn = Validators.compose([
+        Validators.required,
+        Validators.pattern(/^(?!\s*$)/),
+    ]) as ValidatorFn;
+    
     // all abstract methods must have the first parameter to be the execution context.
     abstract submit(): unknown;
 
@@ -39,5 +44,10 @@ export abstract class AbstractComponentWithForm extends AbstractComponent {
         ]
     ) {
         this.initFooter(functions);
+    }
+
+    public showValidation(formControlName: string): boolean
+    {
+        return this.form.dirty && (!this.form.get(formControlName)?.valid ?? false);
     }
 }

@@ -48,11 +48,6 @@ export class JournalPostCreateComponent
     extends AbstractComponentWithForm
     implements OnInit
 {
-    readonly requiredNoWhiteSpace: ValidatorFn = Validators.compose([
-        Validators.required,
-        Validators.pattern(/^(?!\s*$)/),
-    ]) as ValidatorFn;
-
     override form: FormGroup<any> = new FormGroup({
         postTitle: new FormControl<string>('<Post Title>', [
             Validators.minLength(3),

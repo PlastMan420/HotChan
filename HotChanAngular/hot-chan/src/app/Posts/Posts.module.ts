@@ -10,6 +10,7 @@ import { PostUploadComponent } from './post-upload/post-upload.component';
 import { JournalPostCreateComponent } from './journal-post-create/journal-post-create.component';
 import { SharedFormModule } from '../shared/shared-modules/sharedForm.module';
 import {CardModule} from 'primeng/card';
+import { CommentsSectionModule } from './comments-section/comments-section.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import {CardModule} from 'primeng/card';
     SharedModule,
     GalleryModule,
     SharedFormModule,
-    CardModule
+    CardModule,
+    CommentsSectionModule
   ],
   declarations: [PostViewComponent, CatalogComponent, PostUploadComponent, JournalPostCreateComponent],
   providers: [DataService],

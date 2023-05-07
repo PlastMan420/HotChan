@@ -1,4 +1,4 @@
-<div class="post-view-body">
+<div class="post-view-body d-flex flex-column align-items-end h-75">
 	<div class="post-container" *ngIf="!loading">
 		<div class="post-view">
 			<ng-container *ngIf="!!post.mediaUrl">
@@ -17,9 +17,9 @@
 		</div>
 	</div>
 	
-	<br class="my-3"/>
+	<hr class="my-3"/>
 
-	<div class="comments">
-		<!-- <app-post-comments></app-post-comments> -->
+	<div class="comments mt-auto">
+		<app-submit-comment></app-submit-comment>
 	</div>
 </div>

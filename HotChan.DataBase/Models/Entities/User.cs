@@ -7,14 +7,10 @@ namespace HotChan.DataBase.Models.Entities;
 public class User : IdentityUser<Guid>
 {
     [PersonalData]
-    public DateTimeOffset RegisterationDate {
-        get;
-        set;
-    }
-    public DateTimeOffset LastOnline { 
-        get;
-        set;
-    }
+    public DateTimeOffset RegisterationDate { get; set; }
+    public DateTimeOffset LastOnline { get; set; }
+
+    [PersonalData]
     public DateTimeOffset DOB { get; set; }
 
     public Uri Avatar { get; set; }

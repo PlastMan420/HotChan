@@ -17,3 +17,16 @@
 .ico.downvote {
 	background: url('./assets/gifs/sad.png');
 }
+
+.ico.lock {
+	background: url('./assets/gifs/lock.gif');
+}
+
+.glows {
+	transition: text-shadow 0.3s;
+
+	&:hover,
+	&:focus {
+			text-shadow: 0 0 11px rgba(255, 255, 255);
+	}
+}
