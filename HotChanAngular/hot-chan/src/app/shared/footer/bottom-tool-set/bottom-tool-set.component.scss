@@ -6,7 +6,7 @@ footer {
     color: white;
 }
 
-::ng-deep app-bottom-tool-set {
+:host ::ng-deep {
     button {
         background: transparent;
         color: white;
