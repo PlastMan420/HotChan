@@ -1,7 +1,7 @@
 <form [formGroup]="form">
     <div class="d-flex flex-column">
         <div class="form-control-block">
-            <label class="mr-auto" for="username">User Name: </label>
+            <label class="mr-auto justify-content-end" for="username">User Name</label>
             <div>
                 <input id="username" type="text" formControlName="userName" />
                 <ng-container
@@ -14,20 +14,20 @@
         </div>
 
         <div class="form-control-block">
-            <label class="mr-auto" for="mail">e-mail: </label>
+            <label class="mr-auto justify-content-end" for="mail">e-mail</label>
             <div>
                 <input id="mail" type="text" formControlName="userMail" />
                 <ng-container
                     *ngTemplateOutlet="
                         errorTemplate;
-                        context: { $implicit: 'emailAddress' }
+                        context: { $implicit: 'userMail' }
                     "
                 ></ng-container>
             </div>
         </div>
 
         <div class="form-control-block">
-            <label class="mr-auto" for="password">Password: </label>
+            <label class="mr-auto justify-content-end" for="password">Password</label>
             <div>
                 <p-password formControlName="key"></p-password>
                 <ng-container
@@ -43,8 +43,8 @@
 
 <ng-template #errorTemplate let-name>
     <ng-container *ngFor="let err of form.get(name)?.errors | keyvalue">
-        <div class="error-state">
+        <span class="error-state">
             {{ err.key }}
-        </div>
+        </span>
     </ng-container>
 </ng-template>

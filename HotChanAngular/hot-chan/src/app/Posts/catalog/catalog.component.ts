@@ -65,7 +65,7 @@ export class CatalogComponent extends AbstractComponent implements OnInit {
       const response = await firstValueFrom(source$);
       console.log(response);
 
-      this.catalog = response.data.postCatalog;
+      this.catalog = response.data.post.nodes;
     } catch (e) {
       console.log(e);
     }

@@ -1,11 +1,22 @@
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, CanActivateFn } from '@angular/router';
 import { CreateUserComponent } from './CreateUser/CreateUser.component';
 import { UserComponent } from './User.component';
-import {IsLoggedInGuard} from '../shared/guards/isLoggedinGuard';
+import { LoginUserComponent } from './LoginUser/LoginUser.component';
+import { inject } from '@angular/core';
+import { AuthenticationService } from '../shared/services/Authentication.service';
 
 const routes: Routes = [
   { path: 'new', component: CreateUserComponent },
-  { path: 'details', component: UserComponent, canActivate: [IsLoggedInGuard] }
+  { path: 'login', component: LoginUserComponent },
+  { path: 'details', component: UserComponent, canActivate: [authenticationGuard] }
 ];
 
 export const UserRoutes = RouterModule.forChild(routes);
+
+export function authenticationGuard(): CanActivateFn {
+  return () => {    
+    const authService = inject(AuthenticationService);
+  
+    return authService.isAuthenticated;
+  };
+}

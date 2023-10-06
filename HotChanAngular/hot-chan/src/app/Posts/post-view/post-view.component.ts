@@ -9,13 +9,15 @@ import { FooterService } from 'src/app/shared/footer/footer.service';
 
 const GET_POST = gql`
     query HotChanQuery($postId: UUID!) {
-        post(postId: $postId) {
-            postTitle
-            description
-            mediaUrl
-            createdOn
-            postId
-            score
+        post(where: {postId: {eq: $postId}}) {
+            nodes {
+                postTitle
+                description
+                mediaUrl
+                createdOn
+                postId
+                score
+            }
         }
     }
 `;
@@ -70,11 +72,6 @@ export class PostViewComponent
 
         this.initFooter([
             {
-                label: 'votes',
-                type: 'label',
-                dataStream: this.postScore
-            },
-            {
                 func: this.toggleVote,
                 funcName: this.toggleVote.name,
                 funcParams: [-1],
@@ -89,6 +86,11 @@ export class PostViewComponent
                 type: 'button',
                 buttonIconClass: 'ico upvote',
                 class: 'p-button-rounded'
+            },
+            {
+                label: 'votes',
+                type: 'label',
+                dataStream: this.postScore
             },
         ]);
     }
@@ -131,7 +133,7 @@ export class PostViewComponent
         try {
             const response = await firstValueFrom(source$);
 
-            this.post = response.data.post;
+            this.post = response.data.post.nodes[0];
             this.FooterLabel = `<strong>Post:</strong> ${this.post.postTitle}`;
             this.postScore.next(this.post.score.toString());
             this.loading = false;

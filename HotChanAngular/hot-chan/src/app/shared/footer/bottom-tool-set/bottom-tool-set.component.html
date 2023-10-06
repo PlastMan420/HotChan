@@ -7,7 +7,7 @@
                 </div>
 
                 <div *ngIf="!authService.activeSession" class="mx-1">
-                    <app-bottom-login></app-bottom-login>
+                    <a href="/user/login">Login</a>
                 </div>
 
                 <ng-container *ngIf="authService.activeSession">

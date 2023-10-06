@@ -39,7 +39,8 @@ export class CreateUserComponent
     ngOnInit() {
         this.initForm();
         this.initFooterForForm(this);
-        this.setFooterLabel('User Authentication', 'assets/gifs/lock.gif');
+        //this.setFooterLabel('User Authentication', 'assets/gifs/lock.gif');
+        this.FooterLabel = `<div class="d-flex"><div><img src="assets/gifs/lock.gif"/></div> <div>Register</div></div>`;
     }
 
     initForm() {
