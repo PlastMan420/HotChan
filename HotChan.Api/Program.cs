@@ -84,15 +84,15 @@ public class Program
         builder.Services.AddAuthorization();
 
         builder.Services
-            .AddScoped<PostRepository>()
             .AddGraphQLServer()
-            .AddAuthorization()
             .RegisterDbContext<HotChanContext>(DbContextKind.Pooled)
-            .RegisterService<PostRepository>()
-            .SetPagingOptions(new PagingOptions { MaxPageSize = 20 })
+            .AddAuthorization()
+            .AddProjections() // order matters: UsePaging > UseProjection > UseFiltering > UseSorting
+            .AddFiltering()
+            .AddSorting()
             .AddQueryType<HotChanQuery>()
             .AddMutationType<HotChanMutation>()
-            //.AddExtendingTypesTypes()
+            .SetPagingOptions(new PagingOptions { MaxPageSize = 20 })
             ;
 
         var app = builder.Build();

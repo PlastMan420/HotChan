@@ -7,12 +7,14 @@ import { FooterService } from 'src/app/shared/footer/footer.service';
 
 const CATALOG = gql`
 query HotChanQuery {
-  postCatalog{
-    postId,
-    postTitle,
-    description,
-    thumbnailUrl,
-    createdOn
+  post(first: 20) {
+    nodes {
+      postId,
+      postTitle,
+      description,
+      thumbnailUrl,
+      createdOn
+    }
   }
 }
 `;
