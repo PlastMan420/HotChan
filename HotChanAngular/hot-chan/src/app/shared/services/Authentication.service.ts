@@ -30,6 +30,16 @@ constructor() {
     public get userId() {return this._userId;}
     public get userName() {return this._userName;}
     public get activeSession() {return this._activeSession;}
+    public get isAuthenticated(): boolean
+    {
+        const passing = 
+        !this.hasSessionExpired &&
+        !!this.jti &&
+        !!this.userId && 
+        !!this.userName;
+        
+        return passing;
+    }
 
     public userLogin(jwt: string) {
         localStorage.setItem('userLogin', jwt);

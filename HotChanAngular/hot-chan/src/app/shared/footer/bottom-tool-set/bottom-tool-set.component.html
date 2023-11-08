@@ -2,10 +2,6 @@
     <div class="d-flex" style="gap: 4px;">
         <div #persistant class="flex-fill">
             <div class="d-flex">
-                <div class="mx-1">
-                    {{ todaysDataTime }}
-                </div>
-
                 <div *ngIf="!authService.activeSession" class="mx-1">
                     <a href="/user/login">Login</a>
                 </div>

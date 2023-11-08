@@ -1,7 +1,7 @@
 <form [formGroup]="form">
     <div class="d-flex flex-column">
         <div class="form-control-block">
-            <label class="mr-auto" for="username">User Name: </label>
+            <label class="mr-auto" for="username">User Name</label>
             <div>
                 <input id="username" type="text" formControlName="userName" />
                 <ng-container
@@ -14,9 +14,9 @@
         </div>
 
         <div class="form-control-block">
-            <label class="mr-auto" for="password">Password: </label>
+            <label class="mr-auto" for="password">Password</label>
             <div>
-                <p-password formControlName="key"></p-password>
+                <input type="password" formControlName="key">
                 <ng-container
                     *ngTemplateOutlet="
                         errorTemplate;
@@ -26,7 +26,9 @@
             </div>
         </div>
 
-
+        <div class="form-control-block justify-content-end">
+            <button>Submit</button>
+        </div>
     </div>
 </form>
 
